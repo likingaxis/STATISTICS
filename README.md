@@ -84,3 +84,20 @@ I requisiti delle consegne sono coperti dai due capitoli; animazione, secondo al
 ## Dati di prova
 
 Tutti i segreti visualizzati sono pubblici. Non esistono campi per mnemonic o chiavi private reali, connessione wallet, backend o analytics. Non usare gli indirizzi del laboratorio per fondi reali. I dati dei form e degli esperimenti non vengono inviati a servizi esterni.
+
+## GitHub Pages
+
+The published static files are tracked in `docs/` on branch `UNI`. In the repository's **Settings → Pages**, keep **Deploy from a branch**, branch **UNI**, folder **/docs**.
+
+To publish an update from the project directory:
+
+```sh
+npm run build:pages
+git add docs
+git commit -m "Update GitHub Pages site"
+git push origin UNI
+```
+
+The `build:pages` command rebuilds `docs/` with relative asset URLs. The `.nojekyll` marker is copied from `public/` so GitHub serves the compiled HTML, CSS, JavaScript and local fonts directly. The `docs/` directory is generated output: edit the source in `src/`, then rebuild it.
+
+Expected site URL: [Statistics Homeworks](https://likingaxis.github.io/STATISTICS/).
