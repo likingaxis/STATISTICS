@@ -1,4 +1,14 @@
-# Fieldnotes — Cryptography, observed
+# Statistics Homeworks — Luca Gugliotta
+
+**Author:** Luca Gugliotta · **Student ID:** 2149056
+
+**Programme:** Sapienza · Cybersecurity
+
+**Course:** Statistics (10628637 · STAT-01/A · ENG)
+
+**Instructor:** Tommaso Gastaldi
+
+**Homework 1 & Homework 2 date:** October 15, 2026 (homework date; not labelled as a deadline).
 
 Un unico sito didattico per gli Homework 1 e 2 di Statistica. Testi dell'applicazione in inglese; istruzioni di utilizzo in italiano. Implementazione originale in HTML, CSS e JavaScript, senza backend.
 
@@ -26,12 +36,12 @@ Se l'ambiente Windows ha uno shim npm configurato in modo errato, si può invoca
 ## Percorso di presentazione al docente
 
 1. **Overview**: spiegare il legame tra i due homework. Il primo rende visibile la legge di gruppo su una curva piccola; il secondo applica l'idea a una pipeline reale.
-2. **Homework 01 / Understand**: definire chiave privata, punto pubblico e modulo. Verificare G = (1,5) nella curva y² = x³ + 7 mod 17.
+2. **Homework 1 / Understand**: definire chiave privata, punto pubblico e modulo. Verificare G = (1,5) nella curva y² = x³ + 7 mod 17.
 3. **Curve laboratory**: partire da k = 6 e ottenere `TOY PUBLIC KEY = (5, 8)`. Usare Reset, Step e Play per illustrare inverso modulare e formule. Con k = 9 ottenere O; con k = 10 ritrovare G. Cambiare algoritmo e punto base per osservare ordini diversi.
 4. **Statistical exploration**: selezionare il censimento completo. Con G = (1,5), gli otto punti affini non nulli producono x = 1,2,5,12,12,5,2,1. Quattro valori compaiono due volte, ma gli altri tredici non compaiono: non è uniformità su F₁₇. Confrontare con la modalità sequenza, che include ripetizioni e conta separatamente le identità.
 5. Leggere distribuzioni, entropie marginali descrittive, bit e grafico input-output insieme a Pearson. Aprire i dati tabellari. I confronti a un bit formano un insieme separato di coppie valide del sottogruppo e dipendono da G. Con G di ordine 2 non esistono coppie valide: la media è dichiarata non definita.
 6. **Interpretation**: distinguere ECDLP, struttura algebrica e proprietà delle hash. La curva giocattolo è invertibile con una ricerca esaustiva minuscola; nessun grafico ne dimostra la sicurezza.
-7. **Homework 02 / Pipeline**: seguire l'esempio pubblico da entropia a parole, seed, chiave privata, chiave pubblica, digest e indirizzo EIP-55. Cambiare l'indice per ottenere altri figli dello stesso albero; scegliere la passphrase pubblica TREZOR per il vettore BIP-39.
+7. **Homework 2 / Pipeline**: seguire l'esempio pubblico da entropia a parole, seed, chiave privata, chiave pubblica, digest e indirizzo EIP-55. Cambiare l'indice per ottenere altri figli dello stesso albero; scegliere la passphrase pubblica TREZOR per il vettore BIP-39.
 8. **Standards**: presentare BIP-39, BIP-32, BIP-44, secp256k1, Keccak-256 ed EIP-55. La chiave pubblica non compressa ha 65 byte; l'hash usa i 64 byte X || Y, senza 0x04. L'indirizzo usa gli ultimi 20 byte del digest.
 9. **Hash experiment**: ogni coppia cambia esattamente un bit in un messaggio da 32 byte. Mostrare numerosità, media, deviazione standard, bilanciamento dei bit, frequenze esadecimali e dati esportati. La media ideale è 128, la deviazione standard ideale è 8, sotto il modello Binomiale(256, 0.5); non sono requisiti per ogni singola prova.
 10. Confrontare SHA-512, Keccak-256 e SHA3-256 sullo stesso testo. Provare il checksum EIP-55 alterando una lettera o un valore. Chiudere con cronologia e ruoli distinti: generazione, derivazione, crittografia a chiave pubblica, hashing, checksum ed encoding.
