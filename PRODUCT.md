@@ -16,7 +16,7 @@ A single English-language educational site with separate homework chapters. Expl
 
 ## Capabilities and Constraints
 
-Preserve Homework 1 (finite-field curve modulo 17) and Homework 2 (Ethereum wallet pipeline). Add Homework 3, following the user's supplied encryption and cryptanalysis assignment and the accepted EC-ElGamal / Caesar comparison. The assignment calls itself Homework 2; the site calls it Homework 3 to preserve the user's established numbering. This distinction must be explicit.
+Preserve Homework 1 (finite-field curve modulo 17) and Homework 2 (Ethereum wallet pipeline). Add Homework 3, following the user's supplied encryption and cryptanalysis assignment and the accepted EC-ElGamal / Caesar comparison. The assignment calls itself Homework 2; the site calls it Homework 3 to preserve the user's established numbering. Record the original label in README rather than foregrounding it in the academic chapter. The original two assignments required scalar multiplication and the wallet pipeline, not message encryption; introduce the third chapter as their continuation.
 
 Use plain HTML, CSS and JavaScript, with Vite for static builds and maintained libraries for real cryptography. All experiments run locally in the browser. GitHub Pages publishes `docs/` on branch `UNI`; a separate existing private Sites deployment must retain its access settings. Use the configured Git identity and shell for pushes.
 

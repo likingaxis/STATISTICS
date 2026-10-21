@@ -108,7 +108,7 @@ Expected site URL: [Statistics Homeworks](https://likingaxis.github.io/STATISTIC
 
 ## Homework 3 — assignment coverage and reproduction
 
-The supplied assignment is titled **Homework 2**. This site calls it **Homework 3** because it follows the two existing chapters. No submission date for the new chapter has been supplied. The first chapter's modulo-17 curve is retained; the third chapter explicitly introduces encryption on **real secp256k1**, restricting only the recipient's private scalar to **1…4096**.
+The supplied assignment is titled **Homework 2**. This site calls it **Homework 3** because it follows the two existing chapters. No submission date for the new chapter has been supplied. The original Homework 1 asks for private-to-public scalar multiplication on the modulo-17 toy curve; Homework 2 asks for the Ethereum wallet pipeline. Neither original task requires message encryption. Homework 3 builds on these foundations using **textbook EC-ElGamal on real secp256k1**, restricting only the recipient's private scalar to **1…4096**. This is the encryption construction chosen for this experiment; it is not presented as a previously implemented requirement.
 
 | Assignment requirement                                            | Implementation                                                                                                                                                   |
 | ----------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
