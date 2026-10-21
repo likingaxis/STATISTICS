@@ -1,0 +1,34 @@
+{
+  "version": "hw3-corpus-v1",
+  "description": "Public-domain English narrative excerpts. Training and test authors are disjoint. The app filters ASCII A-Z and joins across word boundaries.",
+  "distribution": "https://raw.githubusercontent.com/nltk/nltk_data/gh-pages/packages/corpora/gutenberg.zip",
+  "distributionSha256": "2d3c3ab548c653944310f37f536443ec85d0a0ad855fcae217a0c9efdce2d611",
+  "sources": [
+    {
+      "id": "train-austen",
+      "author": "Jane Austen",
+      "title": "Emma",
+      "url": "https://www.gutenberg.org/ebooks/158",
+      "file": "train-austen.txt",
+      "characters": 200000,
+      "letters": 154364,
+      "sha256": "367feaff6ba079c4a8e11d6322c346ef2a9d874632d9df08e4088e6dbc42247c",
+      "sourceSha256": "71b0923d75fcf2f1faa897b22da8de8e2476d7478a2b22388eb58a3420e00215",
+      "sourceMember": "gutenberg/austen-emma.txt",
+      "extraction": "First 200000 narrative characters beginning at Emma Woodhouse"
+    },
+    {
+      "id": "test-carroll",
+      "author": "Lewis Carroll",
+      "title": "Alice's Adventures in Wonderland",
+      "url": "https://www.gutenberg.org/ebooks/11",
+      "file": "test-carroll.txt",
+      "characters": 100000,
+      "letters": 74681,
+      "sha256": "969749334804f952db6b4103832d98a33be455ba4334f740b0411741d7b6d622",
+      "sourceSha256": "5ce9042c0d8536b072b61d4c7c4e6d70c72d9dbb5f3d816261326d9280749266",
+      "sourceMember": "gutenberg/carroll-alice.txt",
+      "extraction": "First 100000 narrative characters beginning at Alice was beginning"
+    }
+  ]
+}

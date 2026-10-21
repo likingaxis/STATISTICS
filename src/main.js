@@ -1,3 +1,8 @@
+import {
+  renderHomework3,
+  bindHomework3,
+  disposeHomework3,
+} from "./homework3.js";
 import "./style.css";
 import {
   points,
@@ -50,6 +55,7 @@ function header() {
     ["home", "Overview"],
     ["hw1", "Homework 1"],
     ["hw2", "Homework 2"],
+    ["hw3", "Homework 3"],
     ["references", "Sources & method"],
   ]
     .map(
@@ -125,7 +131,7 @@ function curveSVG(g = [1, 5], active = [5, 8], visited = []) {
     )}<text x="382" y="28" class="axis" text-anchor="end">y ∈ F₁₇</text><text x="404" y="405" class="axis">x</text></svg>`;
 }
 function home() {
-  return `<main id="main"><section class="hero"><div class="hero-copy"><span class="eyebrow"><span class="tiny-line"></span> SAPIENZA · CYBERSECURITY · STATISTICS</span><h1>Statistics<br><em>Homeworks.</em></h1><p class="author-byline">Luca Gugliotta <span>Student ID 2149056</span></p><p class="hero-lead">From a point on a curve to an Ethereum address.<br>Explore the mathematics. Run the experiments.<br>Learn what the statistics can—and cannot—tell us.</p><div class="hero-actions"><a class="button" href="#hw1">Open the curve lab <span>↗</span></a><a class="text-link" href="#hw2">Explore the wallet pipeline →</a></div><div class="hero-meta"><span>2 connected chapters</span><span>Client-side calculations</span><span>Public test data only</span></div></div><div class="hero-figure"><div class="figure-top"><span>FIG. 01 — A SMALL FIELD, A BIG IDEA</span><span>ℤ / 17ℤ</span></div>${curveSVG()}<div class="figure-bottom"><span>y² ≡ x³ + 7 (mod 17)</span><span><i class="dot orange"></i>6G = (5, 8)</span></div><div class="floating-note">PRIVATE INPUT <b>6</b><span>→</span> PUBLIC POINT <b>(5, 8)</b></div></div></section><section class="academic-context" aria-label="Academic information"><div><span class="eyebrow">UNIVERSITY & PROGRAMME</span><strong>Sapienza</strong><p>Cybersecurity</p></div><div><span class="eyebrow">COURSE</span><strong>Statistics</strong><p>10628637 · STAT-01/A · ENG</p></div><div><span class="eyebrow">INSTRUCTOR</span><strong>Tommaso Gastaldi</strong><p>Statistics coursework</p></div><div><span class="eyebrow">HOMEWORK DATE</span><strong><time datetime="2026-10-15">October 15, 2026</time></strong><p>Homework 1 & Homework 2</p></div></section><section class="chapter-section">${sectionHead("YOUR LEARNING PATH", "Two chapters. One connected story.", "Start with the algebra, then follow the same idea into a real wallet pipeline.")}<div class="chapter-cards"><a href="#hw1" class="chapter-card"><div class="chapter-top"><span class="chapter-number">Homework 1</span><span class="pill">ELLIPTIC CURVES</span></div><h3>From private key<br>to public point.</h3><p>Add points on a tiny curve, inspect every step, and measure the structure behind the outputs.</p><p class="homework-date"><time datetime="2026-10-15">October 15, 2026</time></p><div class="chapter-bottom"><span>Finite fields · scalar multiplication · statistics</span><b>↗</b></div></a><a href="#hw2" class="chapter-card dark"><div class="chapter-top"><span class="chapter-number">Homework 2</span><span class="pill">ETHEREUM WALLETS</span></div><h3>From recovery phrase<br>to Ethereum address.</h3><p>Trace the standards, inspect real intermediate values, and test how a single bit changes a hash.</p><p class="homework-date"><time datetime="2026-10-15">October 15, 2026</time></p><div class="chapter-bottom"><span>HD derivation · Keccak · checksums</span><b>↗</b></div></a></div></section><section class="method-strip"><span class="eyebrow">HOW TO USE THIS NOTEBOOK</span><div>${[
+  return `<main id="main"><section class="hero"><div class="hero-copy"><span class="eyebrow"><span class="tiny-line"></span> SAPIENZA · CYBERSECURITY · STATISTICS</span><h1>Statistics<br><em>Homeworks.</em></h1><p class="author-byline">Luca Gugliotta <span>Student ID 2149056</span></p><p class="hero-lead">From curves and wallets to encryption and cryptanalysis.<br>Explore the mathematics. Run the experiments.<br>Learn what the statistics can—and cannot—tell us.</p><div class="hero-actions"><a class="button" href="#hw1">Open the curve lab <span>↗</span></a><a class="text-link" href="#hw2">Explore the wallet pipeline →</a></div><div class="hero-meta"><span>3 connected chapters</span><span>Client-side calculations</span><span>Public test data only</span></div></div><div class="hero-figure"><div class="figure-top"><span>FIG. 01 — A SMALL FIELD, A BIG IDEA</span><span>ℤ / 17ℤ</span></div>${curveSVG()}<div class="figure-bottom"><span>y² ≡ x³ + 7 (mod 17)</span><span><i class="dot orange"></i>6G = (5, 8)</span></div><div class="floating-note">PRIVATE INPUT <b>6</b><span>→</span> PUBLIC POINT <b>(5, 8)</b></div></div></section><section class="academic-context" aria-label="Academic information"><div><span class="eyebrow">UNIVERSITY & PROGRAMME</span><strong>Sapienza</strong><p>Cybersecurity</p></div><div><span class="eyebrow">COURSE</span><strong>Statistics</strong><p>10628637 · STAT-01/A · ENG</p></div><div><span class="eyebrow">INSTRUCTOR</span><strong>Tommaso Gastaldi</strong><p>Statistics coursework</p></div><div><span class="eyebrow">HOMEWORK DATE</span><strong><time datetime="2026-10-15">October 15, 2026</time></strong><p>Homework 1 & Homework 2</p></div></section><section class="chapter-section">${sectionHead("YOUR LEARNING PATH", "Three chapters. One connected story.", "Start with the algebra, follow the wallet pipeline, then investigate how ciphers can be broken.")}<div class="chapter-cards"><a href="#hw1" class="chapter-card"><div class="chapter-top"><span class="chapter-number">Homework 1</span><span class="pill">ELLIPTIC CURVES</span></div><h3>From private key<br>to public point.</h3><p>Add points on a tiny curve, inspect every step, and measure the structure behind the outputs.</p><p class="homework-date"><time datetime="2026-10-15">October 15, 2026</time></p><div class="chapter-bottom"><span>Finite fields · scalar multiplication · statistics</span><b>↗</b></div></a><a href="#hw2" class="chapter-card dark"><div class="chapter-top"><span class="chapter-number">Homework 2</span><span class="pill">ETHEREUM WALLETS</span></div><h3>From recovery phrase<br>to Ethereum address.</h3><p>Trace the standards, inspect real intermediate values, and test how a single bit changes a hash.</p><p class="homework-date"><time datetime="2026-10-15">October 15, 2026</time></p><div class="chapter-bottom"><span>HD derivation · Keccak · checksums</span><b>↗</b></div></a><a href="#hw3" class="chapter-card third-chapter"><div class="chapter-top"><span class="chapter-number">Homework 3</span><span class="pill">ENCRYPTION & CRYPTANALYSIS</span></div><h3>From encrypted messages<br>to recovered keys.</h3><p>Compare EC-ElGamal and Caesar on the same message. Train a language model, measure key recovery across text lengths, and attack a deliberately small ECC key space.</p><div class="chapter-bottom"><span>Encryption · language statistics · restricted-key attacks</span><b>↗</b></div></a></div></section><section class="method-strip"><span class="eyebrow">HOW TO USE THIS NOTEBOOK</span><div>${[
     ["01", "Understand", "Read the idea in plain language."],
     ["02", "Experiment", "Change an input. Follow the calculation."],
     ["03", "Measure", "Inspect the data, charts, and denominators."],
@@ -410,7 +416,7 @@ function hw2() {
     .map(([y, h, p]) => `<div><span>${y}</span><h4>${h}</h4><p>${p}</p></div>`)
     .join(
       "",
-    )}</div><p class="small muted">Approximate introduction / standardization dates from the assignment. SHA-3 standardized the Keccak-based family; Ethereum retains the earlier Keccak-256 convention.</p>${note("What can these experiments establish?", "They describe diffusion, bit balance and frequency patterns in a specified dataset. Security additionally requires sound standards, unpredictable secret generation, safe implementations, and resistance to known attacks. A histogram cannot certify any of those on its own.")}<a href="#references" class="text-link">Read the sources and verification method →</a></section></main>`;
+    )}</div><p class="small muted">Approximate introduction / standardization dates from the assignment. SHA-3 standardized the Keccak-based family; Ethereum retains the earlier Keccak-256 convention.</p>${note("What can these experiments establish?", "They describe diffusion, bit balance and frequency patterns in a specified dataset. Security additionally requires sound standards, unpredictable secret generation, safe implementations, and resistance to known attacks. A histogram cannot certify any of those on its own.")}<a class="button next-chapter" href="#hw3">Continue to Homework 3: encryption & cryptanalysis →</a></section></main>`;
 }
 function pipeline() {
   const d = deriveDemo(state.index, state.passphrase);
@@ -610,6 +616,36 @@ function bindHW2() {
 }
 const sources = [
   [
+    "SEC 1",
+    "Curve arithmetic, point encoding and integrated encryption",
+    "https://www.secg.org/sec1-v2.pdf",
+  ],
+  [
+    "Handbook of Applied Cryptography · chapter 8",
+    "ElGamal encryption and the limits of unauthenticated public-key encryption",
+    "https://cacr.uwaterloo.ca/hac/about/chap8.pdf",
+  ],
+  [
+    "Handbook of Applied Cryptography · chapter 3",
+    "Discrete logarithms and baby-step giant-step",
+    "https://cacr.uwaterloo.ca/hac/about/chap3.pdf",
+  ],
+  [
+    "noble-curves 1.9.7",
+    "Library used for secp256k1 point arithmetic in Homework 3",
+    "https://github.com/paulmillr/noble-curves/tree/1.9.7",
+  ],
+  [
+    "NLTK Gutenberg corpus",
+    "Local public-domain English narrative excerpts: Emma for training and Alice for evaluation",
+    "https://github.com/nltk/nltk_data/blob/gh-pages/packages/corpora/gutenberg.zip",
+  ],
+  [
+    "Homework 3 corpus manifest",
+    "Exact source excerpts, preprocessing description and SHA-256 hashes",
+    `${import.meta.env.BASE_URL}corpora/manifest.json`,
+  ],
+  [
     "BIP-39",
     "Mnemonic encoding, entropy, seed derivation and vectors",
     "https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki",
@@ -667,12 +703,22 @@ const sources = [
   ],
 ];
 function references() {
-  return `<main id="main">${chapterIntro("1 + 2", "Evidence behind<br><em>the experiments.</em>", "Original explanations and application code, grounded in primary specifications. Computed results are separated from ideal-model expectations.", "SOURCES & METHODOLOGY")}<section class="content-section">${sectionHead("THE METHOD", "Observe. Reproduce. Interpret.")}<div class="two-col prose"><article><h3>What is measured?</h3><p>Homework 1 enumerates a small finite group. Census mode covers the nonidentity subgroup exactly; sequence mode counts every visit and reports excluded identities. Coordinates use 5 bits each. One-bit comparisons enumerate unique valid key pairs within the subgroup.</p><p>Homework 2 uses deterministic byte messages, a documented bit-flip schedule, Keccak-256 digests and explicit denominators. Dataset exports include inputs, outputs and protocol parameters. Model references are teaching benchmarks, not certificates of randomness.</p></article><article><h3>What is verified?</h3><p>Automated tests check all toy-curve points, inverse and identity cases, associativity, periodicity, and agreement of both multiplication algorithms. Reference tests cover BIP-39, BIP-32, published EIP-55 addresses, Keccak-256 and SHA3-256 known outputs, and the public-key serialization used for Ethereum addresses.</p><p>The cryptographic pipeline uses ethers 6.17.0, and SHA3-256 uses noble-hashes 1.8.0. Dependencies are bundled at build time. Experiment inputs stay in the browser; no wallet connection or analytics is used.</p></article></div></section><section class="content-section">${sectionHead("PRIMARY REFERENCES", "Read the specifications.")}<div class="source-list">${sources.map(([name, desc, url], i) => `<a href="${url}" target="_blank" rel="noopener noreferrer"><span>${String(i + 1).padStart(2, "0")}</span><div><h3>${name}</h3><p>${desc}</p></div><b>↗</b></a>`).join("")}</div></section><section class="content-section">${note("Scope of the submission", "The required core is the toy-curve application, statistical exploration, and explanation of the wallet standards. Slow animation, two multiplication methods, computed wallet walkthroughs and CSV exports are supporting additions. This notebook does not claim cryptographic security from statistical appearance.")}<p class="small muted">Historical dates are approximate introduction/standardization dates, as in the assignment. Other students’ work is not imported; primary standards inform the mathematics and reference vectors.</p></section></main>`;
+  return `<main id="main">${chapterIntro("1 + 2 + 3", "Evidence behind<br><em>the experiments.</em>", "Original explanations and application code, grounded in primary specifications. Computed results are separated from ideal-model expectations.", "SOURCES & METHODOLOGY")}<section class="content-section">${sectionHead("THE METHOD", "Observe. Reproduce. Interpret.")}<div class="two-col prose"><article><h3>What is measured?</h3><p>Homework 1 enumerates a small finite group. Census mode covers the nonidentity subgroup exactly; sequence mode counts every visit and reports excluded identities. Coordinates use 5 bits each. One-bit comparisons enumerate unique valid key pairs within the subgroup.</p><p>Homework 2 uses deterministic byte messages, a documented bit-flip schedule, Keccak-256 digests and explicit denominators. Dataset exports include inputs, outputs and protocol parameters. Model references are teaching benchmarks, not certificates of randomness.</p></article><article><h3>What is verified?</h3><p>Automated tests check all toy-curve points, inverse and identity cases, associativity, periodicity, and agreement of both multiplication algorithms. Reference tests cover BIP-39, BIP-32, published EIP-55 addresses, Keccak-256 and SHA3-256 known outputs, and the public-key serialization used for Ethereum addresses.</p><p>The cryptographic pipeline uses ethers 6.17.0, and SHA3-256 uses noble-hashes 1.8.0. Dependencies are bundled at build time. Experiment inputs stay in the browser; no wallet connection or analytics is used.</p></article></div></section><section class="content-section">${sectionHead("PRIMARY REFERENCES", "Read the specifications.")}<div class="source-list">${sources.map(([name, desc, url], i) => `<a href="${url}" target="_blank" rel="noopener noreferrer"><span>${String(i + 1).padStart(2, "0")}</span><div><h3>${name}</h3><p>${desc}</p></div><b>↗</b></a>`).join("")}</div></section><section class="content-section">${note("Scope of the submission", "The required core is the toy-curve application, statistical exploration, and explanation of the wallet standards. Slow animation, two multiplication methods, computed wallet walkthroughs and CSV exports are supporting additions. This notebook does not claim cryptographic security from statistical appearance.")}<p class="small muted">Homework 3 uses separate authors for language-model training and evaluation, paired seeded trials at eight lengths, and exact public-point verification of restricted keys. Its original assignment label is Homework 2; it is numbered Homework 3 here to preserve the site’s chapter sequence. Historical dates are approximate introduction/standardization dates, as in the assignment. Other students’ work is not imported; primary standards inform the mathematics and reference vectors.</p></section></main>`;
+}
+function hw3() {
+  return renderHomework3({
+    chapterIntro,
+    sectionHead,
+    note,
+    bars,
+    download,
+    esc,
+  });
 }
 function render() {
   stop();
   const route = location.hash.slice(1);
-  if (!["home", "hw1", "hw2", "references"].includes(route)) {
+  if (!["home", "hw1", "hw2", "hw3", "references"].includes(route)) {
     if (route && document.getElementById(route)) return;
   }
   const sectionPage = {
@@ -685,22 +731,30 @@ function render() {
     "hash-lab": "hw2",
     checksum: "hw2",
     history: "hw2",
+    "hw3-idea": "hw3",
+    "hw3-ciphers": "hw3",
+    "hw3-statistics": "hw3",
+    "hw3-key-search": "hw3",
+    "hw3-discussion": "hw3",
   };
-  state.page = ["hw1", "hw2", "references"].includes(route)
+  state.page = ["hw1", "hw2", "hw3", "references"].includes(route)
     ? route
     : (sectionPage[route] ?? "home");
+  disposeHomework3();
   $("#app").innerHTML =
-    header() + { home, hw1, hw2, references }[state.page]() + footer();
+    header() + { home, hw1, hw2, hw3, references }[state.page]() + footer();
   document.title =
     {
       home: "Statistics Homeworks",
       hw1: "Homework 1 · Toy ECC lab",
       hw2: "Homework 2 · Ethereum pipeline",
+      hw3: "Homework 3 · Encryption & cryptanalysis",
       references: "Sources & methodology",
     }[state.page] +
     (state.page === "home" ? " · Luca Gugliotta" : " · Statistics Homeworks");
   if (state.page === "hw1") bindHW1();
   if (state.page === "hw2") bindHW2();
+  if (state.page === "hw3") bindHomework3();
   if (sectionPage[route]) document.getElementById(route)?.scrollIntoView();
   else window.scrollTo(0, 0);
 }

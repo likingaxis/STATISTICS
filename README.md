@@ -10,7 +10,7 @@
 
 **Homework 1 & Homework 2 date:** October 15, 2026 (homework date; not labelled as a deadline).
 
-Un unico sito didattico per gli Homework 1 e 2 di Statistica. Testi dell'applicazione in inglese; istruzioni di utilizzo in italiano. Implementazione originale in HTML, CSS e JavaScript, senza backend.
+Un unico sito didattico per gli Homework 1, 2 e 3 di Statistica. Testi dell'applicazione in inglese; istruzioni di utilizzo in italiano. Implementazione originale in HTML, CSS e JavaScript, senza backend.
 
 ## Avvio e verifica
 
@@ -58,14 +58,18 @@ Gli input sono riproducibili e deterministici, non osservazioni indipendenti cam
 
 ## Organizzazione del codice
 
-| File            | Responsabilità                                                                           |
-| --------------- | ---------------------------------------------------------------------------------------- |
-| `src/math.js`   | Campo finito, punti, identità `null`, due algoritmi, ordine, dataset statistico          |
-| `src/crypto.js` | Pipeline con ethers, Keccak, confronto SHA3, protocollo sperimentale, validazione EIP-55 |
-| `src/main.js`   | Navigazione, testi, SVG, controlli, tabelle, esportazioni                                |
-| `src/style.css` | Stile responsivo, focus tastiera, reduced motion, font locali                            |
-| `tests/`        | Test di algebra, statistica e vettori crittografici                                      |
-| `public/fonts/` | Font DM Sans e Libre Caslon Display con licenze SIL OFL                                  |
+| File                      | Responsabilità                                                                             |
+| ------------------------- | ------------------------------------------------------------------------------------------ |
+| `src/math.js`             | Campo finito, punti, identità `null`, due algoritmi, ordine, dataset statistico            |
+| `src/crypto.js`           | Pipeline con ethers, Keccak, confronto SHA3, protocollo sperimentale, validazione EIP-55   |
+| `src/cryptanalysis.js`    | Cesare, modello linguistico dal corpus, ranking delle 26 chiavi, esperimento riproducibile |
+| `src/toy-encryption.js`   | EC-ElGamal su secp256k1 con noble-curves, encoding dei byte, decifratura e attacchi        |
+| `src/homework3.js`        | Terzo capitolo, grafici, messaggi di stato, controlli ed esportazioni                      |
+| `src/homework3-worker.js` | Calcoli di cifratura, crittoanalisi e ricerca chiavi in background                         |
+| `src/main.js`             | Navigazione, testi, SVG, controlli, tabelle, esportazioni                                  |
+| `src/style.css`           | Stile responsivo, focus tastiera, reduced motion, font locali                              |
+| `tests/`                  | Test di algebra, statistica e vettori crittografici                                        |
+| `public/fonts/`           | Font DM Sans e Libre Caslon Display con licenze SIL OFL                                    |
 
 Le chiavi reali sono gestite dalla libreria con rappresentazioni crittografiche appropriate; non vengono convertite in `Number` JavaScript. Il codice originale usa la piccola aritmetica Number soltanto sulla toy curve.
 
@@ -101,3 +105,41 @@ git push origin UNI
 The `build:pages` command rebuilds `docs/` with relative asset URLs. The `.nojekyll` marker is copied from `public/` so GitHub serves the compiled HTML, CSS, JavaScript and local fonts directly. The `docs/` directory is generated output: edit the source in `src/`, then rebuild it.
 
 Expected site URL: [Statistics Homeworks](https://likingaxis.github.io/STATISTICS/).
+
+## Homework 3 — assignment coverage and reproduction
+
+The supplied assignment is titled **Homework 2**. This site calls it **Homework 3** because it follows the two existing chapters. No submission date for the new chapter has been supplied. The first chapter's modulo-17 curve is retained; the third chapter explicitly introduces encryption on **real secp256k1**, restricting only the recipient's private scalar to **1…4096**.
+
+| Assignment requirement                                            | Implementation                                                                                                                                                   |
+| ----------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Encrypt and decrypt a simple message using the toy ECC scheme     | Byte-wise EC-ElGamal; a public codebook maps byte b to (b+1)G; encryption sends (R,C)=(rG,M+rQ); decryption recovers M=C−dR                                      |
+| Explain main steps and the keys                                   | Key-role table; actual first-byte values for M, r, R, C and both shared masks; all ciphertext pairs inspectable/exportable                                       |
+| Caesar encryption and decryption of the same message              | Shared input, shifts 0…25, case and non-ASCII/non-letter preservation; exact round trip                                                                          |
+| Compare procedures, key spaces and statistical properties         | Comparison table, letter distributions, invariant entropy/index of coincidence, coordinate-byte histogram with structural prefixes excluded                      |
+| Build a corpus-based statistical key-recovery algorithm           | Measured training letter counts, smoothed probabilities, all 26 candidate decryptions ranked by a χ² distance score                                              |
+| Test different ciphertext lengths and discuss limitations         | 5, 10, 20, 40, 80, 160, 320 and 640 letters; selectable 50/100/200/500 trials per length; success counts, rates, model-based Wilson intervals and true-key ranks |
+| Attack the restricted ECC key space                               | Incremental exhaustive search using only Q and the known interval; exact verification dG=Q; decrypt the current packet with the recovered scalar                 |
+| Explain differences between attacks and full-size ECC feasibility | Language redundancy versus enumerable keys; message-length dependence; full scalar space versus generic square-root attacks; distinct design weaknesses          |
+| Optional alternatives                                             | Trigram scoring, most-frequent-letter baseline, baby-step giant-step, and an actual malleability demonstration                                                   |
+
+### Encryption protocol: ec-elgamal-byte-v1
+
+The implementation uses **noble-curves 1.9.7** for real secp256k1 arithmetic. It samples a fresh full-range ephemeral scalar from 1…n−1 for every byte by rejection-sampling 32 CSPRNG bytes. The reproducibility seed used for Caesar experiments is never used for ECC secrets. Up to 256 UTF-8 bytes are supported. All 256 possible byte values have distinct codebook points. Compressed SEC 1 points occupy 33 bytes; the exceptional identity C=O uses the explicit marker `00`, while identity Q/R inputs are rejected. The ciphertext histogram uses only the 32 x-coordinate bytes of each nonidentity point, in 16 high-nibble bins; compressed prefixes are excluded.
+
+This unauthenticated construction is educational. A full-size recipient scalar would not fix its malleability, byte-wise expansion, unsafe randomness reuse or implementation limitations. The tampering example changes C to C+G, demonstrating an algebraic change that requires no knowledge of d. No production-security claim or IND-CCA claim is made.
+
+### Language protocol: caesar-v1
+
+The bundled excerpts come from the **NLTK Gutenberg distribution** of public-domain novels: the first 200,000 narrative characters of Jane Austen's _Emma_ for training (154,364 A–Z letters), and the first 100,000 narrative characters of Lewis Carroll's _Alice's Adventures in Wonderland_ for evaluation (74,681 A–Z letters). Exact extraction boundaries, source URLs, source-file hashes and distributed-file hashes are in `public/corpora/manifest.json`. Downloading from Project Gutenberg directly was unavailable in the build environment; the manifest records the actual NLTK distribution archive used. The browser fetches only these local static files.
+
+ASCII letters are normalized to uppercase; punctuation, whitespace and non-ASCII letters are removed for statistical modelling. Word boundaries are joined for trigram counts. A custom training corpus must have at least 1,000 A–Z letters. The test file remains unchanged, but a user must avoid supplying evaluation passages as custom training data.
+
+Letter probabilities use smoothing `(count + 0.5)/(T + 13)`. Trigrams use additive 0.1 smoothing over all 26³ possible triples. χ² is a ranking score, not a formal test with reported p-values. Negative trigram log probability is an overlapping-triple heuristic, not a calibrated probability of the entire text. The optional frequency baseline maps the first most-frequent ciphertext letter to E. All methods enumerate 26 shifts. Score ties choose the lowest shift and are reported; the true key's rank uses its mid-rank among ties.
+
+Default sampling seed: **20261021**; default trials: **100 per length**. The source documents the Mulberry32 generator. Rejection sampling chooses uniform start positions, with replacement, in the normalized test file and independent shifts from 0…25. Each method sees the same sampled ciphertexts. The exported rows contain the protocol version, seed, hashes of the exact UTF-8 corpus inputs, length, trial, start offset, true shift, method, prediction, success, number of best ties and true-key mid-rank. Overlapping passages are allowed. Wilson 95% intervals describe variability under the fixed-corpus binomial resampling model; they are not universal guarantees about English or evidence of independent language letters.
+
+### Verification
+
+The test suite covers all 26 Caesar shifts, Unicode round trips, entropy/IC invariance, model smoothing, no-letter inputs, short-text ties, corpus hashes, repeatable paired sampling, all 256 ECC byte values, identity encoding, exact ciphertext scalar relations against ethers, full-range random ephemeral keys, both recovery algorithms at interval boundaries, outside-range failure, and malleability with a full-size recipient key. Browser checks exercise the worker-based pipeline, the two key attacks, changed seed/trial count, actual CSV download, input errors, navigation, and mobile layout alongside the two earlier chapters.
+
+Primary algorithm references: [SEC 1](https://www.secg.org/sec1-v2.pdf), [SEC 2](https://www.secg.org/sec2-v2.pdf), [Handbook of Applied Cryptography chapter 3](https://cacr.uwaterloo.ca/hac/about/chap3.pdf), [chapter 8](https://cacr.uwaterloo.ca/hac/about/chap8.pdf), and [noble-curves](https://github.com/paulmillr/noble-curves/tree/1.9.7). The implementation and prose are original; no student reference code is imported.

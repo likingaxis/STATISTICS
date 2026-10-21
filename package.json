@@ -11,6 +11,7 @@
     "preview": "vite preview --host 127.0.0.1"
   },
   "dependencies": {
+    "@noble/curves": "1.9.7",
     "@noble/hashes": "1.8.0",
     "ethers": "6.17.0"
   },

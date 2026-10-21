@@ -1,0 +1,9 @@
+* text=auto
+*.js text eol=lf
+*.json text eol=lf
+*.html text eol=lf
+*.css text eol=lf
+*.md text eol=lf
+public/corpora/*.txt text eol=lf
+docs/corpora/*.txt text eol=lf
+*.ttf binary

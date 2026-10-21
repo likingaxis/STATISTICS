@@ -45,6 +45,138 @@
   --orange: #c66b3e;
   --green: #426d53;
 }
+textarea {
+  font: inherit;
+  width: 100%;
+  resize: vertical;
+  min-height: 90px;
+  padding: 12px;
+  border: 1px solid #ccd4c4;
+  border-radius: 4px;
+  background: #fcfcf7;
+  color: var(--ink);
+  font-size: 13px;
+  line-height: 1.8;
+  caret-color: var(--ink);
+}
+textarea:focus-visible {
+  outline: 3px solid var(--orange);
+  outline-offset: 4px;
+}
+textarea::placeholder {
+  color: #66735f;
+}
+::selection {
+  background: #d9e6c9;
+  color: #183d2f;
+}
+.chapter-card.third-chapter {
+  grid-column: 1/-1;
+}
+.chapter-card.third-chapter > p {
+  max-width: 640px;
+}
+.requirement {
+  display: block;
+  font:
+    500 8px "DM Sans",
+    Arial,
+    sans-serif;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #6c7c61;
+  margin-bottom: 5px;
+}
+.homework-three .section-nav {
+  gap: 25px;
+}
+.homework-three .data-value {
+  white-space: pre-wrap;
+}
+.homework-three .cipher-panels,
+.homework-three .analysis-panel,
+.homework-three .experiment-panel {
+  margin-top: 24px;
+}
+.homework-three .shared-message {
+  background: #f0f2e8;
+}
+.homework-three .panel h3 {
+  line-height: 1.6;
+}
+.homework-three .experiment-toolbar > div {
+  min-width: 170px;
+  flex: 1;
+}
+.homework-three .experiment-toolbar button {
+  align-self: end;
+}
+.homework-three .discussion-prose {
+  margin-top: 34px;
+}
+.homework-three .error-text {
+  color: #8f431f;
+}
+.homework-three .alphabet-table td {
+  padding: 8px;
+  font-family: Consolas, monospace;
+}
+.homework-three .packet-table {
+  max-height: 320px;
+}
+.homework-three .packet-table td {
+  max-width: 360px;
+}
+.homework-three .metric-grid b {
+  font-size: 31px;
+  overflow-wrap: anywhere;
+}
+.homework-three td {
+  font-variant-numeric: tabular-nums;
+}
+.dot.blue {
+  background: #596c9b;
+}
+[hidden] {
+  display: none !important;
+}
+@media (max-width: 760px) {
+  .topbar nav {
+    justify-content: flex-start;
+    overflow-x: auto;
+    gap: 18px;
+    min-width: 0;
+  }
+  .topbar nav a {
+    flex-shrink: 0;
+  }
+  .homework-three .section-nav {
+    gap: 14px 20px;
+  }
+  .homework-three .experiment-toolbar > div {
+    width: 100%;
+    min-width: 0;
+  }
+  .homework-three .metric-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .homework-three .inline-metrics {
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .homework-three .inline-metrics b {
+    font-size: 31px;
+  }
+  .homework-three .data-value {
+    font-size: 10px;
+  }
+  .homework-three textarea {
+    font-size: 12px;
+  }
+  .homework-three .chart-scroll .chart {
+    min-width: 590px;
+  }
+}
 
 * {
   box-sizing: border-box;
