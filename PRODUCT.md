@@ -35,3 +35,7 @@ The first two chapters, tests, existing README, user-supplied assignment, primar
 - Show sample sizes, encodings, assumptions and limitations.
 - Keep requirements and optional extensions distinguishable.
 - Use public test data and never request wallet secrets.
+
+## Homework 4 extension — October 28, 2026
+
+Add a fourth chapter on iid stochastic penetration scores: Bernoulli(p) and symmetric Rademacher, n systems and m independent attacker paths, total/average/square-root normalized distributions, LLN deviation probabilities, variance scaling, and the Rademacher standard-normal limit. Preserve all previous chapters and their visual system. Explain the different uncentered Bernoulli behavior; centered Bernoulli CLT is a supporting extension. No submission date has been supplied. The classroom photo reinforces concentration of S_n/n around its mean and is source material, not a new UI brief.

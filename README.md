@@ -10,7 +10,7 @@
 
 **Homework 1 & Homework 2 date:** October 15, 2026 (homework date; not labelled as a deadline).
 
-Un unico sito didattico per gli Homework 1, 2 e 3 di Statistica. Testi dell'applicazione in inglese; istruzioni di utilizzo in italiano. Implementazione originale in HTML, CSS e JavaScript, senza backend.
+Un unico sito didattico per gli Homework 1, 2, 3 e 4 di Statistica. Testi dell'applicazione in inglese; istruzioni di utilizzo in italiano. Implementazione originale in HTML, CSS e JavaScript, senza backend.
 
 ## Avvio e verifica
 
@@ -143,3 +143,37 @@ Default sampling seed: **20261021**; default trials: **100 per length**. The sou
 The test suite covers all 26 Caesar shifts, Unicode round trips, entropy/IC invariance, model smoothing, no-letter inputs, short-text ties, corpus hashes, repeatable paired sampling, all 256 ECC byte values, identity encoding, exact ciphertext scalar relations against ethers, full-range random ephemeral keys, both recovery algorithms at interval boundaries, outside-range failure, and malleability with a full-size recipient key. Browser checks exercise the worker-based pipeline, the two key attacks, changed seed/trial count, actual CSV download, input errors, navigation, and mobile layout alongside the two earlier chapters.
 
 Primary algorithm references: [SEC 1](https://www.secg.org/sec1-v2.pdf), [SEC 2](https://www.secg.org/sec2-v2.pdf), [Handbook of Applied Cryptography chapter 3](https://cacr.uwaterloo.ca/hac/about/chap3.pdf), [chapter 8](https://cacr.uwaterloo.ca/hac/about/chap8.pdf), and [noble-curves](https://github.com/paulmillr/noble-curves/tree/1.9.7). The implementation and prose are original; no student reference code is imported.
+
+
+## Homework 4 — stochastic penetration models, LLN and CLT
+
+Route: `#hw4`. Both required score models are simulated: iid Bernoulli(p) increments in {0,1} and symmetric Rademacher increments in {−1,+1}. Attacker j supplies one sample path through n systems; increments are assumed independent across both indices. This is a homogeneous model of attacker-system attempts, not a validated network-risk model or a count of distinct compromised systems across attackers.
+
+| Assignment requirement | Implementation |
+| --- | --- |
+| n systems and m attackers; multiple sample trajectories | Adjustable horizon n=100/500/1000/5000/10000 and m=100/500/1000/2000; both models run; first min(24,m) paths displayed |
+| Total, average and normalized-total distributions | Three path plots and endpoint histograms, checkpoint selection, observed/theoretical means and variances, exact binomial reference mass |
+| Increasing n | Checkpoints 1,5,10,25,50,100,250,500,1000,2500,5000,10000 within the chosen horizon; all checkpoint tables and exports use the same path prefixes |
+| LLN convergence in probability | Fraction of m attackers with strict deviation abs(S_n/n−mu)>epsilon, exact finite-n probability, Chebyshev upper bound, pointwise Wilson 95% Monte Carlo intervals |
+| Compare variance normalizations | Sample variance with m−1 versus n*sigma², sigma²/n and sigma²; log-log variance plot and numerical table |
+| Rademacher CLT | Requested S_n/sqrt(n), empirical and exact finite CDF against standard-normal Phi; complete-distribution maximum CDF distances across n |
+| Bernoulli interpretation | Explicit mean p*sqrt(n) of the uncentered normalized total; optional centered standardized Z; deterministic p=0/1 handled without division by zero |
+| Roles of n and m, aggregate penetration score | Formula E[A]=mn*mu, Var(A)=mn*sigma² and pooled-score variance sigma²/(mn); nested attacker-prefix results at fixed n |
+
+### Reproduce the experiment
+
+Protocol **penetration-v1**, default n=1000, m=1000, p=0.3, seed=20261028, epsilon=0.1, Rademacher view. Every attacker/model has a separate deterministically keyed Mulberry32 stream; increasing n extends existing paths and increasing m keeps the original attackers. Streams approximate iid sampling for teaching and are not cryptographically secure. Each increment is drawn directly; the simulation never substitutes Gaussian draws for the walks. A worker reports progress and supports cancellation; old completed results retain their own parameter labels until a new run completes.
+
+For finite references, S_n is Binomial(n,p) under Bernoulli and 2*Binomial(n,1/2)−n under Rademacher. Stable recurrence from the binomial mode normalizes the finite probability mass. Histogram heights are per-bin probabilities; the exact reference sums the same bins. Rademacher parity is retained. The Gaussian reference uses a numerical CDF approximation; maximum CDF distances check both sides of discrete jumps and are descriptive, not normality-test p-values.
+
+All m endpoint totals are stored at each checkpoint. The first min(24,m) paths are stored at every step (including step 0); trajectories are downsampled to at most approximately 500 plotting steps, but the path export preserves all their steps. Normal-CDF plots display [−5,5], while distance calculations include full tails. A histogram may omit theoretical tails smaller than 1e-8 per side, but includes every sampled endpoint. Both required normalizations remain visible even when optional centered Bernoulli results are inspected.
+
+Three CSV exports record protocol, seed, horizon, m, p and analysis tolerance: checkpoint summary for both models/all three quantities; every attacker's endpoint at every checkpoint; and complete retained paths for both models. Average and square-root-normalized values at step zero are blank, because their denominators are zero. The local ignored context file is not a publication asset.
+
+### Statistical limits and evidence
+
+LLN is justified by Var(S_n/n)=sigma²/n and Chebyshev, not by one smooth-looking trajectory. Empirical deviation rates and CDF distances need not decrease monotonically. Wilson intervals are pointwise under the independent-attacker model; checkpoints and nested m-prefix comparisons are dependent. With fixed m, increasing n does not eliminate empirical-CDF sampling error. Increasing m does not change the law of one attacker, although it improves estimation on average; it also changes the aggregate of all attack scores. Bernoulli S_n/sqrt(n) has positive drift for fixed p>0 and must not be labelled standard normal without centering and scaling. At p=0 or 1 its standardized CLT variable is undefined.
+
+The original homework text and classroom photograph motivate the chapter; no submission date is invented. Student examples are reference material only; their code and prose are not imported. Primary explanations/proofs: [StatLect LLN](https://www.statlect.com/asymptotic-theory/law-of-large-numbers) and [StatLect CLT](https://www.statlect.com/asymptotic-theory/central-limit-theorem).
+
+New source files: `src/stochastic.js` (model, RNG, exact laws and summaries), `src/homework4-worker.js` (background simulation), `src/homework4.js` (chapter, plots, controls and exports), `tests/homework4.test.js` (11 tests). The full suite has 32 tests. Checks cover finite-n mass against enumerated two-step cases, large-n mass/moments including rare probabilities, legal increments and parity, reproducibility and horizon/attacker prefixes, degenerate probabilities, strict LLN tail events, histogram denominators, normal CDF/jump distances, simulated moments and bounded inputs.

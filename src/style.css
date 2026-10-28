@@ -2023,3 +2023,28 @@ details .two-col {
     display: block;
   }
 }
+
+/* Homework 4 inherits the existing scientific notebook layout. */
+.chapter-card.third-chapter { grid-column: auto; }
+.homework-four .h4-view, .homework-four .h4-gap { margin-top: 28px; }
+.homework-four .h4-scale { border-top: 1px solid var(--line); padding-top: 28px; margin-top: 38px; }
+.homework-four .h4-scale h3 { display: flex; flex-wrap: wrap; align-items: baseline; gap: 16px; }
+.homework-four .h4-scale h4 { font-weight: 500; margin: 14px 0; }
+.homework-four .experiment-toolbar > div { flex: 1; min-width: 155px; }
+.homework-four .two-col > *, .homework-four .panel { min-width: 0; }
+.homework-four .h4-legend { display: flex; flex-wrap: wrap; gap: 10px 24px; font-size: 11px; margin: 12px 0 20px; }
+.homework-four .h4-legend span { display: inline-flex; align-items: center; gap: 8px; }
+.homework-four .h4-legend i { display: inline-block; width: 24px; height: 0; border-top: 2px solid var(--series); }
+.homework-four .h4-legend i.dashed { border-top-style: dashed; }
+.homework-four td { font-variant-numeric: tabular-nums; }
+.homework-four .error-text { color: #8f431f; }
+.homework-four .formula-box table { font-size: 12px; }
+.homework-four .h4-chart { min-width: 560px; }
+.homework-four .h4-chart .axis { font-size: 11px; }
+.homework-four .section-nav { gap: 20px; }
+.homework-four .next-chapter { margin-bottom: 20px; }
+@media (max-width: 760px) {
+  .homework-four .experiment-toolbar > div { flex: 0 0 100%; min-width: 0; width: 100%; }
+  .homework-four .section-nav { gap: 14px 20px; }
+  .homework-four .h4-scale h3 { gap: 8px; }
+}
