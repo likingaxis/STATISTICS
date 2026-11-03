@@ -53,20 +53,113 @@ const state = {
 let timer;
 const icon =
   '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 24 12 8l8 16 8-16M4 24h24" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="8" r="3" fill="currentColor"/><circle cx="20" cy="24" r="3" fill="currentColor"/></svg>';
-const navItems = [
-  ["home", "00", "Overview", "Notebook index"],
-  ["hw1", "01", "Homework 1", "Elliptic curves"],
-  ["hw2", "02", "Homework 2", "Ethereum wallets"],
-  ["hw3", "03", "Homework 3", "Cryptanalysis"],
-  ["hw4", "04", "Homework 4", "LLN & CLT"],
-  ["hw5", "05", "Homework 5", "Welford & sampling"],
-  ["references", "REF", "Sources & method", "Standards & proofs"],
+
+/*
+ * CENTRAL HOMEWORK REGISTRY
+ * To add Homework 6 (#hw6), append one entry to HOMEWORKS below with:
+ *   id, number, navTitle, subject, pageTitle, title, desc, formula, detail, topics, date, sections, render, bind, dispose
+ * Topbar tabs, home folder library, chapter counts, left/right notebook pagination, and routing update automatically.
+ */
+const HOMEWORKS = [
+  {
+    id: "hw1",
+    number: "01",
+    navTitle: "Homework 1",
+    subject: "Elliptic curves",
+    pageTitle: "Homework 1 · Toy ECC lab",
+    title: "From private key to public point.",
+    desc: "Add points on a tiny curve, inspect every step, and measure the structure behind the outputs.",
+    formula: "y² ≡ x³ + 7 (mod 17)",
+    detail: "Q = kG",
+    topics: "Finite fields · scalar multiplication",
+    date: "October 15, 2026",
+    sections: ["idea1", "lab1", "stats1", "conclusion1"],
+    render: () => hw1(),
+    bind: () => bindHW1(),
+    dispose: () => stop(),
+  },
+  {
+    id: "hw2",
+    number: "02",
+    navTitle: "Homework 2",
+    subject: "Ethereum wallets",
+    pageTitle: "Homework 2 · Ethereum pipeline",
+    title: "From recovery phrase to Ethereum address.",
+    desc: "Trace the standards, inspect real intermediate values, and test how a single bit changes a hash.",
+    formula: "Mnemonic → seed → key",
+    detail: "Keccak-256 · EIP-55",
+    topics: "HD derivation · hashes · checksums",
+    date: "October 15, 2026",
+    sections: ["pipeline", "standards", "hash-lab", "checksum", "history"],
+    render: () => hw2(),
+    bind: () => bindHW2(),
+    dispose: null,
+  },
+  {
+    id: "hw3",
+    number: "03",
+    navTitle: "Homework 3",
+    subject: "Cryptanalysis",
+    pageTitle: "Homework 3 · Encryption & cryptanalysis",
+    title: "From encrypted messages to recovered keys.",
+    desc: "Compare EC-ElGamal and Caesar on the same message. Measure key recovery and attack a deliberately small ECC key space.",
+    formula: "R = rG · C = M + rQ",
+    detail: "26 Caesar shifts",
+    topics: "Encryption · language statistics",
+    date: "",
+    sections: ["hw3-idea", "hw3-ciphers", "hw3-statistics", "hw3-key-search", "hw3-discussion"],
+    render: () => hw3(),
+    bind: () => bindHomework3(),
+    dispose: () => disposeHomework3(),
+  },
+  {
+    id: "hw4",
+    number: "04",
+    navTitle: "Homework 4",
+    subject: "Stochastic processes",
+    pageTitle: "Homework 4 · Stochastic processes, LLN & CLT",
+    title: "From random paths to predictable limits.",
+    desc: "Simulate Bernoulli and Rademacher scores. Explore the Law of Large Numbers and the Central Limit Theorem.",
+    formula: "Sₙ = X₁ + … + Xₙ",
+    detail: "Sₙ/n · Sₙ/√n",
+    topics: "Sample paths · LLN · CLT",
+    date: "",
+    sections: ["hw4-model", "hw4-lab", "hw4-limits", "hw4-clt", "hw4-interpret"],
+    render: () => hw4(),
+    bind: () => bindHomework4(),
+    dispose: () => disposeHomework4(),
+  },
+  {
+    id: "hw5",
+    number: "05",
+    navTitle: "Homework 5",
+    subject: "Welford & sampling",
+    pageTitle: "Homework 5 · Welford & sampling statistics",
+    title: "From individual scores to reliable estimates.",
+    desc: "Derive the online update, then compare sampling means and variances across hackers. Two exercises, one lesson.",
+    formula: "μ = 5 · σ² = 8.6",
+    detail: "Mean · SS · variance",
+    topics: "Online statistics · inference",
+    date: "",
+    sections: ["hw5-derive", "hw5-code", "hw5-model", "hw5-lab", "hw5-inference"],
+    render: () => hw5(),
+    bind: () => bindHomework5(),
+    dispose: () => disposeHomework5(),
+  },
 ];
+
+function getNavItems() {
+  return [
+    ["home", "00", "Overview", "Notebook index"],
+    ...HOMEWORKS.map((h) => [h.id, h.number, h.navTitle, h.subject]),
+    ["references", "REF", "Sources", "Methodology & references"],
+  ];
+}
 function header() {
-  return `<header class="topbar"><a class="brand" href="#home">${icon}<span>Statistics Homeworks<span class="brand-sub">STATISTICS × CRYPTOGRAPHY</span></span></a><nav aria-label="Main navigation">${navItems
+  return `<header class="topbar"><a class="brand" href="#home">${icon}<span>Statistics Homeworks<span class="brand-sub">STATISTICS × CRYPTOGRAPHY</span></span></a><nav aria-label="Main navigation">${getNavItems()
     .map(
       ([id, code, label, sub]) =>
-        `<a class="nav-folder" href="#${id}" ${state.page === id ? 'aria-current="page"' : ""}><span class="nav-folder-ear" aria-hidden="true"><i></i><b>${code}</b></span><span class="nav-folder-card"><span class="nav-folder-title">${label}</span><small class="nav-folder-sub" aria-hidden="true">${sub}</small></span></a>`,
+        `<a class="nav-folder" href="#${id}" title="${esc(label + " · " + sub)}" ${state.page === id ? 'aria-current="page"' : ""}><span class="nav-folder-ear" aria-hidden="true"><b>${code}</b></span><span class="nav-folder-card"><span class="nav-folder-title">${label}</span></span></a>`,
     )
     .join(
       "",
@@ -136,35 +229,28 @@ function curveSVG(g = [1, 5], active = [5, 8], visited = []) {
       "",
     )}<text x="382" y="28" class="axis" text-anchor="end">y ∈ F₁₇</text><text x="404" y="405" class="axis">x</text></svg>`;
 }
-const homeworkLibrary = [
-  ["hw1", "01", "Elliptic curves", "From private key to public point.", "Add points on a tiny curve, inspect every step, and measure the structure behind the outputs.", "y² ≡ x³ + 7 (mod 17)", "Q = kG", "Finite fields · scalar multiplication", "October 15, 2026"],
-  ["hw2", "02", "Ethereum wallets", "From recovery phrase to Ethereum address.", "Trace the standards, inspect real intermediate values, and test how a single bit changes a hash.", "Mnemonic → seed → key", "Keccak-256 · EIP-55", "HD derivation · hashes · checksums", "October 15, 2026"],
-  ["hw3", "03", "Cryptanalysis", "From encrypted messages to recovered keys.", "Compare EC-ElGamal and Caesar on the same message. Measure key recovery and attack a deliberately small ECC key space.", "R = rG · C = M + rQ", "26 Caesar shifts", "Encryption · language statistics", ""],
-  ["hw4", "04", "Stochastic processes", "From random paths to predictable limits.", "Simulate Bernoulli and Rademacher scores. Explore the Law of Large Numbers and the Central Limit Theorem.", "Sₙ = X₁ + … + Xₙ", "Sₙ/n · Sₙ/√n", "Sample paths · LLN · CLT", ""],
-  ["hw5", "05", "Welford & sampling", "From individual scores to reliable estimates.", "Derive the online update, then compare sampling means and variances across hackers. Two exercises, one lesson.", "μ = 5 · σ² = 8.6", "Mean · SS · variance", "Online statistics · inference", ""],
-];
 function homeworkFolders() {
-  return `<div class="homework-library">${homeworkLibrary.map(([route, number, subject, title, desc, formula, detail, topics, date]) => `<a class="homework-folder" href="#${route}" aria-label="Open Homework ${Number(number)}: ${subject}">
+  return `<div class="homework-library">${HOMEWORKS.map((h) => `<a class="homework-folder" href="#${h.id}" aria-label="Open ${h.navTitle}: ${h.subject}">
     <div class="folder-visual" aria-hidden="true">
       <div class="folder-back"></div>
-      <div class="folder-sheet sheet-back"><div class="sheet-head"><span>STATISTICS / ${number}</span><i></i></div><b>${detail}</b></div>
-      <div class="folder-sheet sheet-middle"><div class="sheet-head"><span>LUCA GUGLIOTTA</span><i></i></div><b>${subject}</b></div>
-      <div class="folder-sheet sheet-front"><div class="sheet-head"><span>HOMEWORK ${number}</span><em>#${route}</em></div><b class="sheet-formula">${formula}</b><small>${detail}</small></div>
+      <div class="folder-sheet sheet-back"><div class="sheet-head"><span>STATISTICS / ${h.number}</span></div><b>${h.detail}</b></div>
+      <div class="folder-sheet sheet-middle"><div class="sheet-head"><span>LUCA GUGLIOTTA</span></div><b>${h.subject}</b></div>
+      <div class="folder-sheet sheet-front"><div class="sheet-head"><span>HOMEWORK ${h.number}</span></div><b class="sheet-formula">${h.formula}</b><small>${h.detail}</small></div>
       <div class="folder-pocket">
-        <div class="folder-pocket-top"><span class="folder-label">Homework ${number}</span><span class="folder-chip">${detail}</span></div>
-        <strong>${subject}</strong>
+        <span class="folder-label">Homework ${h.number}</span>
+        <strong>${h.subject}</strong>
         <div class="folder-open">
           <span class="folder-open-cta"><i class="folder-open-ring"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg></i><span>Open chapter</span></span>
-          <span class="folder-capsule"><i></i><i></i><i></i><b>${number}</b></span>
         </div>
       </div>
-      <div class="folder-reflection"></div>
     </div>
-    <h3>${title}</h3><p>${desc}</p><div class="folder-meta"><span>${topics}</span>${date ? `<time datetime="2026-10-15">${date}</time>` : ""}</div>
+    <h3>${h.title}</h3><p>${h.desc}</p><div class="folder-meta"><span>${h.topics}</span>${h.date ? `<time datetime="2026-10-15">${h.date}</time>` : ""}</div>
   </a>`).join("")}</div>`;
 }
 function home() {
-  return `<main id="main"><section class="hero"><div class="hero-copy"><h1>Statistics<br><em>Homeworks.</em></h1><p class="author-byline">Luca Gugliotta <span>Student ID 2149056</span></p><p class="hero-lead">From cryptography to stochastic processes and statistical inference.<br>Explore the mathematics. Run the experiments.<br>Learn what the statistics can—and cannot—tell us.</p><div class="hero-actions"><a class="button" href="#homework-folders">Browse the homeworks <span>↓</span></a><a class="text-link" href="#hw2">Explore the wallet pipeline →</a></div><div class="hero-meta"><span>5 connected chapters</span><span>Client-side calculations</span><span>Public test data only</span></div></div><div class="hero-figure"><div class="figure-top"><span>FIG. 01 — A SMALL FIELD, A BIG IDEA</span><span>ℤ / 17ℤ</span></div>${curveSVG()}<div class="figure-bottom"><span>y² ≡ x³ + 7 (mod 17)</span><span><i class="dot orange"></i>6G = (5, 8)</span></div><div class="floating-note">PRIVATE INPUT <b>6</b><span>→</span> PUBLIC POINT <b>(5, 8)</b></div></div></section><section class="academic-context" aria-label="Academic information"><div><span class="eyebrow">UNIVERSITY & PROGRAMME</span><strong>Sapienza</strong><p>Cybersecurity</p></div><div><span class="eyebrow">COURSE</span><strong>Statistics</strong><p>10628637 · STAT-01/A · ENG</p></div><div><span class="eyebrow">INSTRUCTOR</span><strong>Tommaso Gastaldi</strong><p>Statistics coursework</p></div><div><span class="eyebrow">HOMEWORK DATE</span><strong><time datetime="2026-10-15">October 15, 2026</time></strong><p>Homework 1 & Homework 2</p></div></section><section id="homework-folders" class="chapter-section">${sectionHead("YOUR LEARNING PATH", "Five chapters. One connected story.", "Start with curves and wallets, investigate cryptanalysis, then explore stochastic processes and the sampling behavior of statistical estimates.")}${homeworkFolders()}</section><section class="method-strip"><span class="eyebrow">HOW TO USE THIS NOTEBOOK</span><div>${[
+  const count = HOMEWORKS.length;
+  const countWord = count === 5 ? "Five" : count === 6 ? "Six" : count === 7 ? "Seven" : String(count);
+  return `<main id="main"><section class="hero"><div class="hero-copy"><h1>Statistics<br><em>Homeworks.</em></h1><p class="author-byline">Luca Gugliotta <span>Student ID 2149056</span></p><p class="hero-lead">From cryptography to stochastic processes and statistical inference.<br>Explore the mathematics. Run the experiments.<br>Learn what the statistics can—and cannot—tell us.</p><div class="hero-actions"><a class="button" href="#homework-folders">Browse the homeworks <span>↓</span></a><a class="text-link" href="#hw2">Explore the wallet pipeline →</a></div><div class="hero-meta"><span>${count} connected chapters</span><span>Client-side calculations</span><span>Public test data only</span></div></div><div class="hero-figure"><div class="figure-top"><span>FIG. 01 — A SMALL FIELD, A BIG IDEA</span><span>ℤ / 17ℤ</span></div>${curveSVG()}<div class="figure-bottom"><span>y² ≡ x³ + 7 (mod 17)</span><span><i class="dot orange"></i>6G = (5, 8)</span></div><div class="floating-note">PRIVATE INPUT <b>6</b><span>→</span> PUBLIC POINT <b>(5, 8)</b></div></div></section><section class="academic-context" aria-label="Academic information"><div><span class="eyebrow">UNIVERSITY & PROGRAMME</span><strong>Sapienza</strong><p>Cybersecurity</p></div><div><span class="eyebrow">COURSE</span><strong>Statistics</strong><p>10628637 · STAT-01/A · ENG</p></div><div><span class="eyebrow">INSTRUCTOR</span><strong>Tommaso Gastaldi</strong><p>Statistics coursework</p></div><div><span class="eyebrow">HOMEWORK DATE</span><strong><time datetime="2026-10-15">October 15, 2026</time></strong><p>Homework 1 & Homework 2</p></div></section><section id="homework-folders" class="chapter-section">${sectionHead("YOUR LEARNING PATH", `${countWord} chapters. One connected story.`, "Start with curves and wallets, investigate cryptanalysis, then explore stochastic processes and the sampling behavior of statistical estimates.")}${homeworkFolders()}</section><section class="method-strip"><span class="eyebrow">HOW TO USE THIS NOTEBOOK</span><div>${[
     ["01", "Understand", "Read the idea in plain language."],
     ["02", "Experiment", "Change an input. Follow the calculation."],
     ["03", "Measure", "Inspect the data, charts, and denominators."],
@@ -178,8 +264,33 @@ function home() {
       "",
     )}</div></section>${note("A laboratory for learning", "The small curve is deliberately insecure. All wallet examples are publicly known test data. This site is a learning tool; never use its example keys or addresses to hold funds.")}</main>`;
 }
+function notebookPager(currentIndex, position = "top") {
+  const total = HOMEWORKS.length;
+  const prev = currentIndex > 0 ? HOMEWORKS[currentIndex - 1] : null;
+  const next = currentIndex < total - 1 ? HOMEWORKS[currentIndex + 1] : null;
+  const prevHref = prev ? `#${prev.id}` : "#home";
+  const prevLabel = prev ? `${prev.navTitle} · ${prev.subject}` : "Overview · Notebook index";
+  const nextHref = next ? `#${next.id}` : "#references";
+  const nextLabel = next ? `${next.navTitle} · ${next.subject}` : "Sources & methodology";
+  return `<nav class="notebook-pager notebook-pager-${position}" aria-label="Notebook page navigation (${position})">
+    <a class="pager-btn pager-prev" href="${prevHref}" data-page-dir="prev">
+      <span class="pager-arrow" aria-hidden="true">←</span>
+      <span class="pager-copy"><small>${prev ? "Previous page" : "Back to index"}</small><strong>${prevLabel}</strong></span>
+    </a>
+    <div class="pager-pages" role="group" aria-label="Jump to homework page">
+      <span class="pager-counter">PAGE ${String(currentIndex + 1).padStart(2, "0")} / ${String(total).padStart(2, "0")}</span>
+      <div class="pager-dots">${HOMEWORKS.map((h, idx) => `<a href="#${h.id}" class="pager-num ${idx === currentIndex ? "is-active" : ""}" title="${esc(h.navTitle + ": " + h.subject)}" ${idx === currentIndex ? 'aria-current="page"' : ""}>${h.number}</a>`).join("")}</div>
+    </div>
+    <a class="pager-btn pager-next" href="${nextHref}" data-page-dir="next">
+      <span class="pager-copy"><small>${next ? "Next page" : "Methodology"}</small><strong>${nextLabel}</strong></span>
+      <span class="pager-arrow" aria-hidden="true">→</span>
+    </a>
+  </nav>`;
+}
 function chapterIntro(n, title, desc, tags) {
-  return `<div class="chapter-intro"><a href="#home" class="back">← STATISTICS HOMEWORKS</a><span class="eyebrow">HOMEWORK ${n} <span class="separator">/</span> ${tags}</span><h1>${title}</h1><p>${desc}</p><div class="chapter-author"><span>Luca Gugliotta · Student ID 2149056</span>${n === "1" || n === "2" ? '<span>Homework date: <time datetime="2026-10-15">October 15, 2026</time></span>' : "<span>Sapienza · Cybersecurity</span>"}</div></div>`;
+  const hwIndex = HOMEWORKS.findIndex((h) => Number(h.number) === Number(n));
+  const pagerHtml = hwIndex !== -1 ? notebookPager(hwIndex, "top") : `<div class="chapter-back-row"><a href="#home" class="back">← OVERVIEW · NOTEBOOK INDEX</a></div>`;
+  return `${pagerHtml}<div class="chapter-intro"><div class="notebook-meta-strip"><span>SAPIENZA UNIVERSITY · CYBERSECURITY</span><span>STATISTICS · PROF. TOMMASO GASTALDI</span></div><span class="eyebrow">HOMEWORK ${n} <span class="separator">/</span> ${tags}</span><h1>${title}</h1><p>${desc}</p><div class="chapter-author"><span>Luca Gugliotta · Student ID 2149056</span>${n === "1" || n === "2" ? '<span>Homework date: <time datetime="2026-10-15">October 15, 2026</time></span>' : "<span>Academic coursework notebook</span>"}</div></div>`;
 }
 function hw1() {
   return `<main id="main">${chapterIntro("1", "A private number.<br><em>A public point.</em>", "Scalar multiplication is repeated point addition. On this small curve, every calculation is visible—and every statistical claim can be checked.", "TOY ECC LAB")}<nav class="section-nav" aria-label="Chapter sections"><a href="#idea1">The idea</a><a href="#lab1">Curve laboratory</a><a href="#stats1">Statistical exploration</a><a href="#conclusion1">Interpretation</a></nav><section id="idea1" class="content-section">${sectionHead("01 / UNDERSTAND", "A curve made of individual points.")}<div class="two-col prose"><div><p>A <strong>private key</strong> is a number, k. A <strong>public key</strong> is a point, Q = kG, obtained by repeatedly adding a base point G. In a real system, the private key signs messages and the public key verifies signatures.</p><p>Here we work modulo 17: every calculation wraps into the integers 0–16. For example, 20 mod 17 = 3. This is a finite field, so the plot contains discrete points, rather than a continuous curve.</p></div><div class="formula-box"><span class="eyebrow">OUR TOY CURVE</span><p class="formula">y² ≡ x³ + 7 <small>(mod 17)</small></p><p>p = 17 &nbsp; · &nbsp; a = 0 &nbsp; · &nbsp; b = 7</p><p>G = (1, 5) lies on the curve:<br>5² mod 17 = 8 = (1³ + 7) mod 17.</p></div></div></section><section id="lab1" class="content-section">${sectionHead("02 / EXPERIMENT", "Build the public point.", "Change the scalar or the base point. Play the calculation slowly, or inspect one operation at a time.")}<div class="lab-layout"><div class="panel controls"><h3>The inputs</h3><label for="base">Base point G</label><select id="base">${points.map((q) => `<option value="${q}" ${String(q) === String(state.g) ? "selected" : ""}>${formatPoint(q)} · order ${pointOrder(q)}</option>`).join("")}</select><label for="scalar">Private scalar k <span id="scalar-label">${state.k}</span></label><input id="scalar" type="range" min="1" max="36" value="${state.k}"><div class="inline-input"><input aria-label="Private scalar as integer" id="scalar-number" type="number" min="1" max="36" value="${state.k}"><span>integer · 1 to 36</span></div><label for="algorithm">Multiplication method</label><select id="algorithm"><option value="repeated" ${state.algorithm === "repeated" ? "selected" : ""}>Repeated addition</option><option value="binary" ${state.algorithm === "binary" ? "selected" : ""}>Double-and-add</option></select><label for="speed">Animation speed</label><select id="speed"><option value="1500">Slow · 1.5 s</option><option value="900" selected>Normal · 0.9 s</option><option value="350">Fast · 0.35 s</option></select><div class="playback"><button id="play" class="button">▶ Play</button><button id="step" class="secondary">Step →</button><button id="reset" class="icon-button" aria-label="Reset animation">↺</button></div><p class="muted small">No autoplay. The chart and operation log follow the same calculation.</p><p id="input-error" role="alert"></p></div><div class="panel plot-panel"><div class="panel-heading"><h3>The finite field</h3><span class="pill">17 AFFINE POINTS + O</span></div><div id="curve-plot"></div><div class="legend"><span><i class="dot"></i>Curve point</span><span><i class="dot green"></i>Base G</span><span><i class="dot orange"></i>Current result</span></div></div><div class="panel result-panel"><span class="eyebrow">TOY PUBLIC KEY</span><div id="toy-result" class="big-result" aria-live="polite"></div><div id="cycle-summary"></div><hr><h3>Inside the current operation</h3><div id="operation"></div></div></div><div class="panel log-panel"><div class="panel-heading"><h3>Calculation log</h3><span id="operation-count" class="muted"></span></div><div class="table-scroll"><table><thead><tr><th>Step</th><th>Operation</th><th>Left point</th><th>Right point</th><th>Result</th></tr></thead><tbody id="step-table"></tbody></table></div></div><details><summary>The point-addition rules, explained</summary><div class="two-col prose"><div><p>For two distinct points P = (x₁,y₁), R = (x₂,y₂), with x₁ ≠ x₂:</p><code>λ = (y₂ − y₁) · (x₂ − x₁)⁻¹ mod 17</code><p>For doubling P = R, with y₁ ≠ 0:</p><code>λ = (3x₁² + a) · (2y₁)⁻¹ mod 17</code><p>Division means multiplication by a modular inverse. For example, 10⁻¹ = 12 since 10 × 12 mod 17 = 1.</p></div><div><code>x₃ = λ² − x₁ − x₂ mod 17<br>y₃ = λ(x₁ − x₃) − y₁ mod 17</code><p>The identity O satisfies P + O = P. A point and its opposite (x, −y mod 17) add to O. Doubling a point with y = 0 also gives O.</p><p>These modular formulas implement the group law. Lines drawn between plotted points would not be ordinary geometric addition, so this plot does not invent connecting curves.</p></div></div></details></section><section id="stats1" class="content-section">${sectionHead("03 / MEASURE", "Read the structure in the data.", "A deterministic finite dataset, with explicit scope. These are descriptive statistics, not a test of cryptographic security.")}<div class="experiment-toolbar"><div><label for="scope">Dataset</label><select id="scope"><option value="census" ${state.mode === "census" ? "selected" : ""}>Full nonzero subgroup census</option><option value="sequence" ${state.mode === "sequence" ? "selected" : ""}>Current sequence: k = 1…selected scalar</option></select></div><button id="toy-csv" class="secondary">Export data ↓ CSV</button></div><div id="toy-statistics"></div></section><section id="conclusion1" class="content-section">${sectionHead("04 / INTERPRET", "Structure is not a security proof.")}<div class="two-col prose"><article><h3>Why is the real operation one-way?</h3><p>Forward multiplication k → kG is efficient. Recovering k from Q is the elliptic-curve discrete logarithm problem (ECDLP). For appropriately chosen real curves this is computationally infeasible using known classical methods. Here, at most 18 trials reveal every point: the toy curve is easy to invert.</p><p>The algebra remains visible: <strong>(a + b)G = aG + bG</strong>. This structure is useful for public-key cryptography and signatures.</p></article><article><h3>Why is this not a hash?</h3><p>A cryptographic hash maps variable-length inputs to a fixed-length digest and targets preimage, second-preimage and collision resistance. Avalanche is a useful hash behavior to explore. It is not a universal requirement for scalar multiplication.</p><p>Balanced bits, small Pearson correlations or a large Hamming distance cannot establish one-wayness. On this toy group the periodicity and symmetries are mathematical consequences, not implementation failures.</p></article></div><a class="button next-chapter" href="#hw2">Continue to Homework 2: the wallet pipeline →</a></section></main>`;
@@ -741,7 +852,8 @@ const sources = [
   ],
 ];
 function references() {
-  return `<main id="main">${chapterIntro("1 + 2 + 3 + 4 + 5", "Evidence behind<br><em>the experiments.</em>", "Original explanations and application code, grounded in primary specifications. Computed results are separated from ideal-model expectations.", "SOURCES & METHODOLOGY")}<section class="content-section">${sectionHead("THE METHOD", "Observe. Reproduce. Interpret.")}<div class="two-col prose"><article><h3>What is measured?</h3><p>Homework 1 enumerates a small finite group. Census mode covers the nonidentity subgroup exactly; sequence mode counts every visit and reports excluded identities. Coordinates use 5 bits each. One-bit comparisons enumerate unique valid key pairs within the subgroup.</p><p>Homework 2 uses deterministic byte messages, a documented bit-flip schedule, Keccak-256 digests and explicit denominators. Dataset exports include inputs, outputs and protocol parameters. Model references are teaching benchmarks, not certificates of randomness.</p></article><article><h3>What is verified?</h3><p>Automated tests check all toy-curve points, inverse and identity cases, associativity, periodicity, and agreement of both multiplication algorithms. Reference tests cover BIP-39, BIP-32, published EIP-55 addresses, Keccak-256 and SHA3-256 known outputs, and the public-key serialization used for Ethereum addresses.</p><p>The cryptographic pipeline uses ethers 6.17.0, and SHA3-256 uses noble-hashes 1.8.0. Dependencies are bundled at build time. Experiment inputs stay in the browser; no wallet connection or analytics is used.</p></article></div></section><section class="content-section">${sectionHead("PRIMARY REFERENCES", "Read the specifications.")}<div class="source-list">${sources.map(([name, desc, url], i) => `<a href="${url}" target="_blank" rel="noopener noreferrer"><span>${String(i + 1).padStart(2, "0")}</span><div><h3>${name}</h3><p>${desc}</p></div><b>↗</b></a>`).join("")}</div></section><section class="content-section">${note("Scope of the submission", "The required core covers toy-curve arithmetic, the wallet pipeline, encryption and cryptanalysis, stochastic penetration models with LLN and CLT experiments, and Welford recurrences with sampling-statistics experiments. Slow animation, two multiplication methods, computed wallet walkthroughs and CSV exports are supporting additions. This notebook does not claim cryptographic security from statistical appearance.")}<p class="small muted">Homework 3 uses separate authors for language-model training and evaluation, paired seeded trials at eight lengths, and exact public-point verification of restricted keys. Homework 4 simulates independent attacker paths under Bernoulli and symmetric Rademacher increments, comparing all three requested normalizations with finite distributions and limit theorems. Homework 5 joins both exercises on one page: Welford derivation and iid bounded-score sampling, with per-hacker estimates, averages across hackers, and their variability as n increases. Historical dates are approximate introduction/standardization dates, as in the assignment. Other students’ work is not imported; primary standards inform the mathematics and reference vectors.</p></section></main>`;
+  const numbersLabel = HOMEWORKS.map((_, i) => i + 1).join(" + ");
+  return `<main id="main">${chapterIntro(numbersLabel, "Evidence behind<br><em>the experiments.</em>", "Original explanations and application code, grounded in primary specifications. Computed results are separated from ideal-model expectations.", "SOURCES & METHODOLOGY")}<section class="content-section">${sectionHead("THE METHOD", "Observe. Reproduce. Interpret.")}<div class="two-col prose"><article><h3>What is measured?</h3><p>Homework 1 enumerates a small finite group. Census mode covers the nonidentity subgroup exactly; sequence mode counts every visit and reports excluded identities. Coordinates use 5 bits each. One-bit comparisons enumerate unique valid key pairs within the subgroup.</p><p>Homework 2 uses deterministic byte messages, a documented bit-flip schedule, Keccak-256 digests and explicit denominators. Dataset exports include inputs, outputs and protocol parameters. Model references are teaching benchmarks, not certificates of randomness.</p></article><article><h3>What is verified?</h3><p>Automated tests check all toy-curve points, inverse and identity cases, associativity, periodicity, and agreement of both multiplication algorithms. Reference tests cover BIP-39, BIP-32, published EIP-55 addresses, Keccak-256 and SHA3-256 known outputs, and the public-key serialization used for Ethereum addresses.</p><p>The cryptographic pipeline uses ethers 6.17.0, and SHA3-256 uses noble-hashes 1.8.0. Dependencies are bundled at build time. Experiment inputs stay in the browser; no wallet connection or analytics is used.</p></article></div></section><section class="content-section">${sectionHead("PRIMARY REFERENCES", "Read the specifications.")}<div class="source-list">${sources.map(([name, desc, url], i) => `<a href="${url}" target="_blank" rel="noopener noreferrer"><span>${String(i + 1).padStart(2, "0")}</span><div><h3>${name}</h3><p>${desc}</p></div><b>↗</b></a>`).join("")}</div></section><section class="content-section">${note("Scope of the submission", "The required core covers toy-curve arithmetic, the wallet pipeline, encryption and cryptanalysis, stochastic penetration models with LLN and CLT experiments, and Welford recurrences with sampling-statistics experiments. Slow animation, two multiplication methods, computed wallet walkthroughs and CSV exports are supporting additions. This notebook does not claim cryptographic security from statistical appearance.")}<p class="small muted">Homework 3 uses separate authors for language-model training and evaluation, paired seeded trials at eight lengths, and exact public-point verification of restricted keys. Homework 4 simulates independent attacker paths under Bernoulli and symmetric Rademacher increments, comparing all three requested normalizations with finite distributions and limit theorems. Homework 5 joins both exercises on one page: Welford derivation and iid bounded-score sampling, with per-hacker estimates, averages across hackers, and their variability as n increases. Historical dates are approximate introduction/standardization dates, as in the assignment. Other students’ work is not imported; primary standards inform the mathematics and reference vectors.</p></section></main>`;
 }
 function hw3() {
   return renderHomework3({
@@ -755,6 +867,16 @@ function hw3() {
 }
 function hw4() { return renderHomework4({ chapterIntro, sectionHead, note, download, esc }); }
 function hw5() { return renderHomework5({ chapterIntro, sectionHead, note, download, esc }); }
+
+function sidePageTurners(hwIndex) {
+  const prev = hwIndex > 0 ? HOMEWORKS[hwIndex - 1] : null;
+  const next = hwIndex < HOMEWORKS.length - 1 ? HOMEWORKS[hwIndex + 1] : null;
+  return `<div class="notebook-side-turners" aria-label="Quick left and right homework page turners">
+    ${prev ? `<a class="notebook-side-turn prev" href="#${prev.id}" data-page-dir="prev" title="Previous page: ${esc(prev.navTitle + " · " + prev.subject)}"><span aria-hidden="true">←</span><b>HW ${Number(prev.number)}</b></a>` : ""}
+    ${next ? `<a class="notebook-side-turn next" href="#${next.id}" data-page-dir="next" title="Next page: ${esc(next.navTitle + " · " + next.subject)}"><span aria-hidden="true">→</span><b>HW ${Number(next.number)}</b></a>` : ""}
+  </div>`;
+}
+
 let scrollObserver;
 function setupScrollReveal() {
   scrollObserver?.disconnect();
@@ -796,70 +918,67 @@ window.addEventListener("scroll", () => {
 
 let routeTransition;
 function applyRender(route, sectionPage) {
-  disposeHomework3();
-  disposeHomework4();
-  disposeHomework5();
-  $("#app").innerHTML =
-    header() + { home, hw1, hw2, hw3, hw4, hw5, references }[state.page]() + footer();
+  for (const hw of HOMEWORKS) hw.dispose?.();
+  const activeHwIndex = HOMEWORKS.findIndex((h) => h.id === state.page);
+  const activeHw = activeHwIndex !== -1 ? HOMEWORKS[activeHwIndex] : null;
+  const viewHtml = activeHw
+    ? activeHw.render()
+    : state.page === "references"
+      ? references()
+      : home();
+  $("#app").innerHTML = header() + viewHtml + footer();
+  if (activeHw) {
+    const mainEl = document.getElementById("main");
+    if (mainEl) {
+      mainEl.classList.add("notebook-sheet");
+      mainEl.insertAdjacentHTML("beforeend", notebookPager(activeHwIndex, "bottom") + sidePageTurners(activeHwIndex));
+    }
+  }
   bindAppearance();
   document.querySelector(".topbar nav a[aria-current]")?.scrollIntoView({ block: "nearest", inline: "nearest", behavior: "instant" });
-  document.title =
-    {
-      home: "Statistics Homeworks",
-      hw1: "Homework 1 · Toy ECC lab",
-      hw2: "Homework 2 · Ethereum pipeline",
-      hw3: "Homework 3 · Encryption & cryptanalysis",
-      hw4: "Homework 4 · Stochastic processes, LLN & CLT",
-      hw5: "Homework 5 · Welford & sampling statistics",
-      references: "Sources & methodology",
-    }[state.page] +
-    (state.page === "home" ? " · Luca Gugliotta" : " · Statistics Homeworks");
-  if (state.page === "hw1") bindHW1();
-  if (state.page === "hw2") bindHW2();
-  if (state.page === "hw3") bindHomework3();
-  if (state.page === "hw4") bindHomework4();
-  if (state.page === "hw5") bindHomework5();
+  document.title = activeHw
+    ? `${activeHw.pageTitle} · Statistics Homeworks`
+    : state.page === "references"
+      ? "Sources & methodology · Statistics Homeworks"
+      : "Statistics Homeworks · Luca Gugliotta";
+  activeHw?.bind?.();
   if (sectionPage[route]) document.getElementById(route)?.scrollIntoView({ behavior: "instant" });
   else window.scrollTo({ top: 0, behavior: "instant" });
   setupScrollReveal();
 }
+
+function getSectionPageMap() {
+  const map = { "homework-folders": "home" };
+  for (const hw of HOMEWORKS) {
+    for (const sec of hw.sections) map[sec] = hw.id;
+  }
+  return map;
+}
+
 function render(event) {
   stop();
   const route = location.hash.slice(1);
-  if (!["home", "hw1", "hw2", "hw3", "hw4", "hw5", "references"].includes(route)) {
+  const validPages = ["home", ...HOMEWORKS.map((h) => h.id), "references"];
+  if (!validPages.includes(route)) {
     if (route && document.getElementById(route)) return;
   }
-  const sectionPage = {
-    "homework-folders": "home",
-    idea1: "hw1",
-    lab1: "hw1",
-    stats1: "hw1",
-    conclusion1: "hw1",
-    pipeline: "hw2",
-    standards: "hw2",
-    "hash-lab": "hw2",
-    checksum: "hw2",
-    history: "hw2",
-    "hw3-idea": "hw3",
-    "hw3-ciphers": "hw3",
-    "hw3-statistics": "hw3",
-    "hw3-key-search": "hw3",
-    "hw3-discussion": "hw3",
-    "hw4-model": "hw4",
-    "hw4-lab": "hw4",
-    "hw4-limits": "hw4",
-    "hw4-clt": "hw4",
-    "hw4-interpret": "hw4",
-    "hw5-derive": "hw5",
-    "hw5-code": "hw5",
-    "hw5-model": "hw5",
-    "hw5-lab": "hw5",
-    "hw5-inference": "hw5",
-  };
-  const nextPage = ["hw1", "hw2", "hw3", "hw4", "hw5", "references"].includes(route)
+  const sectionPage = getSectionPageMap();
+  const nextPage = validPages.includes(route)
     ? route
     : (sectionPage[route] ?? "home");
-  const pageChanged = event && nextPage !== state.page;
+  const prevPage = state.page;
+  const pageChanged = event && nextPage !== prevPage;
+  const prevIdx = HOMEWORKS.findIndex((h) => h.id === prevPage);
+  const nextIdx = HOMEWORKS.findIndex((h) => h.id === nextPage);
+  let navDir = "fade";
+  if (prevIdx !== -1 && nextIdx !== -1 && prevIdx !== nextIdx) {
+    navDir = nextIdx > prevIdx ? "next" : "prev";
+  } else if (prevPage === "home" && nextIdx !== -1) {
+    navDir = "next";
+  } else if (prevIdx !== -1 && nextPage === "home") {
+    navDir = "prev";
+  }
+  document.documentElement.dataset.navDir = navDir;
   state.page = nextPage;
   routeTransition?.skipTransition();
   if (pageChanged && document.startViewTransition && !reducedMotion()) {
@@ -868,5 +987,54 @@ function render(event) {
     applyRender(route, sectionPage);
   }
 }
+
+/* Keyboard & horizontal swipe page-turning across homework notebook pages */
+function turnHomeworkPage(delta) {
+  const idx = HOMEWORKS.findIndex((h) => h.id === state.page);
+  if (idx === -1) return;
+  const target = HOMEWORKS[idx + delta];
+  if (target) location.hash = `#${target.id}`;
+}
+window.addEventListener("keydown", (e) => {
+  if (e.defaultPrevented || e.ctrlKey || e.metaKey || e.shiftKey) return;
+  const tag = e.target?.tagName;
+  if (tag === "INPUT" || tag === "SELECT" || tag === "TEXTAREA" || e.target?.isContentEditable) return;
+  if (document.getElementById("display-panel")?.matches(":popover-open")) return;
+  if (e.key === "ArrowLeft") {
+    const idx = HOMEWORKS.findIndex((h) => h.id === state.page);
+    if (idx > 0) {
+      e.preventDefault();
+      turnHomeworkPage(-1);
+    }
+  } else if (e.key === "ArrowRight") {
+    const idx = HOMEWORKS.findIndex((h) => h.id === state.page);
+    if (idx !== -1 && idx < HOMEWORKS.length - 1) {
+      e.preventDefault();
+      turnHomeworkPage(1);
+    }
+  }
+});
+
+let touchStartX = null;
+let touchStartY = null;
+window.addEventListener("touchstart", (e) => {
+  if (e.touches.length !== 1) { touchStartX = null; return; }
+  if (e.target?.closest(".chart-scroll, .table-scroll, input, select, textarea, pre, code")) {
+    touchStartX = null;
+    return;
+  }
+  touchStartX = e.touches[0].clientX;
+  touchStartY = e.touches[0].clientY;
+}, { passive: true });
+window.addEventListener("touchend", (e) => {
+  if (touchStartX === null || e.changedTouches.length !== 1) return;
+  const dx = e.changedTouches[0].clientX - touchStartX;
+  const dy = e.changedTouches[0].clientY - touchStartY;
+  touchStartX = null;
+  if (Math.abs(dx) > 95 && Math.abs(dx) > Math.abs(dy) * 2.2) {
+    turnHomeworkPage(dx < 0 ? 1 : -1);
+  }
+}, { passive: true });
+
 window.addEventListener("hashchange", render);
 render();

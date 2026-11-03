@@ -32,25 +32,23 @@ const feather = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stro
 
 export function themeControl() {
   return `<div class="display-controls">
-    <button class="lite-trigger" type="button" data-lite-toggle aria-pressed="${preferences.lite}" title="Toggle Lite view: flat layout without animations or glass effects">${feather}<span>Lite</span></button>
+    <button class="lite-trigger" type="button" data-lite-toggle aria-pressed="${preferences.lite}" title="Toggle Lite view: flat layout without animations">${feather}<span>Lite</span></button>
     <button class="display-trigger" type="button" popovertarget="display-panel" aria-controls="display-panel" aria-expanded="false">${sliders}<span>Display</span></button>
     <aside id="display-panel" class="display-panel" popover aria-labelledby="display-title">
-      <div class="display-chrome" aria-hidden="true"><span><i></i><i></i><i></i></span><small>DISPLAY &amp; READABILITY</small></div>
-      <div class="display-heading"><div><h2 id="display-title">Make room<br>for reading.</h2><p>Adjust your view. Keep your place.</p></div><button class="display-close" type="button" popovertarget="display-panel" popovertargetaction="hide" aria-label="Close display settings">${close}</button></div>
+      <div class="display-heading"><div><span class="eyebrow">DISPLAY SETTINGS</span><h2 id="display-title">Reading &amp; appearance</h2><p>Adjust text size, spacing, and theme.</p></div><button class="display-close" type="button" popovertarget="display-panel" popovertargetaction="hide" aria-label="Close display settings">${close}</button></div>
       <fieldset class="theme-options"><legend>Appearance</legend><div><button type="button" data-theme-choice="dark">${moon}<span>Dark</span></button><button type="button" data-theme-choice="light">${sun}<span>Light</span></button></div></fieldset>
       <div class="lite-mode-box">
         <div class="lite-mode-copy">
           <strong>Lite mode</strong>
-          <small>Flat cards, zero animations, no glass blur—pure text and math clarity.</small>
+          <small>Flat layout without animations or visual effects.</small>
         </div>
-        <button type="button" id="reading-lite" class="lite-pill-btn" data-lite-toggle aria-pressed="${preferences.lite}">${spark}<span>Lite</span></button>
+        <button type="button" id="reading-lite" class="lite-pill-btn" data-lite-toggle aria-pressed="${preferences.lite}">${feather}<span>Lite</span></button>
       </div>
       <div class="reading-control"><label for="reading-size"><span>Reading text size</span><output id="reading-size-value" for="reading-size"></output></label><input id="reading-size" type="range" min="100" max="135" step="5" value="${preferences.scale * 100}"><div class="range-ends"><span>A · 100%</span><span>Aa · 135%</span></div></div>
       <div class="reading-control"><label for="reading-leading"><span>Line spacing</span><output id="reading-leading-value" for="reading-leading"></output></label><input id="reading-leading" type="range" min="1.6" max="2.2" step="0.05" value="${preferences.leading}"><div class="range-ends"><span>Compact</span><span>Airy</span></div></div>
       <div class="reading-control"><label for="reading-measure"><span>Text width</span><output id="reading-measure-value" for="reading-measure"></output></label><input id="reading-measure" type="range" min="56" max="80" step="2" value="${preferences.measure}"><div class="range-ends"><span>Narrow · 56ch</span><span>Wide · 80ch</span></div></div>
-      <div class="reading-switches"><label for="reading-contrast"><span>Stronger contrast<small>Clearer text and crisp borders</small></span><input id="reading-contrast" type="checkbox" ${preferences.contrast ? "checked" : ""}></label><label for="reading-motion"><span>Reduce motion<small>Your system preference is also respected</small></span><input id="reading-motion" type="checkbox" ${preferences.motion ? "checked" : ""}></label></div>
-      <div class="reading-preview"><span>YOUR READING PREVIEW</span><p>With more observations, estimates become more precise.</p></div>
-      <div class="display-footer"><button type="button" class="secondary" id="display-reset">Reset display</button><p>Saved on this browser.<br>Your experiments stay as they are.</p></div>
+      <div class="reading-switches"><label for="reading-contrast"><span>Stronger contrast<small>Higher text and border contrast</small></span><input id="reading-contrast" type="checkbox" ${preferences.contrast ? "checked" : ""}></label><label for="reading-motion"><span>Reduce motion<small>Disable transitions and animations</small></span><input id="reading-motion" type="checkbox" ${preferences.motion ? "checked" : ""}></label></div>
+      <div class="display-footer"><button type="button" class="secondary" id="display-reset">Reset display</button><p>Preferences are saved locally in this browser.</p></div>
     </aside></div>`;
 }
 function updateRangeProgress() {
