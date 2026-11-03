@@ -10,10 +10,16 @@
       content="Statistics Homeworks by Luca Gugliotta, Sapienza Cybersecurity. Interactive elliptic-curve, Ethereum wallet and encryption/cryptanalysis laboratories for Statistics with Prof. Tommaso Gastaldi."
     />
     <script>
-      // Apply the saved appearance before the first paint, including direct chapter links.
+      // Restore reading preferences before the first paint, including direct chapter links.
       try {
-        const saved = localStorage.getItem("statistics-theme");
-        document.documentElement.dataset.theme = saved === "light" ? "light" : "dark";
+        const p = JSON.parse(localStorage.getItem("statistics-display") || "null") || {};
+        document.documentElement.dataset.theme = (p.theme || localStorage.getItem("statistics-theme")) === "light" ? "light" : "dark";
+        const clamp = (v, min, max, fallback) => Number.isFinite(v) ? Math.max(min, Math.min(max, v)) : fallback;
+        document.documentElement.style.setProperty("--reading-scale", clamp(p.scale, 1, 1.35, 1));
+        document.documentElement.style.setProperty("--reading-leading", clamp(p.leading, 1.6, 2.2, 1.85));
+        document.documentElement.style.setProperty("--reading-measure", clamp(p.measure, 56, 80, 70) + "ch");
+        document.documentElement.dataset.contrast = p.contrast === true ? "more" : "standard";
+        document.documentElement.dataset.motion = p.motion === true ? "reduce" : "standard";
       } catch {
         document.documentElement.dataset.theme = "dark";
       }

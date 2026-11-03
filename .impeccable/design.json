@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-03T09:41:37.440452+00:00",
+  "generatedAt": "2026-11-03T10:00:26.091547+00:00",
   "title": "Design System: Statistics Homeworks",
   "extensions": {
     "colorMeta": {
@@ -801,6 +801,286 @@
           "oklch(83.6% 0.0025 48.72)",
           "oklch(95.0% 0.0025 48.72)"
         ]
+      },
+      "folder-back": {
+        "role": "primary",
+        "displayName": "Folder Back",
+        "tonalRamp": [
+          "oklch(15.0% 0.1186 17.94)",
+          "oklch(26.4% 0.1186 17.94)",
+          "oklch(37.9% 0.1186 17.94)",
+          "oklch(49.3% 0.1186 17.94)",
+          "oklch(60.7% 0.1186 17.94)",
+          "oklch(72.1% 0.1186 17.94)",
+          "oklch(83.6% 0.1186 17.94)",
+          "oklch(95.0% 0.1186 17.94)"
+        ]
+      },
+      "folder-paper": {
+        "role": "neutral",
+        "displayName": "Folder Paper",
+        "tonalRamp": [
+          "oklch(15.0% 0.0201 9.82)",
+          "oklch(26.4% 0.0201 9.82)",
+          "oklch(37.9% 0.0201 9.82)",
+          "oklch(49.3% 0.0201 9.82)",
+          "oklch(60.7% 0.0201 9.82)",
+          "oklch(72.1% 0.0201 9.82)",
+          "oklch(83.6% 0.0201 9.82)",
+          "oklch(95.0% 0.0201 9.82)"
+        ]
+      },
+      "folder-paper-ink": {
+        "role": "neutral",
+        "displayName": "Folder Paper Ink",
+        "tonalRamp": [
+          "oklch(15.0% 0.0390 1.24)",
+          "oklch(26.4% 0.0390 1.24)",
+          "oklch(37.9% 0.0390 1.24)",
+          "oklch(49.3% 0.0390 1.24)",
+          "oklch(60.7% 0.0390 1.24)",
+          "oklch(72.1% 0.0390 1.24)",
+          "oklch(83.6% 0.0390 1.24)",
+          "oklch(95.0% 0.0390 1.24)"
+        ]
+      },
+      "folder-paper-muted": {
+        "role": "neutral",
+        "displayName": "Folder Paper Muted",
+        "tonalRamp": [
+          "oklch(15.0% 0.0318 348.17)",
+          "oklch(26.4% 0.0318 348.17)",
+          "oklch(37.9% 0.0318 348.17)",
+          "oklch(49.3% 0.0318 348.17)",
+          "oklch(60.7% 0.0318 348.17)",
+          "oklch(72.1% 0.0318 348.17)",
+          "oklch(83.6% 0.0318 348.17)",
+          "oklch(95.0% 0.0318 348.17)"
+        ]
+      },
+      "folder-paper-back": {
+        "role": "neutral",
+        "displayName": "Folder Paper Back",
+        "tonalRamp": [
+          "oklch(15.0% 0.0305 353.23)",
+          "oklch(26.4% 0.0305 353.23)",
+          "oklch(37.9% 0.0305 353.23)",
+          "oklch(49.3% 0.0305 353.23)",
+          "oklch(60.7% 0.0305 353.23)",
+          "oklch(72.1% 0.0305 353.23)",
+          "oklch(83.6% 0.0305 353.23)",
+          "oklch(95.0% 0.0305 353.23)"
+        ]
+      },
+      "folder-paper-middle": {
+        "role": "neutral",
+        "displayName": "Folder Paper Middle",
+        "tonalRamp": [
+          "oklch(15.0% 0.0337 358.72)",
+          "oklch(26.4% 0.0337 358.72)",
+          "oklch(37.9% 0.0337 358.72)",
+          "oklch(49.3% 0.0337 358.72)",
+          "oklch(60.7% 0.0337 358.72)",
+          "oklch(72.1% 0.0337 358.72)",
+          "oklch(83.6% 0.0337 358.72)",
+          "oklch(95.0% 0.0337 358.72)"
+        ]
+      },
+      "folder-paper-front": {
+        "role": "neutral",
+        "displayName": "Folder Paper Front",
+        "tonalRamp": [
+          "oklch(15.0% 0.0131 11.56)",
+          "oklch(26.4% 0.0131 11.56)",
+          "oklch(37.9% 0.0131 11.56)",
+          "oklch(49.3% 0.0131 11.56)",
+          "oklch(60.7% 0.0131 11.56)",
+          "oklch(72.1% 0.0131 11.56)",
+          "oklch(83.6% 0.0131 11.56)",
+          "oklch(95.0% 0.0131 11.56)"
+        ]
+      },
+      "folder-pocket-start": {
+        "role": "primary",
+        "displayName": "Folder Pocket Start",
+        "tonalRamp": [
+          "oklch(15.0% 0.1827 22.06)",
+          "oklch(26.4% 0.1827 22.06)",
+          "oklch(37.9% 0.1827 22.06)",
+          "oklch(49.3% 0.1827 22.06)",
+          "oklch(60.7% 0.1827 22.06)",
+          "oklch(72.1% 0.1827 22.06)",
+          "oklch(83.6% 0.1827 22.06)",
+          "oklch(95.0% 0.1827 22.06)"
+        ]
+      },
+      "folder-pocket-end": {
+        "role": "primary",
+        "displayName": "Folder Pocket End",
+        "tonalRamp": [
+          "oklch(15.0% 0.1263 19.40)",
+          "oklch(26.4% 0.1263 19.40)",
+          "oklch(37.9% 0.1263 19.40)",
+          "oklch(49.3% 0.1263 19.40)",
+          "oklch(60.7% 0.1263 19.40)",
+          "oklch(72.1% 0.1263 19.40)",
+          "oklch(83.6% 0.1263 19.40)",
+          "oklch(95.0% 0.1263 19.40)"
+        ]
+      },
+      "folder-pocket-tab": {
+        "role": "primary",
+        "displayName": "Folder Pocket Tab",
+        "tonalRamp": [
+          "oklch(15.0% 0.1731 20.77)",
+          "oklch(26.4% 0.1731 20.77)",
+          "oklch(37.9% 0.1731 20.77)",
+          "oklch(49.3% 0.1731 20.77)",
+          "oklch(60.7% 0.1731 20.77)",
+          "oklch(72.1% 0.1731 20.77)",
+          "oklch(83.6% 0.1731 20.77)",
+          "oklch(95.0% 0.1731 20.77)"
+        ]
+      },
+      "folder-pocket-ink": {
+        "role": "primary",
+        "displayName": "Folder Pocket Ink",
+        "tonalRamp": [
+          "oklch(15.0% 0.0075 17.28)",
+          "oklch(26.4% 0.0075 17.28)",
+          "oklch(37.9% 0.0075 17.28)",
+          "oklch(49.3% 0.0075 17.28)",
+          "oklch(60.7% 0.0075 17.28)",
+          "oklch(72.1% 0.0075 17.28)",
+          "oklch(83.6% 0.0075 17.28)",
+          "oklch(95.0% 0.0075 17.28)"
+        ]
+      },
+      "folder-pocket-muted": {
+        "role": "primary",
+        "displayName": "Folder Pocket Muted",
+        "tonalRamp": [
+          "oklch(15.0% 0.0430 7.23)",
+          "oklch(26.4% 0.0430 7.23)",
+          "oklch(37.9% 0.0430 7.23)",
+          "oklch(49.3% 0.0430 7.23)",
+          "oklch(60.7% 0.0430 7.23)",
+          "oklch(72.1% 0.0430 7.23)",
+          "oklch(83.6% 0.0430 7.23)",
+          "oklch(95.0% 0.0430 7.23)"
+        ]
+      },
+      "dark-contrast-muted": {
+        "role": "neutral",
+        "displayName": "Dark Contrast Muted",
+        "tonalRamp": [
+          "oklch(15.0% 0.0130 345.54)",
+          "oklch(26.4% 0.0130 345.54)",
+          "oklch(37.9% 0.0130 345.54)",
+          "oklch(49.3% 0.0130 345.54)",
+          "oklch(60.7% 0.0130 345.54)",
+          "oklch(72.1% 0.0130 345.54)",
+          "oklch(83.6% 0.0130 345.54)",
+          "oklch(95.0% 0.0130 345.54)"
+        ]
+      },
+      "dark-contrast-text": {
+        "role": "neutral",
+        "displayName": "Dark Contrast Text",
+        "tonalRamp": [
+          "oklch(15.0% 0.0101 345.43)",
+          "oklch(26.4% 0.0101 345.43)",
+          "oklch(37.9% 0.0101 345.43)",
+          "oklch(49.3% 0.0101 345.43)",
+          "oklch(60.7% 0.0101 345.43)",
+          "oklch(72.1% 0.0101 345.43)",
+          "oklch(83.6% 0.0101 345.43)",
+          "oklch(95.0% 0.0101 345.43)"
+        ]
+      },
+      "dark-contrast-line": {
+        "role": "neutral",
+        "displayName": "Dark Contrast Line",
+        "tonalRamp": [
+          "oklch(15.0% 0.0276 347.87)",
+          "oklch(26.4% 0.0276 347.87)",
+          "oklch(37.9% 0.0276 347.87)",
+          "oklch(49.3% 0.0276 347.87)",
+          "oklch(60.7% 0.0276 347.87)",
+          "oklch(72.1% 0.0276 347.87)",
+          "oklch(83.6% 0.0276 347.87)",
+          "oklch(95.0% 0.0276 347.87)"
+        ]
+      },
+      "dark-contrast-line-strong": {
+        "role": "neutral",
+        "displayName": "Dark Contrast Line Strong",
+        "tonalRamp": [
+          "oklch(15.0% 0.0298 348.75)",
+          "oklch(26.4% 0.0298 348.75)",
+          "oklch(37.9% 0.0298 348.75)",
+          "oklch(49.3% 0.0298 348.75)",
+          "oklch(60.7% 0.0298 348.75)",
+          "oklch(72.1% 0.0298 348.75)",
+          "oklch(83.6% 0.0298 348.75)",
+          "oklch(95.0% 0.0298 348.75)"
+        ]
+      },
+      "light-contrast-muted": {
+        "role": "neutral",
+        "displayName": "Light Contrast Muted",
+        "tonalRamp": [
+          "oklch(15.0% 0.0262 343.54)",
+          "oklch(26.4% 0.0262 343.54)",
+          "oklch(37.9% 0.0262 343.54)",
+          "oklch(49.3% 0.0262 343.54)",
+          "oklch(60.7% 0.0262 343.54)",
+          "oklch(72.1% 0.0262 343.54)",
+          "oklch(83.6% 0.0262 343.54)",
+          "oklch(95.0% 0.0262 343.54)"
+        ]
+      },
+      "light-contrast-text": {
+        "role": "neutral",
+        "displayName": "Light Contrast Text",
+        "tonalRamp": [
+          "oklch(15.0% 0.0215 342.67)",
+          "oklch(26.4% 0.0215 342.67)",
+          "oklch(37.9% 0.0215 342.67)",
+          "oklch(49.3% 0.0215 342.67)",
+          "oklch(60.7% 0.0215 342.67)",
+          "oklch(72.1% 0.0215 342.67)",
+          "oklch(83.6% 0.0215 342.67)",
+          "oklch(95.0% 0.0215 342.67)"
+        ]
+      },
+      "light-contrast-line": {
+        "role": "neutral",
+        "displayName": "Light Contrast Line",
+        "tonalRamp": [
+          "oklch(15.0% 0.0324 351.04)",
+          "oklch(26.4% 0.0324 351.04)",
+          "oklch(37.9% 0.0324 351.04)",
+          "oklch(49.3% 0.0324 351.04)",
+          "oklch(60.7% 0.0324 351.04)",
+          "oklch(72.1% 0.0324 351.04)",
+          "oklch(83.6% 0.0324 351.04)",
+          "oklch(95.0% 0.0324 351.04)"
+        ]
+      },
+      "light-contrast-line-strong": {
+        "role": "neutral",
+        "displayName": "Light Contrast Line Strong",
+        "tonalRamp": [
+          "oklch(15.0% 0.0379 352.08)",
+          "oklch(26.4% 0.0379 352.08)",
+          "oklch(37.9% 0.0379 352.08)",
+          "oklch(49.3% 0.0379 352.08)",
+          "oklch(60.7% 0.0379 352.08)",
+          "oklch(72.1% 0.0379 352.08)",
+          "oklch(83.6% 0.0379 352.08)",
+          "oklch(95.0% 0.0379 352.08)"
+        ]
       }
     },
     "typographyMeta": {
@@ -812,9 +1092,6 @@
       },
       "headline": {
         "displayName": "Headline"
-      },
-      "chapter-title": {
-        "displayName": "Chapter Title"
       },
       "panel-title": {
         "displayName": "Panel Title"
@@ -830,19 +1107,51 @@
       },
       "code": {
         "displayName": "Code"
+      },
+      "intro": {
+        "displayName": "Intro"
+      },
+      "supporting": {
+        "displayName": "Supporting"
+      },
+      "table-body": {
+        "displayName": "Table Body"
+      },
+      "table-head": {
+        "displayName": "Table Head"
+      },
+      "folder-title": {
+        "displayName": "Folder Title"
+      },
+      "folder-formula": {
+        "displayName": "Folder Formula"
+      },
+      "drawer-display": {
+        "displayName": "Drawer Display"
       }
     },
-    "shadows": [],
+    "shadows": [
+      {
+        "name": "paper",
+        "value": "0 8px 16px #1c071b26",
+        "purpose": "Soft separation between folder papers."
+      },
+      {
+        "name": "folder-pocket",
+        "value": "0 14px 30px #1b05131a, inset 0 1px 0 #ffffff42",
+        "purpose": "Dimensional translucent folder pocket."
+      },
+      {
+        "name": "drawer",
+        "value": "-20px 0 60px #00000030",
+        "purpose": "Full-height Display popover boundary."
+      }
+    ],
     "motion": [
       {
         "name": "control-state",
         "value": "180ms ease",
         "purpose": "Secondary control and theme-control color states."
-      },
-      {
-        "name": "responsive-ease",
-        "value": "cubic-bezier(.16,1,.3,1)",
-        "purpose": "Small arrows, theme track, appearance-in and reflected light."
       },
       {
         "name": "appearance-out",
@@ -858,6 +1167,21 @@
         "name": "button-reflection",
         "value": "650ms cubic-bezier(.16,1,.3,1)",
         "purpose": "One reflected-light pass on deliberate button hover."
+      },
+      {
+        "name": "responsive-ease",
+        "value": "cubic-bezier(.16,1,.3,1)",
+        "purpose": "Deliberate folder fanning, drawer entry, small arrows and reflected light."
+      },
+      {
+        "name": "folder-fan",
+        "value": "450ms cubic-bezier(.16,1,.3,1)",
+        "purpose": "Paper fan and pocket tilt on hover or keyboard focus."
+      },
+      {
+        "name": "drawer-entry",
+        "value": "transform 260ms cubic-bezier(.16,1,.3,1), opacity 180ms ease, display 260ms allow-discrete, overlay 260ms allow-discrete",
+        "purpose": "Native nonmodal popover entry."
       }
     ],
     "breakpoints": [
@@ -866,11 +1190,19 @@
         "value": "360px"
       },
       {
+        "name": "single-folder",
+        "value": "600px"
+      },
+      {
         "name": "narrow",
         "value": "760px"
       },
       {
-        "name": "compact-lab",
+        "name": "two-folders",
+        "value": "1050px"
+      },
+      {
+        "name": "compact-shell",
         "value": "1100px"
       },
       {
@@ -892,9 +1224,42 @@
     "appearance": {
       "default": "dark",
       "alternative": "light",
-      "storageKey": "statistics-theme",
+      "storageKey": "statistics-display",
+      "legacyThemeKey": "statistics-theme",
       "selector": ":root[data-theme=\"light\"]",
-      "reducedMotion": "Immediate theme change; no transitions or animations; retain static state and focus feedback."
+      "defaults": {
+        "theme": "dark",
+        "scale": 1,
+        "leading": 1.85,
+        "measure": 70,
+        "contrast": false,
+        "motion": false
+      },
+      "reading": {
+        "scale": {
+          "property": "--reading-scale",
+          "min": 1,
+          "max": 1.35,
+          "step": 0.05
+        },
+        "leading": {
+          "property": "--reading-leading",
+          "min": 1.6,
+          "max": 2.2,
+          "step": 0.05
+        },
+        "measure": {
+          "property": "--reading-measure",
+          "min": 56,
+          "max": 80,
+          "step": 2,
+          "unit": "ch"
+        }
+      },
+      "contrastSelector": "[data-contrast=\"more\"]",
+      "motionSelector": "[data-motion=\"reduce\"]",
+      "reducedMotion": "Explicit reduction or the system preference suppresses transitions and animations; keep static focus, selection, color and disabled feedback.",
+      "application": "Restore before first paint; apply CSS properties and data attributes without rerendering chapters or restarting workers; synchronize storage changes."
     },
     "dataRoles": {
       "main": "--series-main",
@@ -905,7 +1270,33 @@
       "finiteFieldCurrent": "--accent",
       "legendRule": "A series and its legend use the same semantic token in both appearances; line style and labels distinguish measured data from model references."
     },
-    "rampNote": "Preview-only OKLCH ramps derived from extracted hue/chroma; runtime tokens remain the exact CSS values in DESIGN.md."
+    "rampNote": "Preview-only OKLCH ramps derived from extracted hue/chroma; runtime tokens remain the exact CSS values in DESIGN.md.",
+    "folderMaterial": {
+      "pocketBackground": "linear-gradient(115deg,#ba2634ed,#741723f2)",
+      "pocketBlur": "blur(9px)",
+      "pocketRadius": "0 18px 18px 18px",
+      "backTabRadius": "16px 16px 0 0",
+      "pocketTabRadius": "15px 16px 0 0",
+      "perspective": "1000px",
+      "transformOrigin": "50% 100%",
+      "rest": {
+        "back": "translate(-13px,6px) rotate(-9deg)",
+        "middle": "translate(13px,3px) rotate(8deg)",
+        "front": "translateY(-2px) rotate(-2deg)"
+      },
+      "engaged": {
+        "back": "translate(-25px,-9px) rotate(-13deg)",
+        "middle": "translate(24px,-9px) rotate(12deg)",
+        "front": "translateY(-16px) rotate(-2deg)",
+        "pocket": "rotateX(-10deg)"
+      },
+      "motionGuard": "Fanning requires system no-preference and :root:not([data-motion=\"reduce\"]); explicit or system reduction leaves folder geometry still with title-color/focus feedback."
+    },
+    "minimumTargets": {
+      "mainButtonsAndSingleLineFields": "44px",
+      "displayTriggerAndClose": "44px",
+      "appearanceChoice": "46px"
+    }
   },
   "components": [
     {
@@ -914,7 +1305,7 @@
       "refersTo": "button-primary",
       "description": "Crimson action pill with a single deliberate hover reflection.",
       "html": "<button class=\"ds-primary\">Run experiment <span>↗</span></button>",
-      "css": ".ds-primary{position:relative;overflow:hidden;isolation:isolate;display:inline-flex;align-items:center;gap:25px;background:var(--accent-solid);border:1px solid var(--accent-solid);color:#fff;border-radius:24px;padding:13px 21px;font:550 12px/1.4 \"DM Sans\",Arial,sans-serif;cursor:pointer;transition:background 200ms,transform 200ms}.ds-primary:hover{background:var(--accent-hover);border-color:var(--accent-hover)}.ds-primary:active{transform:scale(.98)}.ds-primary:focus-visible{outline:3px solid var(--accent);outline-offset:4px;}.ds-primary:disabled{opacity:.5;cursor:not-allowed}.ds-primary span{font-size:20px;line-height:1;transition:transform 200ms cubic-bezier(.16,1,.3,1)}.ds-primary:hover span{transform:translate(2px,-2px)}.ds-primary:before{content:\"\";position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(105deg,transparent 25%,#ffffff28 50%,transparent 75%);transform:translateX(-140%)}@media(prefers-reduced-motion:no-preference){.ds-primary:hover:not(:disabled):before{transform:translateX(140%);transition:transform 650ms cubic-bezier(.16,1,.3,1)}}@media(prefers-reduced-motion:reduce){.ds-primary,.ds-primary:before,.ds-primary span,.ds-secondary,.ds-field,.ds-nav a,.ds-chapter,.ds-chapter h3{transition:none!important;animation:none!important}}"
+      "css": ".ds-primary{position:relative;overflow:hidden;isolation:isolate;display:inline-flex;align-items:center;gap:25px;background:var(--accent-solid);border:1px solid var(--accent-solid);color:#fff;border-radius:24px;padding:13px 21px;font:550 calc(14px * var(--reading-scale,1))/1.4 \"DM Sans\",Arial,sans-serif;min-height:44px;cursor:pointer;transition:background 200ms,transform 200ms}.ds-primary:hover{background:var(--accent-hover);border-color:var(--accent-hover)}.ds-primary:active{transform:scale(.98)}.ds-primary:focus-visible{outline:3px solid var(--accent);outline-offset:4px;}.ds-primary:disabled{opacity:.5;cursor:not-allowed}.ds-primary span{font-size:20px;line-height:1;transition:transform 200ms cubic-bezier(.16,1,.3,1)}.ds-primary:hover span{transform:translate(2px,-2px)}.ds-primary:before{content:\"\";position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(105deg,transparent 25%,#ffffff28 50%,transparent 75%);transform:translateX(-140%)}@media(prefers-reduced-motion:no-preference){.ds-primary:hover:not(:disabled):before{transform:translateX(140%);transition:transform 650ms cubic-bezier(.16,1,.3,1)}}@media(prefers-reduced-motion:reduce){.ds-primary,.ds-primary:before,.ds-primary span,.ds-secondary,.ds-field,.ds-nav a,.ds-chapter,.ds-chapter h3{transition:none!important;animation:none!important}}:host-context([data-motion=\"reduce\"]) .ds-primary{transition:none!important;animation:none!important}"
     },
     {
       "name": "Secondary button",
@@ -922,7 +1313,7 @@
       "refersTo": "button-secondary-dark",
       "description": "Neutral outlined action, inheriting the active appearance.",
       "html": "<button class=\"ds-secondary\">Export data</button>",
-      "css": ".ds-secondary{background:transparent;border:1px solid var(--line);border-radius:20px;padding:10px 14px;color:var(--text);font:11px/1.5 \"DM Sans\",Arial,sans-serif;cursor:pointer;transition:background 180ms ease,color 180ms ease,border-color 180ms ease}.ds-secondary:hover{background:var(--surface-hover)}.ds-secondary:focus-visible{outline:3px solid var(--accent);outline-offset:4px;}@media(prefers-reduced-motion:reduce){.ds-primary,.ds-primary:before,.ds-primary span,.ds-secondary,.ds-field,.ds-nav a,.ds-chapter,.ds-chapter h3{transition:none!important;animation:none!important}}"
+      "css": ".ds-secondary{background:transparent;border:1px solid var(--line);border-radius:20px;padding:10px 14px;color:var(--text);min-height:44px;font:calc(14px * var(--reading-scale,1))/1.5 \"DM Sans\",Arial,sans-serif;cursor:pointer;transition:background 180ms ease,color 180ms ease,border-color 180ms ease}.ds-secondary:hover{background:var(--surface-hover)}.ds-secondary:focus-visible{outline:3px solid var(--accent);outline-offset:4px;}@media(prefers-reduced-motion:reduce){.ds-primary,.ds-primary:before,.ds-primary span,.ds-secondary,.ds-field,.ds-nav a,.ds-chapter,.ds-chapter h3{transition:none!important;animation:none!important}}:host-context([data-motion=\"reduce\"]) .ds-secondary{transition:none!important;animation:none!important}"
     },
     {
       "name": "Scientific field",
@@ -930,14 +1321,14 @@
       "refersTo": "field-dark",
       "description": "Neutral scientific input with explicit label and visible focus.",
       "html": "<label class=\"ds-field-label\" for=\"ds-sample\">Sample size</label><input class=\"ds-field\" id=\"ds-sample\" type=\"number\" value=\"256\" min=\"1\">",
-      "css": ".ds-field-label{display:block;color:var(--text);font:12px \"DM Sans\",Arial,sans-serif;margin-bottom:8px}.ds-field{display:block;width:100%;min-height:39px;padding:10px 11px;background:var(--surface);color:var(--text);border:1px solid var(--line);border-radius:8px;font:12px \"DM Sans\",Arial,sans-serif;caret-color:var(--accent)}.ds-field:focus-visible{outline:3px solid var(--accent);outline-offset:4px;}"
+      "css": ".ds-field-label{display:block;color:var(--text);font:calc(14px * var(--reading-scale,1)) \"DM Sans\",Arial,sans-serif;margin-bottom:8px}.ds-field{display:block;width:100%;min-height:44px;padding:10px 11px;background:var(--surface);color:var(--text);border:1px solid var(--line);border-radius:8px;font:calc(14px * var(--reading-scale,1)) \"DM Sans\",Arial,sans-serif;caret-color:var(--accent)}.ds-field:focus-visible{outline:3px solid var(--accent);outline-offset:4px;}:host-context([data-motion=\"reduce\"]) .ds-field,:host-context([data-motion=\"reduce\"]) .ds-field-label,:host-context([data-motion=\"reduce\"]) .ds-sample{transition:none!important;animation:none!important}"
     },
     {
       "name": "Main navigation",
       "kind": "nav",
       "description": "Smoked sticky chapter navigation with a crimson current-route rule.",
       "html": "<nav class=\"ds-nav\" aria-label=\"Homework navigation\"><a href=\"#hw1\">Homework 1</a><a href=\"#hw2\" aria-current=\"page\">Homework 2</a><a href=\"#hw3\">Homework 3</a></nav>",
-      "css": ".ds-nav{display:flex;gap:26px;height:86px;background:var(--glass);backdrop-filter:blur(16px);border-bottom:1px solid var(--line);overflow-x:auto;font:12px \"DM Sans\",Arial,sans-serif}.ds-nav a{position:relative;display:flex;align-items:center;flex-shrink:0;color:var(--muted);text-decoration:none}.ds-nav a:hover{color:var(--ink)}.ds-nav a[aria-current]{color:var(--accent);font-weight:600}.ds-nav a[aria-current]:after{content:\"\";position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--accent)}.ds-nav a:focus-visible{outline:3px solid var(--accent);outline-offset:4px;}"
+      "css": ".ds-nav{display:flex;gap:26px;height:86px;background:var(--glass);backdrop-filter:blur(16px);border-bottom:1px solid var(--line);overflow-x:auto;font:12px \"DM Sans\",Arial,sans-serif}.ds-nav a{position:relative;display:flex;align-items:center;flex-shrink:0;color:var(--muted);text-decoration:none}.ds-nav a:hover{color:var(--ink)}.ds-nav a[aria-current]{color:var(--accent);font-weight:600}.ds-nav a[aria-current]:after{content:\"\";position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--accent)}.ds-nav a:focus-visible{outline:3px solid var(--accent);outline-offset:4px;}:host-context([data-motion=\"reduce\"]) .ds-nav{transition:none!important;animation:none!important}"
     },
     {
       "name": "Scientific panel",
@@ -945,31 +1336,47 @@
       "refersTo": "panel-dark",
       "description": "Quiet neutral enclosure for calculation and interpretation.",
       "html": "<article class=\"ds-panel\"><h3>Distribution of changed output bits</h3><p>Inspect measured counts against the stated model reference.</p></article>",
-      "css": ".ds-panel{padding:23px;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:12px;font-family:\"DM Sans\",Arial,sans-serif}.ds-panel h3{font-size:15px;font-weight:550;line-height:1.4;margin:0 0 15px}.ds-panel p{font-size:14px;line-height:1.85;color:var(--text);margin:0;max-width:75ch}"
+      "css": ".ds-panel{padding:23px;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:12px;font-family:\"DM Sans\",Arial,sans-serif}.ds-panel h3{font-size:15px;font-weight:550;line-height:1.4;margin:0 0 15px}.ds-panel p{font-size:calc(16px * var(--reading-scale,1));line-height:var(--reading-leading,1.85);color:var(--text);margin:0;max-width:var(--reading-measure,70ch)}:host-context([data-motion=\"reduce\"]) .ds-panel{transition:none!important;animation:none!important}"
     },
     {
       "name": "Subject tag",
       "kind": "chip",
       "description": "Compact neutral content label, borderless inside the chapter index.",
       "html": "<span class=\"ds-tag\">STOCHASTIC PROCESSES</span>",
-      "css": ".ds-tag{display:inline-block;white-space:nowrap;border:1px solid var(--line);border-radius:20px;padding:5px 9px;color:var(--ink);font:550 8px \"DM Sans\",Arial,sans-serif;letter-spacing:1.1px}"
+      "css": ".ds-tag{display:inline-block;white-space:nowrap;border:1px solid var(--line);border-radius:20px;padding:5px 9px;color:var(--ink);font:550 8px \"DM Sans\",Arial,sans-serif;letter-spacing:1.1px}:host-context([data-motion=\"reduce\"]) .ds-tag{transition:none!important;animation:none!important}"
     },
     {
-      "name": "Ruled chapter entry",
+      "name": "Homework folder",
       "kind": "custom",
-      "description": "Full chapter link with open edges, serif title and a quiet accent hover.",
-      "html": "<a class=\"ds-chapter\" href=\"#hw5\"><span>Homework 5</span><h3>From individual scores<br>to reliable estimates.</h3><p>Derive an online update and compare sampling statistics.</p></a>",
-      "css": ".ds-chapter{display:block;border-top:1px solid var(--line);padding:28px 0 0;background:transparent;color:var(--ink);text-decoration:none;transition:border-color 180ms ease}.ds-chapter>span{color:var(--accent);font:600 13px \"DM Sans\",Arial,sans-serif}.ds-chapter h3{font:400 35px/1.12 \"Libre Caslon Display\",Georgia,serif;margin:22px 0 15px;transition:color 180ms ease}.ds-chapter p{color:var(--text);font:12px/1.85 \"DM Sans\",Arial,sans-serif;max-width:380px}.ds-chapter:hover{border-color:var(--accent)}.ds-chapter:hover h3{color:var(--accent)}.ds-chapter:focus-visible{outline:3px solid var(--accent);outline-offset:4px;}@media(prefers-reduced-motion:reduce){.ds-primary,.ds-primary:before,.ds-primary span,.ds-secondary,.ds-field,.ds-nav a,.ds-chapter,.ds-chapter h3{transition:none!important;animation:none!important}}"
+      "description": "Clickable crimson-wine folder with actual topic/formula papers; hover and keyboard focus fan the material.",
+      "html": "<a class=\"ds-folder\" href=\"#hw5\" aria-label=\"Open Homework 5: Welford and sampling\"><div class=\"ds-folder-visual\" aria-hidden=\"true\"><div class=\"ds-folder-back\"></div><div class=\"ds-folder-sheet ds-sheet-back\"><span>STATISTICS / 05</span><b>Mean · SS · variance</b></div><div class=\"ds-folder-sheet ds-sheet-middle\"><span>LUCA GUGLIOTTA</span><b>Welford &amp; sampling</b></div><div class=\"ds-folder-sheet ds-sheet-front\"><span>HOMEWORK 05</span><b>μ = 5 · σ² = 8.6</b><small>Mean · SS · variance</small></div><div class=\"ds-folder-pocket\"><span>Homework 05</span><strong>Welford &amp; sampling</strong><small>Open chapter <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><path d=\"M5 19 19 5M5 5h14v14\"/></svg></small></div></div><h3>From individual scores to reliable estimates.</h3><p>Derive the online update and compare sampling statistics.</p></a>",
+      "css": ".ds-folder{display:block;min-width:0;max-width:420px;border-radius:16px;color:var(--ink);text-decoration:none;font-family:\"DM Sans\",Arial,sans-serif}.ds-folder:focus-visible{outline:3px solid var(--accent);outline-offset:12px}.ds-folder-visual{position:relative;height:262px;perspective:1000px;isolation:isolate;margin-bottom:26px}.ds-folder-back{position:absolute;inset:48px 4px 0;border-radius:18px;background:#6b1522}.ds-folder-back:before{content:\"\";position:absolute;width:43%;height:28px;top:-20px;left:0;background:inherit;border-radius:16px 16px 0 0}.ds-folder-sheet{position:absolute;width:76%;height:186px;left:12%;top:20px;border-radius:12px;padding:22px;background:#e9d7d9;color:#351d24;box-shadow:0 8px 16px #1c071b26;transform-origin:50% 100%}.ds-folder-sheet span{display:block;font-size:9px;letter-spacing:.8px;margin-bottom:28px;font-weight:600}.ds-folder-sheet b{display:block;font:400 21px/1.5 \"Libre Caslon Display\",Georgia,serif}.ds-folder-sheet small{display:block;font-size:11px;margin-top:15px;color:#65505a}.ds-sheet-back{transform:translate(-13px,6px) rotate(-9deg);background:#bca4ad}.ds-sheet-middle{transform:translate(13px,3px) rotate(8deg);background:#d5b9c1}.ds-sheet-front{transform:translateY(-2px) rotate(-2deg);background:#f2e6e7}.ds-folder-pocket{position:absolute;inset:104px 0 0;z-index:2;display:flex;flex-direction:column;align-items:flex-start;padding:23px 24px 19px;border-radius:0 18px 18px 18px;color:#fff8f8;background:linear-gradient(115deg,#ba2634ed,#741723f2);backdrop-filter:blur(9px);box-shadow:0 14px 30px #1b05131a,inset 0 1px 0 #ffffff42;transform-origin:50% 100%}.ds-folder-pocket:before{content:\"\";position:absolute;width:43%;height:25px;left:0;top:-24px;background:#b12736;border-radius:15px 16px 0 0;box-shadow:inset 0 1px 0 #ffffff42}.ds-folder-pocket>span{font-size:12px;letter-spacing:.6px;color:#ffd9df}.ds-folder-pocket strong{font-size:22px;font-weight:500;line-height:1.35;margin-top:7px}.ds-folder-pocket>small{display:flex;align-items:center;justify-content:space-between;width:100%;margin-top:auto;padding-top:14px;font-size:12px;color:#ffd9df}.ds-folder-pocket svg{width:17px;height:17px}.ds-folder h3{font:500 22px/1.4 \"DM Sans\",Arial,sans-serif;letter-spacing:-.35px;margin:0 0 12px;max-width:26ch}.ds-folder>p{font-size:calc(15px * var(--reading-scale,1));line-height:var(--reading-leading,1.85);color:var(--text)}.ds-folder:is(:hover,:focus-visible) h3{color:var(--accent)}@media(prefers-reduced-motion:no-preference){.ds-folder-sheet,.ds-folder-pocket{transition:transform 450ms cubic-bezier(.16,1,.3,1)}:host-context(:root:not([data-motion=\"reduce\"])) .ds-folder:is(:hover,:focus-visible) .ds-sheet-back{transform:translate(-25px,-9px) rotate(-13deg)}:host-context(:root:not([data-motion=\"reduce\"])) .ds-folder:is(:hover,:focus-visible) .ds-sheet-middle{transform:translate(24px,-9px) rotate(12deg)}:host-context(:root:not([data-motion=\"reduce\"])) .ds-folder:is(:hover,:focus-visible) .ds-sheet-front{transform:translateY(-16px) rotate(-2deg)}:host-context(:root:not([data-motion=\"reduce\"])) .ds-folder:is(:hover,:focus-visible) .ds-folder-pocket{transform:rotateX(-10deg)}}:host-context([data-motion=\"reduce\"]) .ds-folder-sheet,:host-context([data-motion=\"reduce\"]) .ds-folder-pocket{transition:none!important}@media(prefers-reduced-motion:reduce){.ds-folder-sheet,.ds-folder-pocket{transition:none!important}}:host-context([data-motion=\"reduce\"]) .ds-folder,:host-context([data-motion=\"reduce\"]) .ds-folder-back,:host-context([data-motion=\"reduce\"]) .ds-folder-pocket,:host-context([data-motion=\"reduce\"]) .ds-folder-sheet,:host-context([data-motion=\"reduce\"]) .ds-folder-visual,:host-context([data-motion=\"reduce\"]) .ds-sheet-back,:host-context([data-motion=\"reduce\"]) .ds-sheet-front,:host-context([data-motion=\"reduce\"]) .ds-sheet-middle{transition:none!important;animation:none!important}"
+    },
+    {
+      "name": "Display trigger",
+      "kind": "button",
+      "refersTo": "display-trigger",
+      "description": "Opens the nonmodal native Display popover; the application binds its live settings.",
+      "html": "<button class=\"ds-display-trigger\" type=\"button\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" aria-hidden=\"true\"><path d=\"M4 7h7m5 0h4M4 17h3m5 0h8\"/><circle cx=\"13.5\" cy=\"7\" r=\"2.5\"/><circle cx=\"9.5\" cy=\"17\" r=\"2.5\"/></svg>Display</button>",
+      "css": ".ds-display-trigger{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:44px;padding:10px 15px;border:1px solid var(--line-strong);border-radius:24px;background:var(--surface);color:var(--ink);font:13px \"DM Sans\",Arial,sans-serif;cursor:pointer}.ds-display-trigger svg{width:19px;height:19px}.ds-display-trigger:hover,.ds-display-trigger[aria-expanded=\"true\"]{background:var(--accent-soft);border-color:var(--accent)}.ds-display-trigger:focus-visible{outline:3px solid var(--accent);outline-offset:4px;}:host-context([data-motion=\"reduce\"]) .ds-display-trigger{transition:none!important;animation:none!important}"
+    },
+    {
+      "name": "Display drawer interior",
+      "kind": "custom",
+      "refersTo": "display-panel-dark",
+      "description": "Reading settings surface inside the native nonmodal popover; live controls are bound by appearance.js.",
+      "html": "<section class=\"ds-display-surface\"><h2>Make room<br>for reading.</h2><p>Adjust your view. Keep your place.</p><fieldset class=\"ds-choices\"><legend>Appearance</legend><div><button aria-pressed=\"true\">Dark</button><button aria-pressed=\"false\">Light</button></div></fieldset><label class=\"ds-reading-label\" for=\"ds-size\">Reading text size <output>100%</output></label><input class=\"ds-range\" id=\"ds-size\" type=\"range\" min=\"100\" max=\"135\" step=\"5\" value=\"100\"><div class=\"ds-reading-sample\"><span>YOUR READING PREVIEW</span><p>With more observations, estimates become more precise.</p></div></section>",
+      "css": ".ds-display-surface{width:min(420px,100%);padding:30px;border-left:1px solid var(--line);background:var(--surface);color:var(--ink);font-family:\"DM Sans\",Arial,sans-serif}.ds-display-surface h2{font:400 36px/1.08 \"Libre Caslon Display\",Georgia,serif;letter-spacing:-.4px;margin:0 0 12px}.ds-display-surface>p{font-size:14px;line-height:1.6;margin:0;padding-bottom:26px;border-bottom:1px solid var(--line)}.ds-choices{border:0;margin:24px 0 0;padding:0}.ds-choices legend{font-size:14px;font-weight:500;margin-bottom:12px}.ds-choices>div{display:flex;gap:10px}.ds-choices button{min-height:46px;width:50%;border:1px solid var(--line-strong);border-radius:10px;background:var(--surface);color:var(--text);font:14px \"DM Sans\",Arial,sans-serif;cursor:pointer}.ds-choices button[aria-pressed=\"true\"]{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}.ds-reading-label{display:flex;justify-content:space-between;gap:15px;margin:26px 0 8px;font-size:14px;color:var(--ink)}.ds-reading-label output{font-size:13px;color:var(--muted)}.ds-range{width:100%;min-height:32px;accent-color:var(--accent)}.ds-choices button:focus-visible,.ds-range:focus-visible{outline:3px solid var(--accent);outline-offset:4px}.ds-reading-sample{border-bottom:1px solid var(--line);padding:24px 0}.ds-reading-sample>span{font-size:10px;color:var(--muted);letter-spacing:.8px}.ds-reading-sample p{font-size:calc(16px * var(--reading-scale,1));line-height:var(--reading-leading,1.85);color:var(--ink);margin:10px 0 0;max-width:var(--reading-measure,70ch)}"
     }
   ],
   "narrative": {
     "northStar": "The Academic Notebook",
-    "overview": "A sober academic notebook: serif chapter openings, restrained sans-serif reading, neutral scientific panels and a flat ruled chapter index. The reference-guided finish uses crimson for actions and orientation while preserving the established academic identity and concept → experiment → measurement → interpretation sequence.\n\nCharcoal is the default; warm-paper light mode is an equally supported, saved alternative. Mathematical figures carry evidence rather than decoration. Interactions acknowledge a deliberate action, then settle.",
+    "overview": "A sober academic notebook with a tactile filing-library entrance: each homework is a clickable crimson-wine folder containing topic-specific papers and formulas. Serif display headings, readable sans-serif prose and neutral scientific panels preserve the established academic identity and concept → experiment → measurement → interpretation sequence.\n\nCharcoal is the default; warm-paper light mode is equally supported. The Display drawer lets the reader tune text size, spacing, width, contrast and motion without restarting experiments. Folder movement and brief control feedback respond to deliberate action, then settle; mathematical plots continue to show computed evidence.",
     "keyCharacteristics": [
-      "Locally hosted serif display and DM Sans reading.",
-      "Two coordinated appearances with semantic data colors.",
-      "Ruled chapter navigation and neutral experiment surfaces.",
-      "Brief state feedback with a static reduced-motion alternative."
+      "Interactive homework folders with real topic/formula previews.",
+      "Locally hosted serif display and readable DM Sans text.",
+      "Two coordinated appearances with saved reading preferences.",
+      "Neutral scientific panels and matching semantic chart legends."
     ],
     "rules": [
       {
@@ -978,23 +1385,24 @@
         "section": "colors"
       },
       {
-        "name": "The Quiet Surface Rule",
-        "body": "Use rules and neutral surface contrast for structure; keep the chapter index flat and reserve crimson emphasis for actions, orientation and meaningful data.",
+        "name": "The Quiet Evidence Rule",
+        "body": "Reserve dimensional material for the homework folders and Display drawer; keep scientific panels neutral and use rules and tonal contrast to organize evidence.",
         "section": "elevation"
       }
     ],
     "dos": [
-      "Do support both saved appearances on every chapter.",
+      "Do support both saved appearances and reading preferences on every chapter.",
       "Do preserve English content, academic identity and the concept → experiment → measurement → interpretation sequence.",
+      "Do use real chapter topics and formulas inside folder previews.",
       "Do use semantic series tokens for plots and matching legends.",
-      "Do put section metadata below its heading and preserve readable scientific labels.",
-      "Do keep visible keyboard focus, local chart/table scrolling and static reduced-motion feedback."
+      "Do preserve live experiment results when display settings change.",
+      "Do keep visible keyboard focus, contained chart/table scrolling and static reduced-motion feedback."
     ],
     "donts": [
-      "Don't introduce a new font pairing or a separate identity for another homework.",
+      "Don't introduce a separate identity or font pairing for another homework.",
       "Don't turn scientific panels into saturated promotional cards.",
-      "Don't use a decorative curve in place of computed mathematical data.",
-      "Don't add unattended looping animation or make a theme change move the page layout."
+      "Don't scale SVG geometry or display headlines with the reading-text slider.",
+      "Don't add unattended looping animation or make theme changes move the page layout."
     ]
   }
 }

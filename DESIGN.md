@@ -1,6 +1,6 @@
 ---
 name: "Statistics Homeworks"
-description: "A sober academic notebook with charcoal and warm-paper modes, crimson controls and real mathematical evidence."
+description: "A readable academic notebook with interactive homework folders, crimson controls and saved display preferences."
 colors:
   accent-solid: "#df2531"
   accent-hover: "#a71624"
@@ -59,6 +59,26 @@ colors:
   light-error: "#a3182c"
   light-shadow-color: "#39151e12"
   light-glass: "#fffdfce8"
+  folder-back: "#6b1522"
+  folder-paper: "#e9d7d9"
+  folder-paper-ink: "#351d24"
+  folder-paper-muted: "#65505a"
+  folder-paper-back: "#bca4ad"
+  folder-paper-middle: "#d5b9c1"
+  folder-paper-front: "#f2e6e7"
+  folder-pocket-start: "#ba2634ed"
+  folder-pocket-end: "#741723f2"
+  folder-pocket-tab: "#b12736"
+  folder-pocket-ink: "#fff8f8"
+  folder-pocket-muted: "#ffd9df"
+  dark-contrast-muted: "#d5cbd0"
+  dark-contrast-text: "#eee6ea"
+  dark-contrast-line: "#79666f"
+  dark-contrast-line-strong: "#a38d97"
+  light-contrast-muted: "#51414a"
+  light-contrast-text: "#33272e"
+  light-contrast-line: "#9c848e"
+  light-contrast-line-strong: "#826772"
 typography:
   home-display:
     fontFamily: "Libre Caslon Display, Georgia, serif"
@@ -78,11 +98,6 @@ typography:
     fontWeight: 400
     lineHeight: 1.15
     letterSpacing: "-0.4px"
-  chapter-title:
-    fontFamily: "Libre Caslon Display, Georgia, serif"
-    fontSize: "35px"
-    fontWeight: 400
-    lineHeight: 1.12
   panel-title:
     fontFamily: "DM Sans, Arial, sans-serif"
     fontSize: "15px"
@@ -90,35 +105,75 @@ typography:
     lineHeight: 1.4
   body:
     fontFamily: "DM Sans, Arial, sans-serif"
-    fontSize: "14px"
-    lineHeight: 1.85
+    fontSize: "calc(16px * var(--reading-scale))"
+    lineHeight: "var(--reading-leading)"
   button:
     fontFamily: "DM Sans, Arial, sans-serif"
-    fontSize: "12px"
+    fontSize: "calc(14px * var(--reading-scale))"
     fontWeight: 550
     lineHeight: 1.4
   section-index:
     fontFamily: "DM Sans, Arial, sans-serif"
-    fontSize: "10px"
+    fontSize: "calc(12px * var(--reading-scale))"
+    lineHeight: 1.7
     letterSpacing: ".5px"
   code:
     fontFamily: "Consolas, monospace"
-    fontSize: "13px"
+    fontSize: "calc(13px * var(--reading-scale))"
     lineHeight: 1.9
+  intro:
+    fontFamily: "DM Sans, Arial, sans-serif"
+    fontSize: "calc(18px * var(--reading-scale))"
+    lineHeight: "var(--reading-leading)"
+  supporting:
+    fontFamily: "DM Sans, Arial, sans-serif"
+    fontSize: "calc(14px * var(--reading-scale))"
+    lineHeight: "var(--reading-leading)"
+  table-body:
+    fontFamily: "DM Sans, Arial, sans-serif"
+    fontSize: "calc(14px * var(--reading-scale))"
+    lineHeight: 1.75
+  table-head:
+    fontFamily: "DM Sans, Arial, sans-serif"
+    fontSize: "calc(12px * var(--reading-scale))"
+    lineHeight: 1.6
+    letterSpacing: ".45px"
+  folder-title:
+    fontFamily: "DM Sans, Arial, sans-serif"
+    fontSize: "22px"
+    fontWeight: 500
+    lineHeight: 1.4
+    letterSpacing: "-.35px"
+  folder-formula:
+    fontFamily: "Libre Caslon Display, Georgia, serif"
+    fontSize: "21px"
+    fontWeight: 400
+    lineHeight: 1.5
+  drawer-display:
+    fontFamily: "Libre Caslon Display, Georgia, serif"
+    fontSize: "36px"
+    fontWeight: 400
+    lineHeight: 1.08
+    letterSpacing: "-.4px"
 rounded:
   field: "8px"
   panel: "12px"
   figure: "16px"
   secondary: "20px"
   primary: "24px"
-  flat: "0"
+  folder: "18px"
+  folder-sheet: "12px"
+  appearance-choice: "10px"
 spacing:
   field: "10px 11px"
   primary: "13px 21px"
   panel: "23px"
   formula: "28px 32px"
   section: "47px 0"
-  chapter-gap: "0 32px"
+  library-gap: "56px 32px"
+  folder-sheet: "22px"
+  folder-pocket: "23px 24px 19px"
+  drawer: "30px"
 components:
   button-primary:
     backgroundColor: "{colors.accent-solid}"
@@ -158,6 +213,30 @@ components:
     textColor: "{colors.light-text}"
     rounded: "{rounded.field}"
     padding: "{spacing.field}"
+  display-trigger:
+    backgroundColor: "{colors.dark-surface}"
+    textColor: "{colors.dark-ink}"
+    rounded: "{rounded.primary}"
+    padding: "10px 15px"
+  folder-sheet:
+    backgroundColor: "{colors.folder-paper}"
+    textColor: "{colors.folder-paper-ink}"
+    rounded: "{rounded.folder-sheet}"
+    padding: "{spacing.folder-sheet}"
+    height: "186px"
+    width: "76%"
+  display-panel-dark:
+    backgroundColor: "{colors.dark-surface}"
+    textColor: "{colors.dark-ink}"
+    padding: "{spacing.drawer}"
+    height: "100dvh"
+    width: "min(420px,100%)"
+  display-panel-light:
+    backgroundColor: "{colors.light-surface}"
+    textColor: "{colors.light-ink}"
+    padding: "{spacing.drawer}"
+    height: "100dvh"
+    width: "min(420px,100%)"
 ---
 
 # Design System: Statistics Homeworks
@@ -166,106 +245,113 @@ components:
 
 **Creative North Star: "The Academic Notebook"**
 
-A sober academic notebook: serif chapter openings, restrained sans-serif reading, neutral scientific panels and a flat ruled chapter index. The reference-guided finish uses crimson for actions and orientation while preserving the established academic identity and concept → experiment → measurement → interpretation sequence.
+A sober academic notebook with a tactile filing-library entrance: each homework is a clickable crimson-wine folder containing topic-specific papers and formulas. Serif display headings, readable sans-serif prose and neutral scientific panels preserve the established academic identity and concept → experiment → measurement → interpretation sequence.
 
-Charcoal is the default; warm-paper light mode is an equally supported, saved alternative. Mathematical figures carry evidence rather than decoration. Interactions acknowledge a deliberate action, then settle.
+Charcoal is the default; warm-paper light mode is equally supported. The Display drawer lets the reader tune text size, spacing, width, contrast and motion without restarting experiments. Folder movement and brief control feedback respond to deliberate action, then settle; mathematical plots continue to show computed evidence.
 
 **Key Characteristics:**
 
-- Locally hosted serif display and DM Sans reading.
-- Two coordinated appearances with semantic data colors.
-- Ruled chapter navigation and neutral experiment surfaces.
-- Brief state feedback with a static reduced-motion alternative.
+- Interactive homework folders with real topic/formula previews.
+- Locally hosted serif display and readable DM Sans text.
+- Two coordinated appearances with saved reading preferences.
+- Neutral scientific panels and matching semantic chart legends.
 
 ## Colors
 
-The frontmatter is normative. Keys prefixed `dark-` and `light-` are the corresponding values of the CSS property without that prefix; shared keys keep the same value in both modes. Runtime components use the semantic CSS properties so they change together.
+The frontmatter is normative. `dark-` and `light-` keys record the semantic CSS property values for each appearance; shared keys stay identical. Runtime controls and charts inherit the semantic CSS properties so appearance changes remain coordinated. The `dark-contrast-` and `light-contrast-` variants override text and boundary colors only when stronger contrast is selected.
 
 ### Primary
 
-Crimson `accent-solid` fills primary buttons; `accent-hover` provides their darker hover. Theme-specific `accent` supplies links, current navigation, focus, selected controls and display emphasis. `accent-soft` is the supporting tint. White `button-ink` remains on primary buttons.
+Shared crimson `accent-solid` fills primary pills, with `accent-hover` for hover and white `button-ink`. Theme-specific `accent` marks navigation, focus, links, selected controls and display emphasis. `accent-soft` supports the selected appearance control. The folder material adds deep wine backing, a translucent crimson-to-wine pocket, blush papers and pale pocket text; these materials remain constant across both appearances.
 
 ### Secondary
 
-`series-main` is the crimson main series; `series-reference` is the teal comparison/reference series. Keep those roles across plots, expected lines, reference labels and corresponding legends. The historical CSS names `green` and `orange` are compatibility hooks, not palette instructions.
+`series-main` is the crimson main series; `series-reference` is the teal comparison/reference series. Keep those roles across plotted marks, expected lines, reference labels and corresponding legends. Historical CSS class names `green` and `orange` are compatibility hooks, not palette instructions.
 
 ### Tertiary
 
-`series-third` is the blue third series, including its matching legend marker. Success, warning and error tokens communicate result states, independently of data-series identity.
+`series-third` is the blue third series, including its matching legend marker. Success, warning and error colors communicate result states independently of data-series identity.
 
 ### Neutral
 
-`paper` is the page canvas; `surface` holds scientific panels and fields; `surface-soft` groups formulas and metrics. `ink`, `text` and `muted` form the reading hierarchy. `line`, `line-strong` and `grid` separate content without heavy depth. Selection, status backgrounds and the translucent navigation `glass` each have mode-specific values.
+`paper` is the page canvas; `surface` holds scientific panels, fields and the drawer; `surface-soft` groups formulas and metrics. `ink`, `text` and `muted` form the reading hierarchy. `line`, `line-strong` and `grid` structure evidence. Selection, status backgrounds and translucent navigation `glass` have coordinated mode values.
 
-The finite-field point plot has an explicit role exception: ordinary curve points use `point-muted`, base G and visited points use `ink`, and the current result uses `accent`. Its legend mirrors those exact assignments, rather than borrowing the statistical main/reference roles.
+The finite-field plot has explicit point roles: ordinary points use `point-muted`, base G and visited points use `ink`, and the current result uses `accent`. Its legend mirrors these assignments instead of borrowing the statistical main/reference roles.
 
 **The Series Agreement Rule.** A series and its legend use the same semantic token in both appearances; line style and labels distinguish measured data from model references.
 
 ## Typography
 
-Use locally hosted Libre Caslon Display with Georgia fallback for display headings, chapter titles and large formulas. Use locally hosted DM Sans with Arial fallback for reading, controls and scientific labels. Consolas/monospace is for encodings, coordinates and code.
+Use locally hosted Libre Caslon Display with Georgia fallback for display headings, folder-paper formulas and large mathematical values. Use locally hosted DM Sans with Arial fallback for reading, folder titles, controls and scientific labels. Consolas/monospace is for encodings, coordinates and code.
 
-The frontmatter records the desktop hierarchy. The home display scales fluidly; at the narrow breakpoint it uses `clamp(58px,15vw,74px)` and line-height 1, with a 52px adjustment at 360px. Chapter display uses `clamp(42px,11.3vw,60px)` on narrow screens. Section headings reduce to 33px; chapter-index titles become 36px. Paragraphs have a maximum of 75ch; the Welford reading block allows 76ch. Tables and metric groups use tabular numerals.
+The frontmatter records the effective hierarchy, including reading-scale expressions. Defaults are 16px prose, 18px introductory prose, 14px supporting copy/controls/table cells and 12px metadata/table headings. Folder summaries start at 15px; folder titles remain 22px. Default paragraph leading is 1.85 and measure is 70ch. The Display controls adjust reading scale from 100–135% in 5% steps, leading from 1.6–2.2 in .05 steps and measure from 56–80ch in 2ch steps. Paragraphs, lists, controls, notes, data text, table text, metadata and numeric metrics respond to the relevant reading overrides; display headings and SVG geometry do not.
 
-Section numbers and descriptive metadata sit below the relevant heading. Existing course and assignment labels are content context, not a template for new promotional kickers.
+The home display uses its fluid serif scale; at 760px it uses `clamp(58px,15vw,74px)` and line-height 1, with a 52px adjustment at 360px. Chapter display uses `clamp(42px,11vw,60px)` on narrow screens. Section headings reduce to 33px; the mobile hero lead starts at 17px. Tables and metric groups use tabular numerals. Section metadata sits below its heading. Long prose and hexadecimal values wrap; tables and code retain contained scrolling where needed.
 
 ## Layout
 
-Center the reading area in a 1320px container with 60px horizontal padding; the large-screen container becomes 1380px at 1450px. Padding reduces to 35px at 1100px and 22px at 760px. The home opening pairs prose with a mathematical figure, followed by academic context and a two-column ruled chapter index. Chapter introductions have a 960px maximum.
+Center the reading area in a 1320px container with 60px horizontal padding; at 1450px the container becomes 1380px. Padding reduces to 35px at 1100px and 22px at 760px. The home opening pairs prose with a mathematical figure, followed by academic context and the homework library. Chapter introductions have a 960px maximum.
 
-The main scientific layout uses two columns or a control/plot/result grid, collapsing in stages at 1100px and 760px. The index and home opening become one column at 760px. Tables, code and scientific charts scroll inside their containers. Keep surrounding prose within the viewport.
+The folder library uses three columns with a 56px by 32px gap, two columns at 1050px, and one at 600px. Folder visuals are 262px high, becoming 270px high and capped at 420px wide on mobile. Keep their paper fan within the generous library gaps. Scientific control/plot/result layouts become two columns at 1050px and one at 760px; metrics become two columns at 760px. The historical timeline uses two columns on mobile. Charts, tables and code scroll within their containers while prose stays within the viewport.
 
-Navigation is sticky. At 1250px and below it places horizontally scrolling chapter links on a second row; the theme switch stays beside the identity. Preserve the five exact homework routes `#hw1`–`#hw5`, plus overview and references, through appearance changes.
+Navigation is sticky. At 1250px and below it moves horizontally scrolling chapter links to a second row, keeping Display beside the identity. The nonmodal drawer occupies the right edge, at most 420px wide, spans 100dvh and scrolls internally. Preserve the exact homework routes `#hw1`–`#hw5`, plus overview and references. The home browse action scrolls to `#homework-folders`.
 
 ## Elevation & Depth
 
-Flat tonal layering and fine borders supply depth. The navigation alone has a smoked translucent surface and a 16px backdrop blur. The mathematical figure uses a neutral surface; its supporting note is unrotated and has no shadow. The chapter index is transparent and ruled rather than a raised card grid.
+Scientific panels remain quiet and flat, separated by fine rules and neutral tones. Navigation uses a smoked translucent surface with 16px backdrop blur. Folder depth comes from a back tab, three rotated paper sheets, a translucent 9px-blurred pocket, soft ambient shadows and a fine inset highlight. The Display drawer uses a left-edge ambient shadow; it is a nonmodal native popover, not a replacement page. The mathematical figure's supporting note remains unrotated and shadowless.
 
-**The Quiet Surface Rule.** Use rules and neutral surface contrast for structure; keep the chapter index flat and reserve crimson emphasis for actions, orientation and meaningful data.
+Exact gradients, shadows and motion values live in the sidecar because the frontmatter component schema cannot express them.
+
+**The Quiet Evidence Rule.** Reserve dimensional material for the homework folders and Display drawer; keep scientific panels neutral and use rules and tonal contrast to organize evidence.
 
 ## Shapes
 
-The frontmatter owns the radius values: gently rounded scientific panels, slightly smaller fields, a larger figure frame and pill-shaped action controls. The chapter index has square, open edges with a top rule. Circular point markers represent mathematical/data roles. Avoid imposing one universal card shape on every region.
+The frontmatter owns the implemented radius vocabulary: 12px scientific panels/paper sheets, 8px fields, 16px figure/link bounds, 18px folder bodies and 24px primary pills. Folder backs and pocket tabs use rounded top geometry; the pocket has a square upper-left corner and rounded remaining corners. The drawer itself is a straight-edged, full-height surface. Appearance-choice buttons use 10px corners. Use circular markers for mathematical/data roles and a circular close control.
 
 ## Components
 
-### Buttons
+### Buttons and focus
 
-Primary controls use shared solid crimson, white text and the primary padding/radius tokens. Hover darkens the fill; pressed state scales to .98. Arrow spans move slightly on hover. A single reflected-light pass crosses the button on deliberate hover; it never runs unattended. Secondary and icon controls use transparent backgrounds, neutral text and a subtle hover surface. Disabled buttons use .5 opacity and a not-allowed cursor.
+Primary controls use shared solid crimson, white text and the primary padding/radius tokens. Main content buttons, secondary actions and single-line fields have a minimum height of 44px. Hover darkens the primary fill; pressed state scales to .98. Arrow spans move slightly on hover, and one reflected-light pass crosses a primary button on deliberate hover. Secondary/icon controls stay neutral. Disabled buttons use .5 opacity and a not-allowed cursor.
 
-All interactive elements retain a visible accent outline (3px, offset 4px). Reduced motion removes transitions and animations while preserving color, outline, pressed and disabled state feedback.
+Retain the visible accent outline (3px, offset 4px); folder links use a 12px offset so focus encloses the complete object. Explicit or system reduced motion suppresses transitions/animations, retaining focus, selection, hover color and disabled feedback.
 
-### Navigation and appearance
+### Homework folders
 
-The desktop navigation is 86px tall, uses small sans-serif labels and marks the current route with accent text and a 2px rule. The appearance button has an inline SVG icon, visible Dark/Light state, track and accessible action label/pressed state. Save the choice under `statistics-theme`, apply it before first paint and synchronize storage changes. Dark is the fallback if storage is unavailable.
+Each entire folder is one accessible chapter link. The three layered papers contain actual chapter subjects/formulas; the front pocket names the homework and subject and supplies a native inline-SVG opening arrow. The visible title, explanation and topic/date metadata remain readable below. The visual stack is hidden from assistive technology while the link has a descriptive chapter label.
 
-Use the native view-transition crossfade when supported and reduced motion is not requested: 140ms old-view fade and 240ms new-view fade. Otherwise apply appearance immediately; do not animate geometry.
+At rest the sheets already read as paper: the rear is slightly rotated left, middle right and front close to level. Hover or keyboard focus fans the sheets and tilts the pocket over 450ms with the established easing. Under reduced motion, retain the static folder, focus outline and title-color feedback. Do not replace this explicitly requested library with the previous flat index.
 
-### Chapter index
+### Navigation and Display drawer
 
-Each chapter is a full linked entry with a thin top rule, accent homework number, muted subject tag, serif title, explanation and footer link. Hover colors the rule/title and moves the footer arrow slightly. All five entries share the same treatment; older `dark` classes do not create a saturated alternate card.
+The desktop navigation is 86px tall with small sans-serif links, accent current-route text and a 2px rule. Display opens a native nonmodal popover with a serif heading, close button, Dark/Light pressed-state buttons, three labelled sliders, stronger-contrast and reduce-motion checkboxes, live reading preview and Reset display action. The trigger's expanded state follows the popover state. Native dismissal and drawer scrolling leave the page available.
+
+Persist normalized preferences in `statistics-display`, migrate the older `statistics-theme` choice, restore before first paint and synchronize storage changes. Default to dark, scale 1, leading 1.85, measure 70ch, standard contrast and no additional motion reduction. Continue respecting the system motion preference. Reset restores those defaults and updates both controls and preview. Apply settings directly without rebuilding chapter content or rerunning workers, preserving experiment results.
+
+When supported and motion is allowed, use the native appearance crossfade (140ms old root, 240ms new root). Drawer entry combines a 24px slide with opacity over 260ms. Reduced motion applies changes immediately.
 
 ### Scientific panels, metrics and fields
 
-Panels use `surface`, a `line` border and panel padding; formulas and metrics use `surface-soft`. Formulas retain readable `ink`. Fields use the matching surface, line and text tokens; textareas retain their multiline reading rhythm. Label inputs explicitly and preserve the existing validation/loading/cancellation messages. Charts display computed results with the semantic colors above; legends must match.
+Panels use `surface`, a `line` border and panel padding; formulas and metrics use `surface-soft`. At 760px panel padding becomes 20px by 17px. Formulas retain `ink`. Inputs use the matching surface/line/text colors, explicit labels and existing validation/loading/cancellation messages. Numeric table cells and metrics use tabular figures. Charts and legends share the semantic series roles above. Reading preferences improve surrounding text without changing mathematical coordinates.
 
 ### Tags and section navigation
 
-Subject/status tags use compact sans-serif type and neutral borders where present. Chapter-index subject tags are borderless and muted. Local chapter navigation wraps naturally, with ruled boundaries and accent hover. Section metadata is a subordinate line below the title.
+Existing subject/status tags use compact sans-serif labels and neutral borders where present. Local chapter navigation wraps, has ruled boundaries and accent hover, and responds to the reading scale. Section metadata stays subordinate below the title.
 
 ## Do's and Don'ts
 
 ### Do:
 
-- Do support both saved appearances on every chapter.
+- Do support both saved appearances and reading preferences on every chapter.
 - Do preserve English content, academic identity and the concept → experiment → measurement → interpretation sequence.
+- Do use real chapter topics and formulas inside folder previews.
 - Do use semantic series tokens for plots and matching legends.
-- Do put section metadata below its heading and preserve readable scientific labels.
-- Do keep visible keyboard focus, local chart/table scrolling and static reduced-motion feedback.
+- Do preserve live experiment results when display settings change.
+- Do keep visible keyboard focus, contained chart/table scrolling and static reduced-motion feedback.
 
 ### Don't:
 
-- Don't introduce a new font pairing or a separate identity for another homework.
+- Don't introduce a separate identity or font pairing for another homework.
 - Don't turn scientific panels into saturated promotional cards.
-- Don't use a decorative curve in place of computed mathematical data.
-- Don't add unattended looping animation or make a theme change move the page layout.
+- Don't scale SVG geometry or display headlines with the reading-text slider.
+- Don't add unattended looping animation or make theme changes move the page layout.

@@ -22,7 +22,7 @@ Use plain HTML, CSS and JavaScript, with Vite for static builds and maintained l
 
 ## Brand Commitments
 
-User-confirmed title: Statistics Homeworks. Preserve a uniform visual system across all five homework chapters and the concept → experiment → measurement → interpretation reading sequence. The authorized November 3, 2026 appearance refinement supersedes the original green/paper palette while retaining the academic identity and established font pairing; DESIGN.md records the implemented system. Text in the site is English.
+User-confirmed title: Statistics Homeworks. Preserve a uniform visual system across all five homework chapters and the concept → experiment → measurement → interpretation reading sequence. The authorized November 3, 2026 appearance and readability refinement supersedes the original green/paper palette while retaining the academic identity and established font pairing; DESIGN.md records the implemented system. Text in the site is English.
 
 ## Evidence on Hand
 
@@ -46,6 +46,12 @@ Add the two exercises received October 29 as one chapter and one submission URL,
 
 ## Appearance refinement — November 3, 2026
 
-Use the user-supplied local reference images in ignored `reference/` as guidance for a sober academic homework interface, with reference crimson #df2531 and restrained, fluid interactions. The user explicitly authorized both dark and light appearances. The implemented system defaults to charcoal and saves the warm-paper alternative, retains Libre Caslon Display / DM Sans, uses a flat ruled chapter index, smoked sticky navigation, crimson primary pills and neutral scientific panels. Plotted series and legends share semantic crimson, teal and blue tokens; the finite-field plot retains its explicit base/current point roles. Theme changes crossfade where supported and motion is reduced to static feedback when requested.
+Use the user-supplied local reference images in ignored `reference/` as guidance for a sober academic homework interface, with reference crimson #df2531 and restrained, fluid interactions. The user explicitly authorized both dark and light appearances. The implemented system defaults to charcoal and saves the warm-paper alternative, retains Libre Caslon Display / DM Sans, uses a clickable homework-folder library, smoked sticky navigation, crimson primary pills and neutral scientific panels. Plotted series and legends share semantic crimson, teal and blue tokens; the finite-field plot retains its explicit base/current point roles. Theme changes crossfade where supported and motion is reduced to static feedback when requested.
 
 This is a reference-guided refinement of the existing product, not a new identity or concept competition. Preserve English content, real calculations, the five exact homework hashes `#hw1`–`#hw5`, Luca’s academic identity and GitHub Pages publication from `docs/` on branch `UNI`. The references do not authorize changing the other deployment’s access settings. See DESIGN.md and `.impeccable/design.json` for the current visual system.
+
+## Folder library and reading controls — November 3, 2026
+
+The user expanded the appearance brief to improve readability, strengthen the reference aesthetics and make homework entries clickable folders. This explicitly supersedes the initial flat ruled index. Preserve the sober academic tone while using crimson-wine translucent pockets, layered paper previews with real chapter topics/formulas and restrained hover/focus fanning. The library adapts from three to two to one column.
+
+Provide a slide-out Display panel with dark/light appearance, reading text size, line spacing, text width, stronger contrast, reduced motion, live preview and reset. Readable defaults are 16px prose and 18px introductory prose, with 14px supporting text, controls and table cells. Save preferences in this browser; restore the earlier theme choice during migration. Apply reading changes to text without resizing SVG geometry or display headlines and preserve running/completed experiment results. Respect explicit and system reduced motion. This is an authorized refinement of the reference-guided system; no new concept competition is required. All academic content, calculations, stable chapter hashes and publishing constraints above remain in force.
