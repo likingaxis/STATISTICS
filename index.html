@@ -4,11 +4,20 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="author" content="Luca Gugliotta" />
-    <meta name="theme-color" content="#214b3c" />
+    <meta name="theme-color" content="#151416" />
     <meta
       name="description"
       content="Statistics Homeworks by Luca Gugliotta, Sapienza Cybersecurity. Interactive elliptic-curve, Ethereum wallet and encryption/cryptanalysis laboratories for Statistics with Prof. Tommaso Gastaldi."
     />
+    <script>
+      // Apply the saved appearance before the first paint, including direct chapter links.
+      try {
+        const saved = localStorage.getItem("statistics-theme");
+        document.documentElement.dataset.theme = saved === "light" ? "light" : "dark";
+      } catch {
+        document.documentElement.dataset.theme = "dark";
+      }
+    </script>
     <title>Statistics Homeworks · Luca Gugliotta</title>
   </head>
   <body>

@@ -5,3 +5,7 @@ dist/
 
 # Local continuity notes for future homework sessions
 /CONTESTO_HOMEWORKS.md
+
+# Private visual references (never part of the published site)
+/reference/
+.impeccable/review/

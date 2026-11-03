@@ -319,7 +319,7 @@ function accuracyPlot(result) {
     r = 18,
     t = 15,
     b = 40,
-    colors = { chi2: "#426d53", trigram: "#bd7045", dominant: "#596c9b" };
+    colors = { chi2: "var(--series-main)", trigram: "var(--series-reference)", dominant: "var(--series-third)" };
   const x = (i) => l + (i / (result.lengths.length - 1)) * (w - l - r),
     y = (p) => h - b - p * (h - t - b);
   return `<div class="chart-scroll"><svg class="chart" viewBox="0 0 ${w} ${h}" role="img" aria-label="Key recovery success versus ciphertext length; three scoring methods"><title>Paired Caesar experiment: success rate by A–Z letter count</title>${[0, 0.25, 0.5, 0.75, 1].map((p) => `<line x1="${l}" x2="${w - r}" y1="${y(p)}" y2="${y(p)}" class="gridline"/><text x="${l - 8}" y="${y(p) + 4}" class="axis" text-anchor="end">${p * 100}%</text>`).join("")}<line x1="${l}" x2="${w - r}" y1="${y(1 / 26)}" y2="${y(1 / 26)}" class="expected"/>${METHODS.map(

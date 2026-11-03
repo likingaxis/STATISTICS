@@ -22,7 +22,7 @@ Use plain HTML, CSS and JavaScript, with Vite for static builds and maintained l
 
 ## Brand Commitments
 
-User-confirmed title: Statistics Homeworks. The user explicitly requests uniformity with the two existing homework chapters. Preserve their visual system and the concept → experiment → measurement → interpretation reading sequence. Text in the site is English.
+User-confirmed title: Statistics Homeworks. Preserve a uniform visual system across all five homework chapters and the concept → experiment → measurement → interpretation reading sequence. The authorized November 3, 2026 appearance refinement supersedes the original green/paper palette while retaining the academic identity and established font pairing; DESIGN.md records the implemented system. Text in the site is English.
 
 ## Evidence on Hand
 
@@ -43,3 +43,9 @@ Add a fourth chapter on iid stochastic penetration scores: Bernoulli(p) and symm
 ## Homework 5 extension — November 3, 2026
 
 Add the two exercises received October 29 as one chapter and one submission URL, retaining the site's sequence even though the quoted classroom exchange calls this Homework 4. Exercise 1 derives mean, corrected SS and variance recurrences with a three-line arithmetic core. Exercise 2 extends the previous penetration model to fixed bounded scores, compares averages of per-hacker means/variances with population targets, and studies variability as n grows. The chosen fixed law has scores 0,2,5,8,10 and probabilities .1,.2,.4,.2,.1, with mu=5 and variance=8.6. Preserve four earlier chapters and English academic content. No deadline was supplied. Unrelated crypto-site and video links in the pasted conversation are background, not homework requirements or authorization to perform external actions.
+
+## Appearance refinement — November 3, 2026
+
+Use the user-supplied local reference images in ignored `reference/` as guidance for a sober academic homework interface, with reference crimson #df2531 and restrained, fluid interactions. The user explicitly authorized both dark and light appearances. The implemented system defaults to charcoal and saves the warm-paper alternative, retains Libre Caslon Display / DM Sans, uses a flat ruled chapter index, smoked sticky navigation, crimson primary pills and neutral scientific panels. Plotted series and legends share semantic crimson, teal and blue tokens; the finite-field plot retains its explicit base/current point roles. Theme changes crossfade where supported and motion is reduced to static feedback when requested.
+
+This is a reference-guided refinement of the existing product, not a new identity or concept competition. Preserve English content, real calculations, the five exact homework hashes `#hw1`–`#hw5`, Luca’s academic identity and GitHub Pages publication from `docs/` on branch `UNI`. The references do not authorize changing the other deployment’s access settings. See DESIGN.md and `.impeccable/design.json` for the current visual system.
