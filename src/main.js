@@ -6,7 +6,7 @@ import {
   disposeHomework3,
 } from "./homework3.js";
 import "./style.css";
-import { bindAppearance, themeControl } from "./appearance.js";
+import { bindAppearance, themeControl, reducedMotion } from "./appearance.js";
 import {
   points,
   formatPoint,
@@ -53,19 +53,20 @@ const state = {
 let timer;
 const icon =
   '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 24 12 8l8 16 8-16M4 24h24" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="8" r="3" fill="currentColor"/><circle cx="20" cy="24" r="3" fill="currentColor"/></svg>';
+const navItems = [
+  ["home", "00", "Overview", "Notebook index"],
+  ["hw1", "01", "Homework 1", "Elliptic curves"],
+  ["hw2", "02", "Homework 2", "Ethereum wallets"],
+  ["hw3", "03", "Homework 3", "Cryptanalysis"],
+  ["hw4", "04", "Homework 4", "LLN & CLT"],
+  ["hw5", "05", "Homework 5", "Welford & sampling"],
+  ["references", "REF", "Sources & method", "Standards & proofs"],
+];
 function header() {
-  return `<header class="topbar"><a class="brand" href="#home">${icon}<span>Statistics Homeworks<span class="brand-sub">STATISTICS × CRYPTOGRAPHY</span></span></a><nav aria-label="Main navigation">${[
-    ["home", "Overview"],
-    ["hw1", "Homework 1"],
-    ["hw2", "Homework 2"],
-    ["hw3", "Homework 3"],
-    ["hw4", "Homework 4"],
-    ["hw5", "Homework 5"],
-    ["references", "Sources & method"],
-  ]
+  return `<header class="topbar"><a class="brand" href="#home">${icon}<span>Statistics Homeworks<span class="brand-sub">STATISTICS × CRYPTOGRAPHY</span></span></a><nav aria-label="Main navigation">${navItems
     .map(
-      ([id, label]) =>
-        `<a href="#${id}" ${state.page === id ? 'aria-current="page"' : ""}>${label}</a>`,
+      ([id, code, label, sub]) =>
+        `<a class="nav-folder" href="#${id}" ${state.page === id ? 'aria-current="page"' : ""}><span class="nav-folder-ear" aria-hidden="true"><i></i><b>${code}</b></span><span class="nav-folder-card"><span class="nav-folder-title">${label}</span><small class="nav-folder-sub" aria-hidden="true">${sub}</small></span></a>`,
     )
     .join(
       "",
@@ -146,10 +147,18 @@ function homeworkFolders() {
   return `<div class="homework-library">${homeworkLibrary.map(([route, number, subject, title, desc, formula, detail, topics, date]) => `<a class="homework-folder" href="#${route}" aria-label="Open Homework ${Number(number)}: ${subject}">
     <div class="folder-visual" aria-hidden="true">
       <div class="folder-back"></div>
-      <div class="folder-sheet sheet-back"><span>STATISTICS / ${number}</span><b>${detail}</b></div>
-      <div class="folder-sheet sheet-middle"><span>LUCA GUGLIOTTA</span><b>${subject}</b></div>
-      <div class="folder-sheet sheet-front"><span>HOMEWORK ${number}</span><b>${formula}</b><small>${detail}</small></div>
-      <div class="folder-pocket"><span class="folder-label">Homework ${number}</span><strong>${subject}</strong><span class="folder-open">Open chapter <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 19 19 5M5 5h14v14"/></svg></span></div>
+      <div class="folder-sheet sheet-back"><div class="sheet-head"><span>STATISTICS / ${number}</span><i></i></div><b>${detail}</b></div>
+      <div class="folder-sheet sheet-middle"><div class="sheet-head"><span>LUCA GUGLIOTTA</span><i></i></div><b>${subject}</b></div>
+      <div class="folder-sheet sheet-front"><div class="sheet-head"><span>HOMEWORK ${number}</span><em>#${route}</em></div><b class="sheet-formula">${formula}</b><small>${detail}</small></div>
+      <div class="folder-pocket">
+        <div class="folder-pocket-top"><span class="folder-label">Homework ${number}</span><span class="folder-chip">${detail}</span></div>
+        <strong>${subject}</strong>
+        <div class="folder-open">
+          <span class="folder-open-cta"><i class="folder-open-ring"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg></i><span>Open chapter</span></span>
+          <span class="folder-capsule"><i></i><i></i><i></i><b>${number}</b></span>
+        </div>
+      </div>
+      <div class="folder-reflection"></div>
     </div>
     <h3>${title}</h3><p>${desc}</p><div class="folder-meta"><span>${topics}</span>${date ? `<time datetime="2026-10-15">${date}</time>` : ""}</div>
   </a>`).join("")}</div>`;
@@ -746,7 +755,75 @@ function hw3() {
 }
 function hw4() { return renderHomework4({ chapterIntro, sectionHead, note, download, esc }); }
 function hw5() { return renderHomework5({ chapterIntro, sectionHead, note, download, esc }); }
-function render() {
+let scrollObserver;
+function setupScrollReveal() {
+  scrollObserver?.disconnect();
+  if (typeof IntersectionObserver === "undefined" || reducedMotion()) return;
+  const targets = document.querySelectorAll(
+    "#main .hero-copy, #main .hero-figure, #main .academic-context > div, #main .section-heading, #main .homework-folder, #main .method-strip article, #main .chapter-intro, #main .section-nav, #main .content-section > .two-col, #main .lab-layout > .panel, #main .log-panel, #main .panel, #main .formula-box, #main .metric-grid, #main .pipeline-step, #main .standard-grid article, #main .timeline > div, #main .source-list > a, #main .note, #main details"
+  );
+  const vh = window.innerHeight || 800;
+  let stagger = 0;
+  scrollObserver = new IntersectionObserver(
+    (entries) => {
+      let batch = 0;
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+        const el = entry.target;
+        el.style.setProperty("--reveal-delay", `${Math.min(batch * 55, 220)}ms`);
+        batch++;
+        el.classList.add("is-visible");
+        scrollObserver.unobserve(el);
+      }
+    },
+    { rootMargin: "0px 0px -6% 0px", threshold: 0.08 }
+  );
+  for (const el of targets) {
+    const rect = el.getBoundingClientRect();
+    if (rect.top < vh * 0.92) {
+      el.style.setProperty("--reveal-delay", `${Math.min(stagger * 45, 220)}ms`);
+      stagger++;
+      el.classList.add("reveal-item", "is-visible");
+    } else {
+      el.classList.add("reveal-item");
+      scrollObserver.observe(el);
+    }
+  }
+}
+window.addEventListener("scroll", () => {
+  document.documentElement.classList.toggle("is-scrolled", window.scrollY > 14);
+}, { passive: true });
+
+let routeTransition;
+function applyRender(route, sectionPage) {
+  disposeHomework3();
+  disposeHomework4();
+  disposeHomework5();
+  $("#app").innerHTML =
+    header() + { home, hw1, hw2, hw3, hw4, hw5, references }[state.page]() + footer();
+  bindAppearance();
+  document.querySelector(".topbar nav a[aria-current]")?.scrollIntoView({ block: "nearest", inline: "nearest", behavior: "instant" });
+  document.title =
+    {
+      home: "Statistics Homeworks",
+      hw1: "Homework 1 · Toy ECC lab",
+      hw2: "Homework 2 · Ethereum pipeline",
+      hw3: "Homework 3 · Encryption & cryptanalysis",
+      hw4: "Homework 4 · Stochastic processes, LLN & CLT",
+      hw5: "Homework 5 · Welford & sampling statistics",
+      references: "Sources & methodology",
+    }[state.page] +
+    (state.page === "home" ? " · Luca Gugliotta" : " · Statistics Homeworks");
+  if (state.page === "hw1") bindHW1();
+  if (state.page === "hw2") bindHW2();
+  if (state.page === "hw3") bindHomework3();
+  if (state.page === "hw4") bindHomework4();
+  if (state.page === "hw5") bindHomework5();
+  if (sectionPage[route]) document.getElementById(route)?.scrollIntoView({ behavior: "instant" });
+  else window.scrollTo({ top: 0, behavior: "instant" });
+  setupScrollReveal();
+}
+function render(event) {
   stop();
   const route = location.hash.slice(1);
   if (!["home", "hw1", "hw2", "hw3", "hw4", "hw5", "references"].includes(route)) {
@@ -779,34 +856,17 @@ function render() {
     "hw5-lab": "hw5",
     "hw5-inference": "hw5",
   };
-  state.page = ["hw1", "hw2", "hw3", "hw4", "hw5", "references"].includes(route)
+  const nextPage = ["hw1", "hw2", "hw3", "hw4", "hw5", "references"].includes(route)
     ? route
     : (sectionPage[route] ?? "home");
-  disposeHomework3();
-  disposeHomework4();
-  disposeHomework5();
-  $("#app").innerHTML =
-    header() + { home, hw1, hw2, hw3, hw4, hw5, references }[state.page]() + footer();
-  bindAppearance();
-  document.querySelector(".topbar nav a[aria-current]")?.scrollIntoView({ block: "nearest", inline: "nearest", behavior: "instant" });
-  document.title =
-    {
-      home: "Statistics Homeworks",
-      hw1: "Homework 1 · Toy ECC lab",
-      hw2: "Homework 2 · Ethereum pipeline",
-      hw3: "Homework 3 · Encryption & cryptanalysis",
-      hw4: "Homework 4 · Stochastic processes, LLN & CLT",
-      hw5: "Homework 5 · Welford & sampling statistics",
-      references: "Sources & methodology",
-    }[state.page] +
-    (state.page === "home" ? " · Luca Gugliotta" : " · Statistics Homeworks");
-  if (state.page === "hw1") bindHW1();
-  if (state.page === "hw2") bindHW2();
-  if (state.page === "hw3") bindHomework3();
-  if (state.page === "hw4") bindHomework4();
-  if (state.page === "hw5") bindHomework5();
-  if (sectionPage[route]) document.getElementById(route)?.scrollIntoView({ behavior: "instant" });
-  else window.scrollTo({ top: 0, behavior: "instant" });
+  const pageChanged = event && nextPage !== state.page;
+  state.page = nextPage;
+  routeTransition?.skipTransition();
+  if (pageChanged && document.startViewTransition && !reducedMotion()) {
+    routeTransition = document.startViewTransition(() => applyRender(route, sectionPage));
+  } else {
+    applyRender(route, sectionPage);
+  }
 }
 window.addEventListener("hashchange", render);
 render();
