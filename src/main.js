@@ -159,7 +159,7 @@ function header() {
   return `<header class="topbar"><a class="brand" href="#home">${icon}<span>Statistics Homeworks<span class="brand-sub">STATISTICS × CRYPTOGRAPHY</span></span></a><nav aria-label="Main navigation">${getNavItems()
     .map(
       ([id, code, label, sub]) =>
-        `<a class="nav-folder" href="#${id}" title="${esc(label + " · " + sub)}" ${state.page === id ? 'aria-current="page"' : ""}><span class="nav-folder-ear" aria-hidden="true"><b>${code}</b></span><span class="nav-folder-card"><span class="nav-folder-title">${label}</span></span></a>`,
+        `<a class="nav-folder" href="#${id}" title="${esc(label + " · " + sub)}" ${state.page === id ? 'aria-current="page"' : ""}><span class="nav-folder-back" aria-hidden="true"></span><span class="nav-folder-sheets" aria-hidden="true"><i class="nav-sheet nav-sheet-back"></i><i class="nav-sheet nav-sheet-front"></i></span><span class="nav-folder-pocket"><span class="nav-folder-ear" aria-hidden="true"><b>${code}</b></span><span class="nav-folder-title">${label}</span></span></a>`,
     )
     .join(
       "",
@@ -264,33 +264,8 @@ function home() {
       "",
     )}</div></section>${note("A laboratory for learning", "The small curve is deliberately insecure. All wallet examples are publicly known test data. This site is a learning tool; never use its example keys or addresses to hold funds.")}</main>`;
 }
-function notebookPager(currentIndex, position = "top") {
-  const total = HOMEWORKS.length;
-  const prev = currentIndex > 0 ? HOMEWORKS[currentIndex - 1] : null;
-  const next = currentIndex < total - 1 ? HOMEWORKS[currentIndex + 1] : null;
-  const prevHref = prev ? `#${prev.id}` : "#home";
-  const prevLabel = prev ? `${prev.navTitle} · ${prev.subject}` : "Overview · Notebook index";
-  const nextHref = next ? `#${next.id}` : "#references";
-  const nextLabel = next ? `${next.navTitle} · ${next.subject}` : "Sources & methodology";
-  return `<nav class="notebook-pager notebook-pager-${position}" aria-label="Notebook page navigation (${position})">
-    <a class="pager-btn pager-prev" href="${prevHref}" data-page-dir="prev">
-      <span class="pager-arrow" aria-hidden="true">←</span>
-      <span class="pager-copy"><small>${prev ? "Previous page" : "Back to index"}</small><strong>${prevLabel}</strong></span>
-    </a>
-    <div class="pager-pages" role="group" aria-label="Jump to homework page">
-      <span class="pager-counter">PAGE ${String(currentIndex + 1).padStart(2, "0")} / ${String(total).padStart(2, "0")}</span>
-      <div class="pager-dots">${HOMEWORKS.map((h, idx) => `<a href="#${h.id}" class="pager-num ${idx === currentIndex ? "is-active" : ""}" title="${esc(h.navTitle + ": " + h.subject)}" ${idx === currentIndex ? 'aria-current="page"' : ""}>${h.number}</a>`).join("")}</div>
-    </div>
-    <a class="pager-btn pager-next" href="${nextHref}" data-page-dir="next">
-      <span class="pager-copy"><small>${next ? "Next page" : "Methodology"}</small><strong>${nextLabel}</strong></span>
-      <span class="pager-arrow" aria-hidden="true">→</span>
-    </a>
-  </nav>`;
-}
 function chapterIntro(n, title, desc, tags) {
-  const hwIndex = HOMEWORKS.findIndex((h) => Number(h.number) === Number(n));
-  const pagerHtml = hwIndex !== -1 ? notebookPager(hwIndex, "top") : `<div class="chapter-back-row"><a href="#home" class="back">← OVERVIEW · NOTEBOOK INDEX</a></div>`;
-  return `${pagerHtml}<div class="chapter-intro"><div class="notebook-meta-strip"><span>SAPIENZA UNIVERSITY · CYBERSECURITY</span><span>STATISTICS · PROF. TOMMASO GASTALDI</span></div><span class="eyebrow">HOMEWORK ${n} <span class="separator">/</span> ${tags}</span><h1>${title}</h1><p>${desc}</p><div class="chapter-author"><span>Luca Gugliotta · Student ID 2149056</span>${n === "1" || n === "2" ? '<span>Homework date: <time datetime="2026-10-15">October 15, 2026</time></span>' : "<span>Academic coursework notebook</span>"}</div></div>`;
+  return `<div class="chapter-back-row"><a href="#home" class="back">← OVERVIEW · NOTEBOOK INDEX</a></div><div class="chapter-intro"><div class="notebook-meta-strip"><span>SAPIENZA UNIVERSITY · CYBERSECURITY</span><span>STATISTICS · PROF. TOMMASO GASTALDI</span></div><span class="eyebrow">HOMEWORK ${n} <span class="separator">/</span> ${tags}</span><h1>${title}</h1><p>${desc}</p><div class="chapter-author"><span>Luca Gugliotta · Student ID 2149056</span>${n === "1" || n === "2" ? '<span>Homework date: <time datetime="2026-10-15">October 15, 2026</time></span>' : "<span>Academic coursework notebook</span>"}</div></div>`;
 }
 function hw1() {
   return `<main id="main">${chapterIntro("1", "A private number.<br><em>A public point.</em>", "Scalar multiplication is repeated point addition. On this small curve, every calculation is visible—and every statistical claim can be checked.", "TOY ECC LAB")}<nav class="section-nav" aria-label="Chapter sections"><a href="#idea1">The idea</a><a href="#lab1">Curve laboratory</a><a href="#stats1">Statistical exploration</a><a href="#conclusion1">Interpretation</a></nav><section id="idea1" class="content-section">${sectionHead("01 / UNDERSTAND", "A curve made of individual points.")}<div class="two-col prose"><div><p>A <strong>private key</strong> is a number, k. A <strong>public key</strong> is a point, Q = kG, obtained by repeatedly adding a base point G. In a real system, the private key signs messages and the public key verifies signatures.</p><p>Here we work modulo 17: every calculation wraps into the integers 0–16. For example, 20 mod 17 = 3. This is a finite field, so the plot contains discrete points, rather than a continuous curve.</p></div><div class="formula-box"><span class="eyebrow">OUR TOY CURVE</span><p class="formula">y² ≡ x³ + 7 <small>(mod 17)</small></p><p>p = 17 &nbsp; · &nbsp; a = 0 &nbsp; · &nbsp; b = 7</p><p>G = (1, 5) lies on the curve:<br>5² mod 17 = 8 = (1³ + 7) mod 17.</p></div></div></section><section id="lab1" class="content-section">${sectionHead("02 / EXPERIMENT", "Build the public point.", "Change the scalar or the base point. Play the calculation slowly, or inspect one operation at a time.")}<div class="lab-layout"><div class="panel controls"><h3>The inputs</h3><label for="base">Base point G</label><select id="base">${points.map((q) => `<option value="${q}" ${String(q) === String(state.g) ? "selected" : ""}>${formatPoint(q)} · order ${pointOrder(q)}</option>`).join("")}</select><label for="scalar">Private scalar k <span id="scalar-label">${state.k}</span></label><input id="scalar" type="range" min="1" max="36" value="${state.k}"><div class="inline-input"><input aria-label="Private scalar as integer" id="scalar-number" type="number" min="1" max="36" value="${state.k}"><span>integer · 1 to 36</span></div><label for="algorithm">Multiplication method</label><select id="algorithm"><option value="repeated" ${state.algorithm === "repeated" ? "selected" : ""}>Repeated addition</option><option value="binary" ${state.algorithm === "binary" ? "selected" : ""}>Double-and-add</option></select><label for="speed">Animation speed</label><select id="speed"><option value="1500">Slow · 1.5 s</option><option value="900" selected>Normal · 0.9 s</option><option value="350">Fast · 0.35 s</option></select><div class="playback"><button id="play" class="button">▶ Play</button><button id="step" class="secondary">Step →</button><button id="reset" class="icon-button" aria-label="Reset animation">↺</button></div><p class="muted small">No autoplay. The chart and operation log follow the same calculation.</p><p id="input-error" role="alert"></p></div><div class="panel plot-panel"><div class="panel-heading"><h3>The finite field</h3><span class="pill">17 AFFINE POINTS + O</span></div><div id="curve-plot"></div><div class="legend"><span><i class="dot"></i>Curve point</span><span><i class="dot green"></i>Base G</span><span><i class="dot orange"></i>Current result</span></div></div><div class="panel result-panel"><span class="eyebrow">TOY PUBLIC KEY</span><div id="toy-result" class="big-result" aria-live="polite"></div><div id="cycle-summary"></div><hr><h3>Inside the current operation</h3><div id="operation"></div></div></div><div class="panel log-panel"><div class="panel-heading"><h3>Calculation log</h3><span id="operation-count" class="muted"></span></div><div class="table-scroll"><table><thead><tr><th>Step</th><th>Operation</th><th>Left point</th><th>Right point</th><th>Result</th></tr></thead><tbody id="step-table"></tbody></table></div></div><details><summary>The point-addition rules, explained</summary><div class="two-col prose"><div><p>For two distinct points P = (x₁,y₁), R = (x₂,y₂), with x₁ ≠ x₂:</p><code>λ = (y₂ − y₁) · (x₂ − x₁)⁻¹ mod 17</code><p>For doubling P = R, with y₁ ≠ 0:</p><code>λ = (3x₁² + a) · (2y₁)⁻¹ mod 17</code><p>Division means multiplication by a modular inverse. For example, 10⁻¹ = 12 since 10 × 12 mod 17 = 1.</p></div><div><code>x₃ = λ² − x₁ − x₂ mod 17<br>y₃ = λ(x₁ − x₃) − y₁ mod 17</code><p>The identity O satisfies P + O = P. A point and its opposite (x, −y mod 17) add to O. Doubling a point with y = 0 also gives O.</p><p>These modular formulas implement the group law. Lines drawn between plotted points would not be ordinary geometric addition, so this plot does not invent connecting curves.</p></div></div></details></section><section id="stats1" class="content-section">${sectionHead("03 / MEASURE", "Read the structure in the data.", "A deterministic finite dataset, with explicit scope. These are descriptive statistics, not a test of cryptographic security.")}<div class="experiment-toolbar"><div><label for="scope">Dataset</label><select id="scope"><option value="census" ${state.mode === "census" ? "selected" : ""}>Full nonzero subgroup census</option><option value="sequence" ${state.mode === "sequence" ? "selected" : ""}>Current sequence: k = 1…selected scalar</option></select></div><button id="toy-csv" class="secondary">Export data ↓ CSV</button></div><div id="toy-statistics"></div></section><section id="conclusion1" class="content-section">${sectionHead("04 / INTERPRET", "Structure is not a security proof.")}<div class="two-col prose"><article><h3>Why is the real operation one-way?</h3><p>Forward multiplication k → kG is efficient. Recovering k from Q is the elliptic-curve discrete logarithm problem (ECDLP). For appropriately chosen real curves this is computationally infeasible using known classical methods. Here, at most 18 trials reveal every point: the toy curve is easy to invert.</p><p>The algebra remains visible: <strong>(a + b)G = aG + bG</strong>. This structure is useful for public-key cryptography and signatures.</p></article><article><h3>Why is this not a hash?</h3><p>A cryptographic hash maps variable-length inputs to a fixed-length digest and targets preimage, second-preimage and collision resistance. Avalanche is a useful hash behavior to explore. It is not a universal requirement for scalar multiplication.</p><p>Balanced bits, small Pearson correlations or a large Hamming distance cannot establish one-wayness. On this toy group the periodicity and symmetries are mathematical consequences, not implementation failures.</p></article></div><a class="button next-chapter" href="#hw2">Continue to Homework 2: the wallet pipeline →</a></section></main>`;
@@ -868,15 +843,6 @@ function hw3() {
 function hw4() { return renderHomework4({ chapterIntro, sectionHead, note, download, esc }); }
 function hw5() { return renderHomework5({ chapterIntro, sectionHead, note, download, esc }); }
 
-function sidePageTurners(hwIndex) {
-  const prev = hwIndex > 0 ? HOMEWORKS[hwIndex - 1] : null;
-  const next = hwIndex < HOMEWORKS.length - 1 ? HOMEWORKS[hwIndex + 1] : null;
-  return `<div class="notebook-side-turners" aria-label="Quick left and right homework page turners">
-    ${prev ? `<a class="notebook-side-turn prev" href="#${prev.id}" data-page-dir="prev" title="Previous page: ${esc(prev.navTitle + " · " + prev.subject)}"><span aria-hidden="true">←</span><b>HW ${Number(prev.number)}</b></a>` : ""}
-    ${next ? `<a class="notebook-side-turn next" href="#${next.id}" data-page-dir="next" title="Next page: ${esc(next.navTitle + " · " + next.subject)}"><span aria-hidden="true">→</span><b>HW ${Number(next.number)}</b></a>` : ""}
-  </div>`;
-}
-
 let scrollObserver;
 function setupScrollReveal() {
   scrollObserver?.disconnect();
@@ -927,11 +893,10 @@ function applyRender(route, sectionPage) {
       ? references()
       : home();
   $("#app").innerHTML = header() + viewHtml + footer();
-  if (activeHw) {
+  if (activeHw || state.page === "references") {
     const mainEl = document.getElementById("main");
     if (mainEl) {
       mainEl.classList.add("notebook-sheet");
-      mainEl.insertAdjacentHTML("beforeend", notebookPager(activeHwIndex, "bottom") + sidePageTurners(activeHwIndex));
     }
   }
   bindAppearance();
