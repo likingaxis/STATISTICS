@@ -265,7 +265,7 @@ function home() {
     )}</div></section>${note("A laboratory for learning", "The small curve is deliberately insecure. All wallet examples are publicly known test data. This site is a learning tool; never use its example keys or addresses to hold funds.")}</main>`;
 }
 function chapterIntro(n, title, desc, tags) {
-  return `<div class="chapter-back-row"><a href="#home" class="back">← OVERVIEW · NOTEBOOK INDEX</a></div><div class="chapter-intro"><div class="notebook-meta-strip"><span>SAPIENZA UNIVERSITY · CYBERSECURITY</span><span>STATISTICS · PROF. TOMMASO GASTALDI</span></div><span class="eyebrow">HOMEWORK ${n} <span class="separator">/</span> ${tags}</span><h1>${title}</h1><p>${desc}</p><div class="chapter-author"><span>Luca Gugliotta · Student ID 2149056</span>${n === "1" || n === "2" ? '<span>Homework date: <time datetime="2026-10-15">October 15, 2026</time></span>' : "<span>Academic coursework notebook</span>"}</div></div>`;
+  return `<div class="chapter-back-row"><a href="#home" class="back">← OVERVIEW · NOTEBOOK INDEX</a></div><div class="notebook-meta-strip"><span>SAPIENZA UNIVERSITY · CYBERSECURITY</span><span>STATISTICS · PROF. TOMMASO GASTALDI</span></div><div class="chapter-intro"><span class="eyebrow">HOMEWORK ${n} <span class="separator">/</span> ${tags}</span><h1>${title}</h1><p>${desc}</p><div class="chapter-author"><span>Luca Gugliotta · Student ID 2149056</span>${n === "1" || n === "2" ? '<span>Homework date: <time datetime="2026-10-15">October 15, 2026</time></span>' : "<span>Academic coursework notebook</span>"}</div></div>`;
 }
 function hw1() {
   return `<main id="main">${chapterIntro("1", "A private number.<br><em>A public point.</em>", "Scalar multiplication is repeated point addition. On this small curve, every calculation is visible—and every statistical claim can be checked.", "TOY ECC LAB")}<nav class="section-nav" aria-label="Chapter sections"><a href="#idea1">The idea</a><a href="#lab1">Curve laboratory</a><a href="#stats1">Statistical exploration</a><a href="#conclusion1">Interpretation</a></nav><section id="idea1" class="content-section">${sectionHead("01 / UNDERSTAND", "A curve made of individual points.")}<div class="two-col prose"><div><p>A <strong>private key</strong> is a number, k. A <strong>public key</strong> is a point, Q = kG, obtained by repeatedly adding a base point G. In a real system, the private key signs messages and the public key verifies signatures.</p><p>Here we work modulo 17: every calculation wraps into the integers 0–16. For example, 20 mod 17 = 3. This is a finite field, so the plot contains discrete points, rather than a continuous curve.</p></div><div class="formula-box"><span class="eyebrow">OUR TOY CURVE</span><p class="formula">y² ≡ x³ + 7 <small>(mod 17)</small></p><p>p = 17 &nbsp; · &nbsp; a = 0 &nbsp; · &nbsp; b = 7</p><p>G = (1, 5) lies on the curve:<br>5² mod 17 = 8 = (1³ + 7) mod 17.</p></div></div></section><section id="lab1" class="content-section">${sectionHead("02 / EXPERIMENT", "Build the public point.", "Change the scalar or the base point. Play the calculation slowly, or inspect one operation at a time.")}<div class="lab-layout"><div class="panel controls"><h3>The inputs</h3><label for="base">Base point G</label><select id="base">${points.map((q) => `<option value="${q}" ${String(q) === String(state.g) ? "selected" : ""}>${formatPoint(q)} · order ${pointOrder(q)}</option>`).join("")}</select><label for="scalar">Private scalar k <span id="scalar-label">${state.k}</span></label><input id="scalar" type="range" min="1" max="36" value="${state.k}"><div class="inline-input"><input aria-label="Private scalar as integer" id="scalar-number" type="number" min="1" max="36" value="${state.k}"><span>integer · 1 to 36</span></div><label for="algorithm">Multiplication method</label><select id="algorithm"><option value="repeated" ${state.algorithm === "repeated" ? "selected" : ""}>Repeated addition</option><option value="binary" ${state.algorithm === "binary" ? "selected" : ""}>Double-and-add</option></select><label for="speed">Animation speed</label><select id="speed"><option value="1500">Slow · 1.5 s</option><option value="900" selected>Normal · 0.9 s</option><option value="350">Fast · 0.35 s</option></select><div class="playback"><button id="play" class="button">▶ Play</button><button id="step" class="secondary">Step →</button><button id="reset" class="icon-button" aria-label="Reset animation">↺</button></div><p class="muted small">No autoplay. The chart and operation log follow the same calculation.</p><p id="input-error" role="alert"></p></div><div class="panel plot-panel"><div class="panel-heading"><h3>The finite field</h3><span class="pill">17 AFFINE POINTS + O</span></div><div id="curve-plot"></div><div class="legend"><span><i class="dot"></i>Curve point</span><span><i class="dot green"></i>Base G</span><span><i class="dot orange"></i>Current result</span></div></div><div class="panel result-panel"><span class="eyebrow">TOY PUBLIC KEY</span><div id="toy-result" class="big-result" aria-live="polite"></div><div id="cycle-summary"></div><hr><h3>Inside the current operation</h3><div id="operation"></div></div></div><div class="panel log-panel"><div class="panel-heading"><h3>Calculation log</h3><span id="operation-count" class="muted"></span></div><div class="table-scroll"><table><thead><tr><th>Step</th><th>Operation</th><th>Left point</th><th>Right point</th><th>Result</th></tr></thead><tbody id="step-table"></tbody></table></div></div><details><summary>The point-addition rules, explained</summary><div class="two-col prose"><div><p>For two distinct points P = (x₁,y₁), R = (x₂,y₂), with x₁ ≠ x₂:</p><code>λ = (y₂ − y₁) · (x₂ − x₁)⁻¹ mod 17</code><p>For doubling P = R, with y₁ ≠ 0:</p><code>λ = (3x₁² + a) · (2y₁)⁻¹ mod 17</code><p>Division means multiplication by a modular inverse. For example, 10⁻¹ = 12 since 10 × 12 mod 17 = 1.</p></div><div><code>x₃ = λ² − x₁ − x₂ mod 17<br>y₃ = λ(x₁ − x₃) − y₁ mod 17</code><p>The identity O satisfies P + O = P. A point and its opposite (x, −y mod 17) add to O. Doubling a point with y = 0 also gives O.</p><p>These modular formulas implement the group law. Lines drawn between plotted points would not be ordinary geometric addition, so this plot does not invent connecting curves.</p></div></div></details></section><section id="stats1" class="content-section">${sectionHead("03 / MEASURE", "Read the structure in the data.", "A deterministic finite dataset, with explicit scope. These are descriptive statistics, not a test of cryptographic security.")}<div class="experiment-toolbar"><div><label for="scope">Dataset</label><select id="scope"><option value="census" ${state.mode === "census" ? "selected" : ""}>Full nonzero subgroup census</option><option value="sequence" ${state.mode === "sequence" ? "selected" : ""}>Current sequence: k = 1…selected scalar</option></select></div><button id="toy-csv" class="secondary">Export data ↓ CSV</button></div><div id="toy-statistics"></div></section><section id="conclusion1" class="content-section">${sectionHead("04 / INTERPRET", "Structure is not a security proof.")}<div class="two-col prose"><article><h3>Why is the real operation one-way?</h3><p>Forward multiplication k → kG is efficient. Recovering k from Q is the elliptic-curve discrete logarithm problem (ECDLP). For appropriately chosen real curves this is computationally infeasible using known classical methods. Here, at most 18 trials reveal every point: the toy curve is easy to invert.</p><p>The algebra remains visible: <strong>(a + b)G = aG + bG</strong>. This structure is useful for public-key cryptography and signatures.</p></article><article><h3>Why is this not a hash?</h3><p>A cryptographic hash maps variable-length inputs to a fixed-length digest and targets preimage, second-preimage and collision resistance. Avalanche is a useful hash behavior to explore. It is not a universal requirement for scalar multiplication.</p><p>Balanced bits, small Pearson correlations or a large Hamming distance cannot establish one-wayness. On this toy group the periodicity and symmetries are mathematical consequences, not implementation failures.</p></article></div><a class="button next-chapter" href="#hw2">Continue to Homework 2: the wallet pipeline →</a></section></main>`;
@@ -828,7 +828,7 @@ const sources = [
 ];
 function references() {
   const numbersLabel = HOMEWORKS.map((_, i) => i + 1).join(" + ");
-  return `<main id="main">${chapterIntro(numbersLabel, "Evidence behind<br><em>the experiments.</em>", "Original explanations and application code, grounded in primary specifications. Computed results are separated from ideal-model expectations.", "SOURCES & METHODOLOGY")}<section class="content-section">${sectionHead("THE METHOD", "Observe. Reproduce. Interpret.")}<div class="two-col prose"><article><h3>What is measured?</h3><p>Homework 1 enumerates a small finite group. Census mode covers the nonidentity subgroup exactly; sequence mode counts every visit and reports excluded identities. Coordinates use 5 bits each. One-bit comparisons enumerate unique valid key pairs within the subgroup.</p><p>Homework 2 uses deterministic byte messages, a documented bit-flip schedule, Keccak-256 digests and explicit denominators. Dataset exports include inputs, outputs and protocol parameters. Model references are teaching benchmarks, not certificates of randomness.</p></article><article><h3>What is verified?</h3><p>Automated tests check all toy-curve points, inverse and identity cases, associativity, periodicity, and agreement of both multiplication algorithms. Reference tests cover BIP-39, BIP-32, published EIP-55 addresses, Keccak-256 and SHA3-256 known outputs, and the public-key serialization used for Ethereum addresses.</p><p>The cryptographic pipeline uses ethers 6.17.0, and SHA3-256 uses noble-hashes 1.8.0. Dependencies are bundled at build time. Experiment inputs stay in the browser; no wallet connection or analytics is used.</p></article></div></section><section class="content-section">${sectionHead("PRIMARY REFERENCES", "Read the specifications.")}<div class="source-list">${sources.map(([name, desc, url], i) => `<a href="${url}" target="_blank" rel="noopener noreferrer"><span>${String(i + 1).padStart(2, "0")}</span><div><h3>${name}</h3><p>${desc}</p></div><b>↗</b></a>`).join("")}</div></section><section class="content-section">${note("Scope of the submission", "The required core covers toy-curve arithmetic, the wallet pipeline, encryption and cryptanalysis, stochastic penetration models with LLN and CLT experiments, and Welford recurrences with sampling-statistics experiments. Slow animation, two multiplication methods, computed wallet walkthroughs and CSV exports are supporting additions. This notebook does not claim cryptographic security from statistical appearance.")}<p class="small muted">Homework 3 uses separate authors for language-model training and evaluation, paired seeded trials at eight lengths, and exact public-point verification of restricted keys. Homework 4 simulates independent attacker paths under Bernoulli and symmetric Rademacher increments, comparing all three requested normalizations with finite distributions and limit theorems. Homework 5 joins both exercises on one page: Welford derivation and iid bounded-score sampling, with per-hacker estimates, averages across hackers, and their variability as n increases. Historical dates are approximate introduction/standardization dates, as in the assignment. Other students’ work is not imported; primary standards inform the mathematics and reference vectors.</p></section></main>`;
+  return `<main id="main">${chapterIntro(numbersLabel, "Evidence behind<br><em>the experiments.</em>", "Original explanations and application code, grounded in primary specifications. Computed results are separated from ideal-model expectations.", "SOURCES & METHODOLOGY")}<nav class="section-nav" aria-label="Chapter sections"><a href="#ref-method">The method</a><a href="#ref-sources">Primary references</a><a href="#ref-scope">Scope of submission</a></nav><section id="ref-method" class="content-section">${sectionHead("THE METHOD", "Observe. Reproduce. Interpret.")}<div class="two-col prose"><article><h3>What is measured?</h3><p>Homework 1 enumerates a small finite group. Census mode covers the nonidentity subgroup exactly; sequence mode counts every visit and reports excluded identities. Coordinates use 5 bits each. One-bit comparisons enumerate unique valid key pairs within the subgroup.</p><p>Homework 2 uses deterministic byte messages, a documented bit-flip schedule, Keccak-256 digests and explicit denominators. Dataset exports include inputs, outputs and protocol parameters. Model references are teaching benchmarks, not certificates of randomness.</p></article><article><h3>What is verified?</h3><p>Automated tests check all toy-curve points, inverse and identity cases, associativity, periodicity, and agreement of both multiplication algorithms. Reference tests cover BIP-39, BIP-32, published EIP-55 addresses, Keccak-256 and SHA3-256 known outputs, and the public-key serialization used for Ethereum addresses.</p><p>The cryptographic pipeline uses ethers 6.17.0, and SHA3-256 uses noble-hashes 1.8.0. Dependencies are bundled at build time. Experiment inputs stay in the browser; no wallet connection or analytics is used.</p></article></div></section><section id="ref-sources" class="content-section">${sectionHead("PRIMARY REFERENCES", "Read the specifications.")}<div class="source-list">${sources.map(([name, desc, url], i) => `<a href="${url}" target="_blank" rel="noopener noreferrer"><span>${String(i + 1).padStart(2, "0")}</span><div><h3>${name}</h3><p>${desc}</p></div><b>↗</b></a>`).join("")}</div></section><section id="ref-scope" class="content-section">${note("Scope of the submission", "The required core covers toy-curve arithmetic, the wallet pipeline, encryption and cryptanalysis, stochastic penetration models with LLN and CLT experiments, and Welford recurrences with sampling-statistics experiments. Slow animation, two multiplication methods, computed wallet walkthroughs and CSV exports are supporting additions. This notebook does not claim cryptographic security from statistical appearance.")}<p class="small muted">Homework 3 uses separate authors for language-model training and evaluation, paired seeded trials at eight lengths, and exact public-point verification of restricted keys. Homework 4 simulates independent attacker paths under Bernoulli and symmetric Rademacher increments, comparing all three requested normalizations with finite distributions and limit theorems. Homework 5 joins both exercises on one page: Welford derivation and iid bounded-score sampling, with per-hacker estimates, averages across hackers, and their variability as n increases. Historical dates are approximate introduction/standardization dates, as in the assignment. Other students’ work is not imported; primary standards inform the mathematics and reference vectors.</p><div class="chapter-footer-actions"><a class="button next-chapter" href="#home">← Back to Overview & homework folders</a></div></section></main>`;
 }
 function hw3() {
   return renderHomework3({
@@ -848,31 +848,26 @@ function setupScrollReveal() {
   scrollObserver?.disconnect();
   if (typeof IntersectionObserver === "undefined" || reducedMotion()) return;
   const targets = document.querySelectorAll(
-    "#main .hero-copy, #main .hero-figure, #main .academic-context > div, #main .section-heading, #main .homework-folder, #main .method-strip article, #main .chapter-intro, #main .section-nav, #main .content-section > .two-col, #main .lab-layout > .panel, #main .log-panel, #main .panel, #main .formula-box, #main .metric-grid, #main .pipeline-step, #main .standard-grid article, #main .timeline > div, #main .source-list > a, #main .note, #main details"
+    "#main .academic-context > div, #main .section-heading, #main .homework-folder, #main .method-strip article, #main .content-section > .two-col, #main .lab-layout, #main .log-panel, #main .content-section > .panel, #main .content-section > .formula-box, #main .content-section > .metric-grid, #main .pipeline-step, #main .standard-grid article, #main .timeline > div, #main .source-list > a, #main .content-section > .note, #main > .note, #main .content-section > details"
   );
   const vh = window.innerHeight || 800;
-  let stagger = 0;
   scrollObserver = new IntersectionObserver(
     (entries) => {
       let batch = 0;
       for (const entry of entries) {
         if (!entry.isIntersecting) continue;
         const el = entry.target;
-        el.style.setProperty("--reveal-delay", `${Math.min(batch * 55, 220)}ms`);
+        el.style.setProperty("--reveal-delay", `${Math.min(batch * 45, 160)}ms`);
         batch++;
         el.classList.add("is-visible");
         scrollObserver.unobserve(el);
       }
     },
-    { rootMargin: "0px 0px -6% 0px", threshold: 0.08 }
+    { rootMargin: "0px 0px 45px 0px", threshold: 0.04 }
   );
   for (const el of targets) {
     const rect = el.getBoundingClientRect();
-    if (rect.top < vh * 0.92) {
-      el.style.setProperty("--reveal-delay", `${Math.min(stagger * 45, 220)}ms`);
-      stagger++;
-      el.classList.add("reveal-item", "is-visible");
-    } else {
+    if (rect.top >= vh * 0.96) {
       el.classList.add("reveal-item");
       scrollObserver.observe(el);
     }
@@ -913,7 +908,12 @@ function applyRender(route, sectionPage) {
 }
 
 function getSectionPageMap() {
-  const map = { "homework-folders": "home" };
+  const map = {
+    "homework-folders": "home",
+    "ref-method": "references",
+    "ref-sources": "references",
+    "ref-scope": "references",
+  };
   for (const hw of HOMEWORKS) {
     for (const sec of hw.sections) map[sec] = hw.id;
   }
@@ -933,17 +933,6 @@ function render(event) {
     : (sectionPage[route] ?? "home");
   const prevPage = state.page;
   const pageChanged = event && nextPage !== prevPage;
-  const prevIdx = HOMEWORKS.findIndex((h) => h.id === prevPage);
-  const nextIdx = HOMEWORKS.findIndex((h) => h.id === nextPage);
-  let navDir = "fade";
-  if (prevIdx !== -1 && nextIdx !== -1 && prevIdx !== nextIdx) {
-    navDir = nextIdx > prevIdx ? "next" : "prev";
-  } else if (prevPage === "home" && nextIdx !== -1) {
-    navDir = "next";
-  } else if (prevIdx !== -1 && nextPage === "home") {
-    navDir = "prev";
-  }
-  document.documentElement.dataset.navDir = navDir;
   state.page = nextPage;
   routeTransition?.skipTransition();
   if (pageChanged && document.startViewTransition && !reducedMotion()) {
@@ -952,54 +941,6 @@ function render(event) {
     applyRender(route, sectionPage);
   }
 }
-
-/* Keyboard & horizontal swipe page-turning across homework notebook pages */
-function turnHomeworkPage(delta) {
-  const idx = HOMEWORKS.findIndex((h) => h.id === state.page);
-  if (idx === -1) return;
-  const target = HOMEWORKS[idx + delta];
-  if (target) location.hash = `#${target.id}`;
-}
-window.addEventListener("keydown", (e) => {
-  if (e.defaultPrevented || e.ctrlKey || e.metaKey || e.shiftKey) return;
-  const tag = e.target?.tagName;
-  if (tag === "INPUT" || tag === "SELECT" || tag === "TEXTAREA" || e.target?.isContentEditable) return;
-  if (document.getElementById("display-panel")?.matches(":popover-open")) return;
-  if (e.key === "ArrowLeft") {
-    const idx = HOMEWORKS.findIndex((h) => h.id === state.page);
-    if (idx > 0) {
-      e.preventDefault();
-      turnHomeworkPage(-1);
-    }
-  } else if (e.key === "ArrowRight") {
-    const idx = HOMEWORKS.findIndex((h) => h.id === state.page);
-    if (idx !== -1 && idx < HOMEWORKS.length - 1) {
-      e.preventDefault();
-      turnHomeworkPage(1);
-    }
-  }
-});
-
-let touchStartX = null;
-let touchStartY = null;
-window.addEventListener("touchstart", (e) => {
-  if (e.touches.length !== 1) { touchStartX = null; return; }
-  if (e.target?.closest(".chart-scroll, .table-scroll, input, select, textarea, pre, code")) {
-    touchStartX = null;
-    return;
-  }
-  touchStartX = e.touches[0].clientX;
-  touchStartY = e.touches[0].clientY;
-}, { passive: true });
-window.addEventListener("touchend", (e) => {
-  if (touchStartX === null || e.changedTouches.length !== 1) return;
-  const dx = e.changedTouches[0].clientX - touchStartX;
-  const dy = e.changedTouches[0].clientY - touchStartY;
-  touchStartX = null;
-  if (Math.abs(dx) > 95 && Math.abs(dx) > Math.abs(dy) * 2.2) {
-    turnHomeworkPage(dx < 0 ? 1 : -1);
-  }
-}, { passive: true });
 
 window.addEventListener("hashchange", render);
 render();
