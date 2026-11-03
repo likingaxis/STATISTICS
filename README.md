@@ -10,7 +10,7 @@
 
 **Homework 1 & Homework 2 date:** October 15, 2026 (homework date; not labelled as a deadline).
 
-Un unico sito didattico per gli Homework 1, 2, 3 e 4 di Statistica. Testi dell'applicazione in inglese; istruzioni di utilizzo in italiano. Implementazione originale in HTML, CSS e JavaScript, senza backend.
+Un unico sito didattico per gli Homework 1, 2, 3, 4 e 5 di Statistica. Testi dell'applicazione in inglese; istruzioni di utilizzo in italiano. Implementazione originale in HTML, CSS e JavaScript, senza backend.
 
 ## Avvio e verifica
 
@@ -177,3 +177,40 @@ LLN is justified by Var(S_n/n)=sigma²/n and Chebyshev, not by one smooth-lookin
 The original homework text and classroom photograph motivate the chapter; no submission date is invented. Student examples are reference material only; their code and prose are not imported. Primary explanations/proofs: [StatLect LLN](https://www.statlect.com/asymptotic-theory/law-of-large-numbers) and [StatLect CLT](https://www.statlect.com/asymptotic-theory/central-limit-theorem).
 
 New source files: `src/stochastic.js` (model, RNG, exact laws and summaries), `src/homework4-worker.js` (background simulation), `src/homework4.js` (chapter, plots, controls and exports), `tests/homework4.test.js` (11 tests). The full suite has 32 tests. Checks cover finite-n mass against enumerated two-step cases, large-n mass/moments including rare probabilities, legal increments and parity, reproducibility and horizon/attacker prefixes, degenerate probabilities, strict LLN tail events, histogram denominators, normal CDF/jump distances, simulated moments and bounded inputs.
+
+
+## Homework 5 — Welford recurrences and sampling mean/variance
+
+Both exercises from the October 29 assignment share **one lesson page and one submission URL**, `#hw5`. The quoted classroom exchange calls the lesson Homework 4; this site retains its existing chapter sequence and labels it Homework 5. Dates of the messages are not presented as deadlines. The unrelated crypto-site/video messages are background, not requirements of the statistics assignment.
+
+| Requirement | Implementation |
+| --- | --- |
+| Derive Welford by the same approach as the mean recurrence | Split off the new observation, express old residuals around the new mean, cancel their zero-sum cross term, isolate the SS increment |
+| Recurrences for SS and variance | SS update plus equivalent delta-squared form; descriptive variance SS/k and unbiased sample variance SS/(k−1), explicit initial/undefined cases |
+| Corresponding code with about three core lines | One Welford class used by both the worked sequence and every per-hacker simulation; three arithmetic lines, constant update memory/time |
+| Scores between 0 and 10 from a fixed chosen law | Scores 0,2,5,8,10 with probabilities .1,.2,.4,.2,.1 throughout every run; mu=5, sigma²=8.6, fourth central moment=157.4 |
+| m hackers, n attempts per hacker | Direct iid-model score draws; each hacker has an independently keyed seeded stream and receives one score per system |
+| Compute per-hacker sampling mean and variance using Welford | Every score updates count, mean and corrected SS; sample variance divides SS by n−1 |
+| Average those estimates across hackers and compare with theory | Separate A_n (average means) and B_n (average sample variances), theory targets, theoretical/estimated Monte Carlo SE, signed observed errors |
+| Repeat at different n and study variability of both estimators | Nested checkpoints, running estimates, across-hacker histograms, two variance plots, observed/theoretical variability tables |
+| Conclusions and usefulness for inferential statistics | Unbiasedness, Bessel correction, consistency, standard errors and distinction between population spread and estimator uncertainty |
+
+### Fixed score model and protocol
+
+**welford-v1**, distribution **weighted-five-v1**. Default horizon n=1000, m=1000, seed=20261103. UI horizons 1/2/5/10/100/1000/5000/10000, m=100/500/1000/2000. Checkpoints are 1,2,5,10,25,50,100,250,500,1000,2500,5000,10000 up to the chosen horizon. Each hacker receives one score at every step and its own deterministically keyed Mulberry32 stream. Rejection sampling uses ten equiprobable integer tickets with weights 1,2,4,2,1. The PRNG approximates iid draws for teaching, not cryptographic use. Increasing n extends existing trajectories; increasing m retains earlier hackers. Checkpoints share path prefixes and are not independent repeated experiments, although the m hackers are independent under the model at each fixed n.
+
+Mean=5; variance=8.6; fourth central moment=157.4; squared population variance sigma^4=73.96. For n>=2, E[xbar]=5 and E[s²]=8.6. Var(xbar)=8.6/n; Var(s²)=[157.4−((n−3)/(n−1))*73.96]/n. These references do not assume normal scores. Under independent hackers, standard errors of A_n and B_n divide the relevant sampling variance by m before taking the square root. The unbiased sample variance targets 8.6 rather than zero; its sampling variability is what tends to zero as n increases. Increasing m sharpens the Monte Carlo averages, not an individual hacker's estimator at fixed n.
+
+The Welford state starts count=0, mean=0, SS=0. The empty-sample mean is not reported as zero; the stored zero initializes arithmetic only. At n=1, descriptive variance is zero and unbiased sample variance is undefined. Undefined values remain blank in CSV and are not treated as zero. Explicit sample-variance recurrence starts with s²_2=(x2−x1)^2/2, then uses s²_k=((k−2)/(k−1))*s²_(k−1)+delta²/k for k>=3.
+
+All per-hacker means and corrected SS are retained at every checkpoint. The first min(12,m) trajectories retain raw scores and Welford states at every step, with plotting downsampled to approximately 500 points. O(1) refers to the recurrence state per stream, not the teaching UI's deliberately stored plot/export data. Fixed horizontal histogram bounds [0,10] for means and [0,50] for sample variances preserve a common comparison scale; optional zoom adapts the view and is labelled. Heights are fractions per bin, not density. The second upper bound follows the score range and n/(n−1)<=2 for n>=2. Score frequencies use all m×horizon observations, whereas estimator histograms use m observations at a selected checkpoint.
+
+Three CSV exports: checkpoint summary; each hacker's estimates and SS at every checkpoint; retained raw-score trajectories and their running statistics. All include protocol, distribution identifier, seed, horizon and m. Step zero has undefined mean and sample variance. Across-hacker variances use denominator m−1. A worked sequence is independently checked with a two-pass calculation; empty, invalid and out-of-range scores are rejected.
+
+The chosen law is fixed and bounded, with zero mass at the remaining integers between 0 and 10. It is a score model, not a measure of actual network risk or a unique count of compromised systems. A finite simulation illustrates the theory; exact expectations and the variance calculations support the statistical conclusions. No formal normality test or universal confidence guarantee is inferred from the plots.
+
+### Sources and checks
+
+Original method: [Welford (1962), Technometrics](https://doi.org/10.1080/00401706.1962.10490022). Accessible implementation/derivation reference: [SAS one-pass mean and variance](https://blogs.sas.com/content/iml/2026/04/06/welford-mean-var.html). Sample-variance moment reference: [Benhamou, A few properties of sample variance](https://arxiv.org/abs/1809.03774), iid variance formula equation (10). The peer page supplied by Luca was consulted for assignment context; no peer code or prose is imported. The derivations and JavaScript are original.
+
+New source files: `src/welford.js`, `src/homework5-worker.js`, `src/homework5.js`, and `tests/homework5.test.js`. The 13 new tests cover initial/constant/nonfinite cases, all worked prefixes against two-pass arithmetic, both variance recurrences, numerical translation stability, score-law moments, exhaustive small-sample expectations and Var(s²), weighted-ticket sampling/rejection, actual score and state validity, seeded reproducibility and prefixes, independently calculated across-hacker variances, n=1, Monte Carlo agreement and bounded input parsing. Full project suite: **45 tests**.

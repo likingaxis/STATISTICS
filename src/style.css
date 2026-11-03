@@ -2048,3 +2048,34 @@ details .two-col {
   .homework-four .section-nav { gap: 14px 20px; }
   .homework-four .h4-scale h3 { gap: 8px; }
 }
+
+/* A single lesson page holds both Welford exercises. */
+.chapter-card.fifth-chapter { grid-column: 1 / -1; }
+.chapter-card.fifth-chapter > p { max-width: 680px; }
+.homework-five .h5-reading { max-width: 76ch; }
+.homework-five .h5-reading h3 { margin-top: 30px; }
+.homework-five .h5-gap { margin-top: 34px; }
+.homework-five .h5-gap > h3 { margin-top: 26px; }
+.homework-five .h5-equations { margin: 24px 0; overflow-x: auto; }
+.homework-five .h5-equations p { white-space: normal; }
+.homework-five .h5-code { white-space: pre; overflow-x: auto; padding: 22px; background: #eeefe7; border: 1px solid var(--line); border-radius: 5px; font: 13px/1.9 Consolas, monospace; color: var(--ink); }
+.homework-five .h5-code code { background: none; padding: 0; font: inherit; }
+.homework-five .h5-legend { display: flex; flex-wrap: wrap; gap: 10px 24px; font-size: 11px; margin: 12px 0 20px; }
+.homework-five .h5-legend span { display: inline-flex; align-items: center; gap: 8px; }
+.homework-five .h5-legend i { display: inline-block; width: 24px; height: 0; border-top: 2px solid var(--series); }
+.homework-five .h5-legend i.dashed { border-top-style: dashed; }
+.homework-five .experiment-toolbar > div { flex: 1; min-width: 180px; }
+.homework-five .h5-chart { min-width: 560px; }
+.homework-five .h5-chart .axis { font-size: 12px; }
+.homework-five td { font-variant-numeric: tabular-nums; }
+.homework-five .h5-checkbox { display: flex; align-items: center; gap: 12px; }
+.homework-five .h5-checkbox input { width: auto; min-height: 20px; accent-color: var(--ink); }
+.homework-five .error-text { color: #8f431f; }
+.homework-five .section-nav { gap: 18px; }
+.homework-five .next-chapter { margin-bottom: 18px; }
+@media (max-width: 760px) {
+ .homework-five .experiment-toolbar > div { flex: 0 0 100%; min-width: 0; width: 100%; }
+ .homework-five .h5-code { font-size: 11px; padding: 16px; }
+ .homework-five .h5-checkbox { align-items: start; }
+ .homework-five .h5-checkbox input { margin-top: 4px; }
+}

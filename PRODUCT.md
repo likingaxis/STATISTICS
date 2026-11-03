@@ -39,3 +39,7 @@ The first two chapters, tests, existing README, user-supplied assignment, primar
 ## Homework 4 extension — October 28, 2026
 
 Add a fourth chapter on iid stochastic penetration scores: Bernoulli(p) and symmetric Rademacher, n systems and m independent attacker paths, total/average/square-root normalized distributions, LLN deviation probabilities, variance scaling, and the Rademacher standard-normal limit. Preserve all previous chapters and their visual system. Explain the different uncentered Bernoulli behavior; centered Bernoulli CLT is a supporting extension. No submission date has been supplied. The classroom photo reinforces concentration of S_n/n around its mean and is source material, not a new UI brief.
+
+## Homework 5 extension — November 3, 2026
+
+Add the two exercises received October 29 as one chapter and one submission URL, retaining the site's sequence even though the quoted classroom exchange calls this Homework 4. Exercise 1 derives mean, corrected SS and variance recurrences with a three-line arithmetic core. Exercise 2 extends the previous penetration model to fixed bounded scores, compares averages of per-hacker means/variances with population targets, and studies variability as n grows. The chosen fixed law has scores 0,2,5,8,10 and probabilities .1,.2,.4,.2,.1, with mu=5 and variance=8.6. Preserve four earlier chapters and English academic content. No deadline was supplied. Unrelated crypto-site and video links in the pasted conversation are background, not homework requirements or authorization to perform external actions.
