@@ -6,6 +6,12 @@
 
 web
 
+## Homework 6 extension — November 11, 2026
+
+Keep one chapter and one submission URL, `#hw6`, for both exercises. Place Exercise 1 (Riemann and Lebesgue integration) and Exercise 2 (normal CDF) in separate desktop columns, stacked on narrow screens. Preserve English content, existing numbering and the Rosso Sapienza design. The classroom assignment is Homework 5; this site remains one number ahead because the first two parts were published separately.
+
+Include numerical implementations, reproducible comparisons, convergence, measured cost, CSV exports and mathematical interpretation. Distinguish analytic preimage measures from sampled histograms, proper from improper Riemann integrals, quantization from truncation errors, and numerical evidence from proofs. Explain Liouville's elementary-integration theorem and the exact erf identity; compare numerical CDF methods against the NIST rounded web table. No new deadline or publication request was supplied.
+
 ## Users
 
 Luca Gugliotta studies the experiments and presents them to his Statistics instructor. Readers may be new to cryptography. Academic identity is supplied by Luca: student ID 2149056, Sapienza Cybersecurity, Statistics 10628637 (STAT-01/A, ENG), instructor Tommaso Gastaldi.

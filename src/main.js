@@ -1,3 +1,4 @@
+import { renderHomework6, bindHomework6, disposeHomework6 } from "./homework6.js";
 import { renderHomework5, bindHomework5, disposeHomework5 } from "./homework5.js";
 import { renderHomework4, bindHomework4, disposeHomework4 } from "./homework4.js";
 import {
@@ -56,7 +57,7 @@ const icon =
 
 /*
  * CENTRAL HOMEWORK REGISTRY
- * To add Homework 6 (#hw6), append one entry to HOMEWORKS below with:
+ * To add a homework, append one entry to HOMEWORKS below with:
  *   id, number, navTitle, subject, pageTitle, title, desc, formula, detail, topics, date, sections, render, bind, dispose
  * Topbar tabs, home folder library, chapter counts, left/right notebook pagination, and routing update automatically.
  */
@@ -145,6 +146,19 @@ const HOMEWORKS = [
     render: () => hw5(),
     bind: () => bindHomework5(),
     dispose: () => disposeHomework5(),
+  },
+  {
+    id: "hw6", number: "06", navTitle: "Homework 6",
+    subject: "Integration & normal CDF",
+    pageTitle: "Homework 6 · Integration & normal CDF",
+    title: "From measured sets to cumulative probability.",
+    desc: "Compare domain and range partitions, then compute the normal CDF. Two exercises in one chapter.",
+    formula: "Φ(z) = ½[1 + erf(z/√2)]",
+    detail: "Riemann · Lebesgue",
+    topics: "Numerical integration · normal CDF", date: "",
+    sections: ["hw6-integration", "hw6-pathologies", "hw6-normal", "hw6-liouville", "hw6-methods"],
+    render: () => renderHomework6({ chapterIntro, sectionHead, note, download, esc }),
+    bind: () => bindHomework6(), dispose: () => disposeHomework6(),
   },
 ];
 
@@ -734,6 +748,12 @@ function bindHW2() {
   };
 }
 const sources = [
+  ["MIT · Riemann and Lebesgue integration", "Measure, simple functions and comparison of integrals", "https://ocw.mit.edu/courses/18-125-measure-and-integration-fall-2003/resources/18125_lec3/"],
+  ["NIST · standard normal table", "Trusted five-decimal web reference; areas from zero converted to the CDF", "https://www.itl.nist.gov/div898/handbook/eda/section3/eda3671.htm"],
+  ["NIST DLMF · error functions", "Exact definitions and representations of erf and erfc", "https://dlmf.nist.gov/7.2"],
+  ["NIST DLMF · series", "Power-series representations of error functions", "https://dlmf.nist.gov/7.6"],
+  ["Brian Conrad · elementary integration", "Liouville’s theorem and the non-elementary Gaussian antiderivative", "https://math.stanford.edu/~conrad/papers/elemint.pdf"],
+  ["Assigned reading · normal distribution", "ETSU notes on Hogg–McKean–Craig, section 3.4", "https://faculty.etsu.edu/gardnerr/4047/notes-Hogg-McKean-Craig/Hogg-McKean-Craig-3-4.pdf"],
   ["Welford (1962)", "Original article on corrected sums of squares and products", "https://doi.org/10.1080/00401706.1962.10490022"],
   ["SAS · one-pass statistics", "Derivation and implementation of online mean and variance updates", "https://blogs.sas.com/content/iml/2026/04/06/welford-mean-var.html"],
   ["Sample-variance moments", "Benhamou: expectations and variance of the sample variance, including the iid fourth-moment formula", "https://arxiv.org/abs/1809.03774"],
@@ -828,7 +848,7 @@ const sources = [
 ];
 function references() {
   const numbersLabel = HOMEWORKS.map((_, i) => i + 1).join(" + ");
-  return `<main id="main">${chapterIntro(numbersLabel, "Evidence behind<br><em>the experiments.</em>", "Original explanations and application code, grounded in primary specifications. Computed results are separated from ideal-model expectations.", "SOURCES & METHODOLOGY")}<nav class="section-nav" aria-label="Chapter sections"><a href="#ref-method">The method</a><a href="#ref-sources">Primary references</a><a href="#ref-scope">Scope of submission</a></nav><section id="ref-method" class="content-section">${sectionHead("THE METHOD", "Observe. Reproduce. Interpret.")}<div class="two-col prose"><article><h3>What is measured?</h3><p>Homework 1 enumerates a small finite group. Census mode covers the nonidentity subgroup exactly; sequence mode counts every visit and reports excluded identities. Coordinates use 5 bits each. One-bit comparisons enumerate unique valid key pairs within the subgroup.</p><p>Homework 2 uses deterministic byte messages, a documented bit-flip schedule, Keccak-256 digests and explicit denominators. Dataset exports include inputs, outputs and protocol parameters. Model references are teaching benchmarks, not certificates of randomness.</p></article><article><h3>What is verified?</h3><p>Automated tests check all toy-curve points, inverse and identity cases, associativity, periodicity, and agreement of both multiplication algorithms. Reference tests cover BIP-39, BIP-32, published EIP-55 addresses, Keccak-256 and SHA3-256 known outputs, and the public-key serialization used for Ethereum addresses.</p><p>The cryptographic pipeline uses ethers 6.17.0, and SHA3-256 uses noble-hashes 1.8.0. Dependencies are bundled at build time. Experiment inputs stay in the browser; no wallet connection or analytics is used.</p></article></div></section><section id="ref-sources" class="content-section">${sectionHead("PRIMARY REFERENCES", "Read the specifications.")}<div class="source-list">${sources.map(([name, desc, url], i) => `<a href="${url}" target="_blank" rel="noopener noreferrer"><span>${String(i + 1).padStart(2, "0")}</span><div><h3>${name}</h3><p>${desc}</p></div><b>↗</b></a>`).join("")}</div></section><section id="ref-scope" class="content-section">${note("Scope of the submission", "The required core covers toy-curve arithmetic, the wallet pipeline, encryption and cryptanalysis, stochastic penetration models with LLN and CLT experiments, and Welford recurrences with sampling-statistics experiments. Slow animation, two multiplication methods, computed wallet walkthroughs and CSV exports are supporting additions. This notebook does not claim cryptographic security from statistical appearance.")}<p class="small muted">Homework 3 uses separate authors for language-model training and evaluation, paired seeded trials at eight lengths, and exact public-point verification of restricted keys. Homework 4 simulates independent attacker paths under Bernoulli and symmetric Rademacher increments, comparing all three requested normalizations with finite distributions and limit theorems. Homework 5 joins both exercises on one page: Welford derivation and iid bounded-score sampling, with per-hacker estimates, averages across hackers, and their variability as n increases. Historical dates are approximate introduction/standardization dates, as in the assignment. Other students’ work is not imported; primary standards inform the mathematics and reference vectors.</p><div class="chapter-footer-actions"><a class="button next-chapter" href="#home">← Back to Overview & homework folders</a></div></section></main>`;
+  return `<main id="main">${chapterIntro(numbersLabel, "Evidence behind<br><em>the experiments.</em>", "Original explanations and application code, grounded in primary specifications. Computed results are separated from ideal-model expectations.", "SOURCES & METHODOLOGY")}<nav class="section-nav" aria-label="Chapter sections"><a href="#ref-method">The method</a><a href="#ref-sources">Primary references</a><a href="#ref-scope">Scope of submission</a></nav><section id="ref-method" class="content-section">${sectionHead("THE METHOD", "Observe. Reproduce. Interpret.")}<div class="two-col prose"><article><h3>What is measured?</h3><p>Homework 1 enumerates a small finite group. Census mode covers the nonidentity subgroup exactly; sequence mode counts every visit and reports excluded identities. Coordinates use 5 bits each. One-bit comparisons enumerate unique valid key pairs within the subgroup.</p><p>Homework 2 uses deterministic byte messages, a documented bit-flip schedule, Keccak-256 digests and explicit denominators. Dataset exports include inputs, outputs and protocol parameters. Model references are teaching benchmarks, not certificates of randomness.</p></article><article><h3>What is verified?</h3><p>Automated tests check all toy-curve points, inverse and identity cases, associativity, periodicity, and agreement of both multiplication algorithms. Reference tests cover BIP-39, BIP-32, published EIP-55 addresses, Keccak-256 and SHA3-256 known outputs, and the public-key serialization used for Ethereum addresses.</p><p>The cryptographic pipeline uses ethers 6.17.0, and SHA3-256 uses noble-hashes 1.8.0. Dependencies are bundled at build time. Experiment inputs stay in the browser; no wallet connection or analytics is used.</p></article></div></section><section id="ref-sources" class="content-section">${sectionHead("PRIMARY REFERENCES", "Read the specifications.")}<div class="source-list">${sources.map(([name, desc, url], i) => `<a href="${url}" target="_blank" rel="noopener noreferrer"><span>${String(i + 1).padStart(2, "0")}</span><div><h3>${name}</h3><p>${desc}</p></div><b>↗</b></a>`).join("")}</div></section><section id="ref-scope" class="content-section">${note("Scope of the submission", "The required core covers toy-curve arithmetic, the wallet pipeline, encryption and cryptanalysis, stochastic penetration models with LLN and CLT experiments, Welford recurrences with sampling-statistics experiments, and numerical integration with the standard normal CDF. Slow animation, two multiplication methods, computed wallet walkthroughs and CSV exports are supporting additions. This notebook does not claim cryptographic security from statistical appearance.")}<p class="small muted">Homework 3 uses separate authors for language-model training and evaluation, paired seeded trials at eight lengths, and exact public-point verification of restricted keys. Homework 4 simulates independent attacker paths under Bernoulli and symmetric Rademacher increments, comparing all three requested normalizations with finite distributions and limit theorems. Homework 5 joins both exercises on one page: Welford derivation and iid bounded-score sampling, with per-hacker estimates, averages across hackers, and their variability as n increases. Homework 6 compares domain and range constructions with analytic and sampled preimage measures, treats singular and pathological examples, and computes the normal CDF with quadrature and a power series, checked against a NIST table. Historical dates are approximate introduction/standardization dates, as in the assignment. Other students’ work is not imported; primary standards inform the mathematics and reference vectors.</p><div class="chapter-footer-actions"><a class="button next-chapter" href="#home">← Back to Overview & homework folders</a></div></section></main>`;
 }
 function hw3() {
   return renderHomework3({

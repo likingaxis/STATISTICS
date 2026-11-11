@@ -2108,6 +2108,38 @@ details .two-col {
   .homework-four .h4-scale h3 { gap: 8px; }
 }
 
+/* HW6 keeps both exercises side by side on desktop and in reading order on mobile. */
+.h6-columns { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(30px, 4vw, 62px); align-items: start; }
+.h6-exercise { min-width: 0; }
+.h6-exercise + .h6-exercise { border-left: 1px solid var(--line); padding-left: clamp(24px, 3vw, 44px); }
+.homework-six .h6-exercise h2 { font-family: 'Libre Caslon Display', Georgia, serif; font-size: clamp(32px, 3vw, 43px); line-height: 1.15; margin: 12px 0 18px; }
+.homework-six h3 { margin-top: 30px; margin-bottom: 14px; }
+.homework-six .h6-exercise .section-heading h2 { font-size: 34px; }
+.homework-six .formula-box { margin: 22px 0; overflow-wrap: anywhere; }
+.homework-six .formula-box p { margin: 8px 0; }
+.homework-six .h6-controls { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin: 20px 0; }
+.homework-six .h6-controls > div { min-width: 0; }
+.homework-six :is(select, input) { width: 100%; max-width: 100%; }
+.homework-six .panel { margin: 26px 0; }
+.homework-six :is(.table-scroll, .chart-scroll) { max-width: 100%; }
+.homework-six .h6-chart { min-width: 440px; }
+.homework-six .h6-chart .axis { font-size: 11px; }
+.homework-six td { font-variant-numeric: tabular-nums; }
+.homework-six pre { padding: 18px; overflow-x: auto; background: var(--surface-soft); font: 12.5px/1.9 Consolas, monospace; }
+.homework-six pre code { background: none; padding: 0; font: inherit; }
+.homework-six details { margin: 24px 0; }
+.homework-six .h6-legend { display: flex; flex-wrap: wrap; gap: 10px 20px; }
+.homework-six .h6-legend span { display: inline-flex; align-items: center; gap: 8px; }
+.homework-six .h6-legend i { width: 24px; border-top: 2px solid var(--series); }
+.homework-six .chapter-footer-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 28px; }
+@media (max-width: 1100px) {
+  .h6-columns { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .h6-exercise + .h6-exercise { border-left: 0; border-top: 2px solid var(--line-strong); padding-left: 0; }
+}
+@media (max-width: 540px) {
+  .homework-six .h6-controls { grid-template-columns: minmax(0, 1fr); }
+}
+
 /* A single lesson page holds both Welford exercises. */
 .chapter-card.fifth-chapter { grid-column: 1 / -1; }
 .chapter-card.fifth-chapter > p { max-width: 680px; }

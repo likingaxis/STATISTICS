@@ -10,7 +10,20 @@
 
 **Homework 1 & Homework 2 date:** October 15, 2026 (homework date; not labelled as a deadline).
 
-Un unico sito didattico per gli Homework 1, 2, 3, 4 e 5 di Statistica. Testi dell'applicazione in inglese; istruzioni di utilizzo in italiano. Implementazione originale in HTML, CSS e JavaScript, senza backend.
+Un unico sito didattico per gli Homework 1, 2, 3, 4, 5 e 6 di Statistica. Testi dell'applicazione in inglese; istruzioni di utilizzo in italiano. Implementazione originale in HTML, CSS e JavaScript, senza backend.
+
+## Homework 6 — integrazione e CDF normale
+
+I due esercizi sono nello stesso capitolo `#hw6`, in due colonne su desktop e in sequenza su mobile. Il corso chiama la consegna Homework 5; il sito mantiene la numerazione superiore di uno perché le prime due parti sono state pubblicate separatamente. Gli hash precedenti restano invariati.
+
+- `src/integration.js`: sette funzioni, quadratura ai punti medi, funzioni semplici con misure delle preimmagini e approssimazione separata tramite istogramma su griglia. Le misure sono analitiche tranne per sinc, invertita con 48 bisezioni. Il caso singolare usa `min(1/sqrt(x),T)`, integrale `2-1/T`: aumentare K non elimina la coda `1/T`.
+- `src/normal-cdf.js`: Simpson adattivo sulla coda, cutoff 12, profondità 24, riuso dei campioni e correzione di Richardson; trapezi e Simpson composti sull'area centrale; serie ricorsiva limitata a `|z|<=3` per la cancellazione numerica. La UI accetta `|z|<=8` e distingue chiamate della densità e termini della serie. La stima adattiva dell'errore è euristica; la coda omessa ha il limite separato `phi(12)/12`.
+- `src/homework6.js`: controlli indipendenti, impostazioni dei run completati, grafici e tabelle di convergenza, confronto di tutte le funzioni, esempi Dirichlet/Thomae con tag razionali esatti, argomento di Liouville, identità erf/erfc, tempi misurati e due CSV.
+- `tests/homework6.test.js`: 14 nuovi test per errori noti, salti, intervalli di integrazione, troncamento, sinc, bias di griglia, denominatori razionali, valori CDF indipendenti fino a −8, simmetria, monotonia, precisione della tabella, ordini di convergenza e input.
+
+Il riferimento web è la [tabella NIST](https://www.itl.nist.gov/div898/handbook/eda/section3/eda3671.htm): le aree da zero sono convertite alla CDF con la simmetria. Le cinque cifre decimali comportano un'incertezza di arrotondamento di ±0.000005 e non certificano ulteriori cifre. I test usano anche vettori erfc indipendenti. Le spiegazioni citano le [note ETSU assegnate](https://faculty.etsu.edu/gardnerr/4047/notes-Hogg-McKean-Craig/Hogg-McKean-Craig-3-4.pdf), [NIST DLMF](https://dlmf.nist.gov/7.2), [MIT](https://ocw.mit.edu/courses/18-125-measure-and-integration-fall-2003/resources/18125_lec3/) e [Conrad](https://math.stanford.edu/~conrad/papers/elemint.pdf). Nessun codice o testo degli studenti è importato.
+
+Default: integrazione N=256, K=128, M=2048, T=16; CDF z=1.96, N=256, tolleranza adattiva 1e-10. Calcoli deterministici nel browser. `homework6-integration.csv` esporta sette righe con target completi/troncati, intervalli, stime e impostazioni; `homework6-normal-cdf.csv` esporta nove punti NIST con metodi, lavoro ed errori. Tempi: mediana di cinque batch da 20 chiamate dopo tre warm-up; esclusi grafici e tabelle.
 
 ## Avvio e verifica
 
