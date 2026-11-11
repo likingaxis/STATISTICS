@@ -3406,3 +3406,75 @@ footer {
   #main .timeline h4 { font-size: calc(14px * var(--reading-scale)); }
 }
 #main p { overflow-wrap: anywhere; }
+
+/* Home hero 6-chapter synopsis grid & HW6 column header consistency */
+.hero-overview-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin: 14px 0 16px;
+}
+.hero-overview-item {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 13px 15px;
+  border-radius: 10px;
+  border: 1px solid var(--line-strong);
+  background: var(--surface-soft);
+  transition: border-color 160ms ease, background 160ms ease, transform 160ms ease;
+}
+.hero-overview-item:hover,
+.hero-overview-item:focus-visible {
+  border-color: var(--accent);
+  background: var(--surface-hover);
+  transform: translateY(-1px);
+}
+.hero-overview-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.hero-overview-top span {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  color: var(--accent);
+}
+.hero-overview-top small {
+  font-size: 10.5px;
+  color: var(--muted);
+  font-weight: 500;
+}
+.hero-overview-item strong {
+  font-family: "Libre Caslon Display", Georgia, serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.25;
+  color: var(--ink);
+}
+.hero-overview-item > span {
+  font-size: 11px;
+  color: var(--muted);
+  font-family: Consolas, monospace;
+}
+.homework-six .h6-exercise .content-section > .eyebrow {
+  color: var(--accent);
+  font-size: 10.5px;
+  font-weight: 650;
+  letter-spacing: 0.9px;
+}
+.homework-six .h6-exercise .content-section > .intro {
+  color: var(--muted);
+  font-size: calc(15px * var(--reading-scale));
+  margin-bottom: 18px;
+}
+@media (max-width: 560px) {
+  .hero-overview-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.overline {
+  text-decoration: overline;
+}
