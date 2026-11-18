@@ -3478,3 +3478,111 @@ footer {
 .overline {
   text-decoration: overline;
 }
+
+/* Homework 7: Statistical independence, contingency tables, and Chi-square test */
+.homework-seven .h7-controls {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(220px, 1fr);
+  gap: 18px;
+  margin-bottom: 14px;
+}
+.homework-seven .h7-controls > div {
+  min-width: 0;
+}
+.homework-seven .h7-controls label {
+  margin-top: 0;
+}
+.homework-seven .h7-synth-box {
+  background: var(--surface-soft);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 16px 18px;
+  margin-bottom: 18px;
+}
+.homework-seven .h7-synth-box .eyebrow {
+  display: block;
+  font-size: 9px;
+  font-weight: 650;
+  letter-spacing: 0.9px;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+.homework-seven .h7-synth-box .experiment-toolbar {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  margin-bottom: 0;
+}
+.homework-seven .h7-synth-box .experiment-toolbar > div {
+  flex: 1;
+  min-width: 145px;
+}
+.homework-seven .h7-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 12px 0 18px;
+  font-size: 12px;
+}
+.homework-seven .h7-checkbox input {
+  width: auto;
+  min-height: 18px;
+  accent-color: var(--accent-solid);
+}
+.homework-seven .h7-gap {
+  margin-top: 26px;
+}
+.homework-seven .h7-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 22px;
+  font-size: 11px;
+  margin: 10px 0 16px;
+}
+.homework-seven .h7-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.homework-seven .h7-legend i {
+  display: inline-block;
+  width: 22px;
+  height: 0;
+  border-top: 2.5px solid var(--series);
+}
+.homework-seven .h7-legend i.dashed {
+  border-top-style: dashed;
+}
+.homework-seven .h7-chart {
+  min-width: 540px;
+}
+.homework-seven .h7-chart .axis {
+  font-size: 11px;
+}
+.homework-seven td,
+.homework-seven th {
+  font-variant-numeric: tabular-nums;
+}
+.homework-seven tfoot td {
+  border-top: 1px solid var(--line-strong);
+  background: var(--surface-soft);
+}
+.homework-seven .error-text {
+  color: var(--error);
+}
+.homework-seven .chapter-footer-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 28px;
+}
+@media (max-width: 820px) {
+  .homework-seven .h7-controls {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .homework-seven .h7-synth-box .experiment-toolbar > div {
+    flex: 0 0 100%;
+    min-width: 0;
+    width: 100%;
+  }
+}

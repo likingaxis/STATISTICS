@@ -6,11 +6,21 @@
 
 web
 
+## Homework 7 extension — November 18, 2026
+
+Add Homework 7 (`#hw7`) on statistical independence, programmatic contingency-table construction from arbitrary bivariate datasets `(X, F)`, marginal and conditional frequency distributions, expected frequencies under independence, Pearson's Chi-square statistic, optional exact incomplete-gamma p-values and Cramér's V effect size, and the theoretical and empirical distinction between statistical association and causality. Preserve all six earlier chapters, the centralized `HOMEWORKS` registry, English academic prose, and the Rosso Sapienza visual system. The automated test suite expands to 70 tests.
+
+## Editorial and overview refinement — November 11, 2026
+
+The implemented revision `bc4312f` refines the English prose across all six chapters: descriptive academic titles, explicit mathematical introductions, clearer section labels and more consistent laboratory copy. Preserve this register when extending the notebook. The homepage now provides a compact linked synopsis of all six homework topics, generated from `HOMEWORKS`; the site description covers the full mathematical and statistical scope.
+
+Keep existing chapter and section routes, numbering, experiment parameters and computational protocols. HW6 retains two desktop exercise columns and a single mobile reading flow, with consistent exercise/part headings. The editorial revision includes explanations and labels in `src/integration.js`; its numerical procedures are unchanged. Treat recorded tests and browser checks as evidence from their original sessions, rather than claiming new validation from a documentation update.
+
 ## Homework 6 extension — November 11, 2026
 
 Keep one chapter and one submission URL, `#hw6`, for both exercises. Place Exercise 1 (Riemann and Lebesgue integration) and Exercise 2 (normal CDF) in separate desktop columns, stacked on narrow screens. Preserve English content, existing numbering and the Rosso Sapienza design. The classroom assignment is Homework 5; this site remains one number ahead because the first two parts were published separately.
 
-Include numerical implementations, reproducible comparisons, convergence, measured cost, CSV exports and mathematical interpretation. Distinguish analytic preimage measures from sampled histograms, proper from improper Riemann integrals, quantization from truncation errors, and numerical evidence from proofs. Explain Liouville's elementary-integration theorem and the exact erf identity; compare numerical CDF methods against the NIST rounded web table. No new deadline or publication request was supplied.
+Include numerical implementations, reproducible comparisons, convergence, measured cost, CSV exports and mathematical interpretation. Distinguish analytic preimage measures from sampled histograms, proper from improper Riemann integrals, quantization from truncation errors, and numerical evidence from proofs. Explain Liouville's elementary-integration theorem and the exact erf identity; compare numerical CDF methods against the NIST rounded web table. No new deadline was supplied. Luca subsequently requested the GitHub Pages push; preserve publication from `docs/` on `UNI`.
 
 ## Users
 
@@ -28,7 +38,7 @@ Use plain HTML, CSS and JavaScript, with Vite for static builds and maintained l
 
 ## Brand Commitments
 
-User-confirmed title: Statistics Homeworks. Preserve a uniform visual system across all five homework chapters and the concept → experiment → measurement → interpretation reading sequence. The authorized November 3, 2026 appearance and readability refinement supersedes the original green/paper palette while retaining the academic identity and established font pairing; DESIGN.md records the implemented system. Text in the site is English.
+User-confirmed title: Statistics Homeworks. Preserve a uniform visual system across all six homework chapters and the concept → experiment → measurement → interpretation reading sequence. The authorized November 3, 2026 appearance and readability refinement supersedes the original green/paper palette while retaining the academic identity and established font pairing; DESIGN.md records the implemented system. Text in the site is English.
 
 ## Evidence on Hand
 

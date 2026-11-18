@@ -10,7 +10,37 @@
 
 **Homework 1 & Homework 2 date:** October 15, 2026 (homework date; not labelled as a deadline).
 
-Un unico sito didattico per gli Homework 1, 2, 3, 4, 5 e 6 di Statistica. Testi dell'applicazione in inglese; istruzioni di utilizzo in italiano. Implementazione originale in HTML, CSS e JavaScript, senza backend.
+Un unico sito didattico per gli Homework 1, 2, 3, 4, 5, 6 e 7 di Statistica. Testi dell'applicazione in inglese; istruzioni di utilizzo in italiano. Implementazione originale in HTML, CSS e JavaScript, senza backend.
+
+## Stato della documentazione — 18 novembre 2026
+
+Documentazione aggiornata con l'introduzione di **Homework 7 — Statistical Independence** (`#hw7`), successivo alla revisione editoriale `bc4312f` dell'11 novembre 2026. La homepage presenta una sintesi navigabile di tutti i sette homework, generata dal registro `HOMEWORKS`, e la descrizione del sito copre l'intero percorso fino alle tabelle di contingenza e al test chi-quadro di indipendenza.
+
+| Capitolo | Titolo corrente | URL interno |
+| --- | --- | --- |
+| Homework 1 | Scalar Multiplication on a Finite-Field Curve | `#hw1` |
+| Homework 2 | From Mnemonic Entropy to an Ethereum Address | `#hw2` |
+| Homework 3 | Public-Key Encryption and Statistical Cryptanalysis | `#hw3` |
+| Homework 4 | Stochastic Penetration Models and Limit Theorems | `#hw4` |
+| Homework 5 | Welford’s Recurrence and Sampling Distributions | `#hw5` |
+| Homework 6 | Riemann–Lebesgue Integration and the Normal CDF | `#hw6` |
+| Homework 7 | Statistical Independence and Contingency Analysis | `#hw7` |
+
+La revisione conserva i percorsi dei capitoli precedenti (`#hw1`–`#hw6`), la numerazione, i laboratori e i parametri degli esperimenti. HW6 mantiene due colonne su desktop e una sequenza verticale su mobile, mentre HW7 segue il flusso accademico a sezioni con tabelle di contingenza, grafici delle distribuzioni condizionate, distribuzione asintotica χ², residui di Pearson e analisi stratificata del confondimento.
+
+### Repository e file pubblicati
+
+Git traccia sorgenti, test, dipendenze dichiarate, build `docs/`, documentazione (`README.md`, `PRODUCT.md`, `DESIGN.md`) e configurazioni del progetto, comprese `.impeccable/design.json` e `.openai/hosting.json`. Il manifest di hosting contiene l'identificativo del sito e la directory statica; non contiene credenziali. GitHub Pages serve soltanto `docs/`, mentre i file tracciati esterni a quella cartella rimangono consultabili nel repository.
+
+`CONTESTO_HOMEWORKS.md`, `reference/`, `.impeccable/review/`, `node_modules/`, `dist/`, `.sites-runtime/` e gli archivi ZIP sono ignorati. La verifica locale dei percorsi nella cronologia di tutti i riferimenti disponibili non ha individuato la memoria di continuità, le reference private o materiali estranei al progetto. Il nome e la matricola dell'autore sono presenti nei contenuti accademici; i commit conservano nome ed email dell'identità Git configurata.
+
+## Homework 7 — indipendenza statistica, tabelle di contingenza e test chi-quadro
+
+Route: `#hw7`. Nel calendario del corso la consegna è indicata come Homework 6 (o Homework 7 per chi ha separato i primi due esercizi); il sito mantiene la numerazione progressiva `#hw7` coerente con i sei capitoli precedenti.
+
+- `src/independence.js`: parsing di osservazioni grezze bivariate `(X, F)` (separatori virgola, punto e virgola, tab o spazio; header opzionale), costruzione programmatica della tabella di contingenza `R × C` (`O_ij`), totali marginali di riga `R_i` e colonna `C_j`, frequenze relative congiunte `O_ij / N`, distribuzioni condizionate di riga `P(F | X)` e di colonna `P(X | F)`, frequenze attese sotto indipendenza `E_ij = (R_i * C_j) / N`, statistica obbligatoria `χ² = Σ (O_ij − E_ij)² / E_ij` con `df = (R − 1)(C − 1)`, residui standardizzati di Pearson `r_ij = (O_ij − E_ij) / √E_ij`, diagnostica di Cochran (`E_ij ≥ 5` nell'80% delle celle e `E_ij ≥ 1` ovunque), più le estensioni facoltative: `p-value = Q(df/2, χ²/2)` tramite funzione gamma incompleta regolarizzata (Lanczos + serie di potenze / frazione continua di Lentz), valore critico `χ²_α,df`, `V` di Cramér, coefficiente `φ` e correzione di continuità di Yates per tabelle `2 × 2`.
+- `src/homework7.js`: laboratorio interattivo con quattro dataset curati (`attack-outcome` dipendente N=400, `protocol-zone` indipendente N=360, `confounded-patch` confuso N=480, `sparse-table` sparso N=28), generatore sintetico Mulberry32 con forza di dipendenza regolabile `s ∈ [0, 1]`, editor diretto di coppie `(X, F)`, pulsante `Swap variables (X ↔ F)` che verifica la simmetria algebrica di `χ²`, grafici SVG delle distribuzioni condizionate rispetto alla marginale, curva di densità `χ²(df)` con regione critica, grafico dei residui di Pearson, dimostrazione empirica stratificata della differenza tra associazione statistica e causalità (`X ⊥ F | Z` in entrambi gli strati nonostante `χ² = 14.4` marginale) ed esportazione di due CSV (`homework7-contingency-table.csv` e `homework7-raw-dataset.csv`).
+- `tests/homework7.test.js`: 11 nuovi test (suite totale: **70 test**) che verificano invarianza per permutazione delle righe grezze, conservazione dei totali marginali e somma zero degli scarti `O_ij − E_ij`, identità di Bayes tra frequenze congiunte, marginali e condizionate, simmetria per trasposizione `X ↔ F`, accordo della gamma incompleta con la CDF normale ad alta precisione (`df = 1`) e con le forme chiuse esponenziali/Erlang (`df = 2, 4`), verifica manuale cella per cella del preset di default, correzione di Yates, stratificazione del confondimento e gestione di tabelle degeneri (`df = 0`) o input malformati.
 
 ## Homework 6 — integrazione e CDF normale
 
