@@ -441,7 +441,7 @@ for (let i = 0; i &lt; R; i++) {
     'Summary of methodological rules',
     '1. Always verify how marginal totals Rᵢ and Cⱼ constrain expected frequencies Eᵢⱼ = Rᵢ Cⱼ / N. 2. Check Cochran’s rule (at least 80% of cells with Eᵢⱼ ≥ 5 and all Eᵢⱼ ≥ 1) before relying on asymptotic χ² p-values. 3. Pair χ² significance with Cramér’s V and cell residuals rᵢⱼ to separate sample-size effects from substantive association. 4. Never infer a causal mechanism X → F from a contingency table without controlling for confounding variables or randomized assignment.',
   )}
-  <div class="chapter-footer-actions"><a class="button next-chapter" href="#references">Explore sources &amp; methodology →</a><a class="text-link" href="#hw6">← Back to Homework 6</a></div></section></main>`;
+  <div class="chapter-footer-actions"><a class="button next-chapter" href="#hw8">Continue to Homework 8</a><a class="text-link" href="#hw6">← Back to Homework 6</a></div></section></main>`;
 }
 
 function draw() {

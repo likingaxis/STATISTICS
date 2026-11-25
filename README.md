@@ -10,7 +10,11 @@
 
 **Homework 1 & Homework 2 date:** October 15, 2026 (homework date; not labelled as a deadline).
 
-Un unico sito didattico per gli Homework 1, 2, 3, 4, 5, 6 e 7 di Statistica. Testi dell'applicazione in inglese; istruzioni di utilizzo in italiano. Implementazione originale in HTML, CSS e JavaScript, senza backend.
+Un unico sito didattico per gli Homework 1–8 di Statistica. Testi dell'applicazione in inglese; istruzioni di utilizzo in italiano. Implementazione originale in HTML, CSS e JavaScript, senza backend.
+
+## Homework 8 — convergenza e inferenza bayesiana
+
+Entrambi gli esercizi sono nella stessa pagina, [Homework 8](https://likingaxis.github.io/STATISTICS/#hw8). Il primo confronta quattro modi di convergenza, presenta le leggi dei grandi numeri e il teorema centrale del limite, e deriva il fattore √n dalla varianza della somma. Il secondo presenta probabilità condizionata e aggiornamento bayesiano, con esempi sul tasso di difetti e sul modello Beta–binomiale. I controlli variano la numerosità, il tasso di base e la quantità di dati per mostrare come cambiano i risultati.
 
 ## Stato della documentazione — 18 novembre 2026
 

@@ -3576,6 +3576,97 @@ footer {
   gap: 14px;
   margin-top: 28px;
 }
+
+.homework-eight .hw8-flow,
+.homework-eight .hw8-demo {
+  margin-top: 24px;
+}
+.homework-eight .hw8-modes {
+  min-width: 600px;
+}
+.homework-eight .hw8-beta {
+  min-width: 490px;
+}
+.homework-eight th[scope="row"] {
+  color: var(--ink);
+  font-size: inherit;
+  letter-spacing: normal;
+  line-height: 1.6;
+  text-transform: none;
+  white-space: normal;
+}
+.homework-eight td {
+  vertical-align: top;
+  font-variant-numeric: tabular-nums;
+}
+.homework-eight .hw8-equation {
+  color: var(--ink);
+  font-weight: 650;
+  overflow-wrap: anywhere;
+}
+.homework-eight .hw8-terms {
+  margin: 0;
+}
+.homework-eight .hw8-terms dt {
+  color: var(--ink);
+  font-weight: 650;
+}
+.homework-eight .hw8-terms dd {
+  margin: 0 0 12px;
+}
+.homework-eight .hw8-demo {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  gap: 24px;
+}
+.homework-eight .hw8-demo label:first-child,
+.homework-eight .hw8-select label {
+  margin-top: 0;
+}
+.homework-eight .hw8-select {
+  max-width: 20rem;
+  margin-bottom: 12px;
+}
+.homework-eight .hw8-bar-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+.homework-eight .hw8-track {
+  overflow: hidden;
+  height: 8px;
+  margin: 6px 0 14px;
+  border-radius: 4px;
+  background: var(--surface-soft);
+  outline: 1px solid var(--line);
+}
+.homework-eight .hw8-track span {
+  display: block;
+  height: 100%;
+  background: var(--series-main);
+}
+.homework-eight .hw8-reference span {
+  background: var(--series-reference);
+}
+.homework-eight .hw8-demo p:last-child {
+  margin-bottom: 0;
+}
+.homework-eight .hw8-sources {
+  margin-top: 20px;
+  color: var(--muted);
+}
+.homework-eight .hw8-sources a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+@media (max-width: 760px) {
+  .homework-eight .hw8-demo {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
 @media (max-width: 820px) {
   .homework-seven .h7-controls {
     grid-template-columns: minmax(0, 1fr);
