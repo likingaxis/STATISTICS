@@ -3582,7 +3582,12 @@ footer {
   margin-top: 24px;
 }
 .homework-eight .hw8-modes {
-  min-width: 600px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+.homework-eight .hw8-modes p:last-child {
+  margin-bottom: 0;
 }
 .homework-eight .hw8-beta {
   min-width: 490px;
@@ -3599,10 +3604,15 @@ footer {
   vertical-align: top;
   font-variant-numeric: tabular-nums;
 }
-.homework-eight .hw8-equation {
+.homework-eight math[display="block"] {
+  margin: 14px 0;
   color: var(--ink);
-  font-weight: 650;
-  overflow-wrap: anywhere;
+  font-family: "Cambria Math", math;
+  font-size: calc(clamp(1rem, 1.7vw, 1.3rem) * var(--reading-scale));
+}
+.homework-eight .hw8-variance mtd {
+  padding: 0 .15em;
+  text-align: left;
 }
 .homework-eight .hw8-terms {
   margin: 0;
@@ -3626,6 +3636,11 @@ footer {
 .homework-eight .hw8-select {
   max-width: 20rem;
   margin-bottom: 12px;
+}
+#main.homework-eight .hw8-demo .controls select + p {
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: calc(14px * var(--reading-scale));
 }
 .homework-eight .hw8-bar-row {
   display: flex;
@@ -3662,6 +3677,7 @@ footer {
   text-underline-offset: 3px;
 }
 @media (max-width: 760px) {
+  .homework-eight .hw8-modes,
   .homework-eight .hw8-demo {
     grid-template-columns: minmax(0, 1fr);
   }

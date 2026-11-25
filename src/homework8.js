@@ -17,10 +17,10 @@ function precisionResults(n) {
     <p>For an observed mean of 50, the independent-sample 95% confidence interval is approximately <strong>[${(50 - margin).toFixed(2)}, ${(50 + margin).toFixed(2)}]</strong>.</p>`;
 }
 
-function inspectionResults(priorPercent) {
+function inspectionResults(priorPercent, falsePositivePercent) {
   const prior = priorPercent / 100;
   const trueFlags = prior * 0.90;
-  const falseFlags = (1 - prior) * 0.05;
+  const falseFlags = (1 - prior) * falsePositivePercent / 100;
   const posterior = trueFlags / (trueFlags + falseFlags);
   return `
     <div class="hw8-bar-row"><span>Probability a flagged item is defective</span><strong>${percent(posterior)}</strong></div>
@@ -53,19 +53,52 @@ export function renderHomework8({ chapterIntro, sectionHead }) {
 
   <section id="hw8-convergence" class="content-section">
     ${sectionHead("EXERCISE 1", "Modes of convergence in probability theory", "A limit can describe individual sample paths, the probability of an error, the size of squared errors, or the shape of an entire distribution.")}
-    <div class="table-scroll" role="region" aria-label="Modes of convergence comparison" tabindex="0">
-      <table class="hw8-modes">
-        <thead><tr><th scope="col">Mode</th><th scope="col">Definition</th><th scope="col">Interpretation and statistical role</th></tr></thead>
-        <tbody>
-          <tr><th scope="row">In probability</th><td>P(|Xₙ − X| &gt; ε) → 0 for every ε &gt; 0.</td><td>The chance of exceeding any fixed error tolerance vanishes. This is the weak law’s conclusion and a standard definition of estimator consistency.</td></tr>
-          <tr><th scope="row">Almost surely (a.s.)</th><td>P(lim<sub>n→∞</sub> Xₙ = X) = 1.</td><td>On almost every infinite sample path, the sequence eventually stays within any fixed tolerance of its limit. This is the strong law’s conclusion.</td></tr>
-          <tr><th scope="row">In mean square (L²)</th><td>E[(Xₙ − X)²] → 0 for square-integrable variables.</td><td>Mean squared error vanishes. Large errors receive extra weight. This is useful for assessing estimator accuracy and proves the weak law in the finite-variance i.i.d. case.</td></tr>
-          <tr><th scope="row">In distribution</th><td>F<sub>Xₙ</sub>(t) → F<sub>X</sub>(t) at each continuity point t of F<sub>X</sub>.</td><td>The cumulative distributions approach a limiting law. The CLT uses this to approximate the sampling distribution of a standardized statistic.</td></tr>
-        </tbody>
-      </table>
+    <div class="hw8-modes">
+      <article class="panel prose">
+        <h3>In probability</h3>
+        <math display="block">
+          <mi mathvariant="normal">P</mi><mo stretchy="false">(</mo><mo stretchy="false">|</mo><msub><mi>X</mi><mi>n</mi></msub><mo>−</mo><mi>X</mi><mo stretchy="false">|</mo>
+          <mo>&gt;</mo><mi>ε</mi><mo stretchy="false">)</mo><mo>→</mo><mn>0</mn>
+        </math>
+        <p>For every fixed tolerance ε &gt; 0, the chance of a larger error vanishes. This is the weak law’s conclusion and a standard definition of estimator consistency.</p>
+      </article>
+      <article class="panel prose">
+        <h3>Almost surely (a.s.)</h3>
+        <math display="block">
+          <mi mathvariant="normal">P</mi><mo stretchy="false">(</mo><munder><mo>lim</mo><mrow><mi>n</mi><mo>→</mo><mi>∞</mi></mrow></munder>
+          <msub><mi>X</mi><mi>n</mi></msub><mo>=</mo><mi>X</mi><mo stretchy="false">)</mo><mo>=</mo><mn>1</mn>
+        </math>
+        <p>On almost every infinite sample path, the sequence eventually stays within any fixed tolerance of its limit. This is the strong law’s conclusion.</p>
+      </article>
+      <article class="panel prose">
+        <h3>In mean square (L²)</h3>
+        <math display="block">
+          <mi mathvariant="normal">E</mi><mo stretchy="false">[</mo>
+          <msup><mrow><mo stretchy="false">(</mo><msub><mi>X</mi><mi>n</mi></msub><mo>−</mo><mi>X</mi><mo stretchy="false">)</mo></mrow><mn>2</mn></msup>
+          <mo stretchy="false">]</mo><mo>→</mo><mn>0</mn>
+        </math>
+        <p>For square-integrable variables, mean squared error vanishes. Squaring gives large errors extra weight. The sample mean has this property in the finite-variance i.i.d. case.</p>
+      </article>
+      <article class="panel prose">
+        <h3>In distribution</h3>
+        <math display="block">
+          <msub><mi>F</mi><msub><mi>X</mi><mi>n</mi></msub></msub><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo>
+          <mo>→</mo><msub><mi>F</mi><mi>X</mi></msub><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo>
+        </math>
+        <p>The cumulative distribution functions converge at each continuity point of the limit’s CDF. This is how the CLT gives a limiting law for a standardized statistic.</p>
+      </article>
     </div>
     <div class="prose hw8-flow">
-      <p>Almost sure convergence and L² convergence each imply convergence in probability, which implies convergence in distribution. The L² implication follows from <strong>P(|Xₙ − X| &gt; ε) ≤ E[(Xₙ − X)²] / ε²</strong>. For the almost sure implication, the indicators of errors above ε converge to zero almost surely, so their expectations tend to zero by bounded convergence. Convergence in distribution to a constant also implies convergence in probability to that constant.</p>
+      <p>The first three definitions compare random variables on a common probability space. Convergence in distribution compares only their laws, so the variables can be defined on different probability spaces.</p>
+      <p>Almost sure convergence and L² convergence each imply convergence in probability, which implies convergence in distribution. Applying Markov’s inequality to the squared error gives the L² implication.</p>
+      <math display="block">
+        <mi mathvariant="normal">P</mi><mo stretchy="false">(</mo><mo stretchy="false">|</mo><msub><mi>X</mi><mi>n</mi></msub><mo>−</mo><mi>X</mi><mo stretchy="false">|</mo><mo>&gt;</mo><mi>ε</mi><mo stretchy="false">)</mo><mo>≤</mo>
+        <mfrac>
+          <mrow><mi mathvariant="normal">E</mi><mo stretchy="false">[</mo><msup><mrow><mo stretchy="false">(</mo><msub><mi>X</mi><mi>n</mi></msub><mo>−</mo><mi>X</mi><mo stretchy="false">)</mo></mrow><mn>2</mn></msup><mo stretchy="false">]</mo></mrow>
+          <msup><mi>ε</mi><mn>2</mn></msup>
+        </mfrac>
+      </math>
+      <p>For the almost sure implication, the indicators of errors above ε converge to zero almost surely, so their expectations tend to zero by bounded convergence. Convergence in distribution to a constant also implies convergence in probability to that constant.</p>
       <details>
         <summary>Counterexamples to the reverse implications</summary>
         <ul>
@@ -82,20 +115,68 @@ export function renderHomework8({ chapterIntro, sectionHead }) {
     <div class="two-col prose">
       <article>
         <h3>Where the sample mean goes</h3>
-        <p>Let X₁, X₂, … be independent and identically distributed (i.i.d.), with finite mean μ and variance σ². Write Sₙ = ∑<sub>i=1</sub><sup>n</sup> Xᵢ and X̄ₙ = Sₙ/n. The <strong>weak LLN</strong> gives X̄ₙ → μ in probability. In the finite-variance setting, E[(X̄ₙ − μ)²] = σ²/n, so the mean also converges in L² and Chebyshev’s inequality bounds its error probability by σ²/(nε²).</p>
-        <p>The <strong>strong LLN</strong> gives X̄ₙ → μ almost surely for i.i.d. observations with E|X₁| &lt; ∞. A finite variance is unnecessary for this form of the strong law.</p>
+        <p>Let X₁, X₂, … be independent and identically distributed (i.i.d.) with E|X₁| &lt; ∞ and mean μ. Write the sum and sample mean as</p>
+        <math display="block">
+          <msub><mi>S</mi><mi>n</mi></msub><mo>=</mo>
+          <munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover>
+          <msub><mi>X</mi><mi>i</mi></msub><mo>,</mo><mspace width="1em"/>
+          <msub><mover accent="true"><mi>X</mi><mo>¯</mo></mover><mi>n</mi></msub><mo>=</mo>
+          <mfrac><msub><mi>S</mi><mi>n</mi></msub><mi>n</mi></mfrac>
+        </math>
+        <p>Under these assumptions the <strong>weak Law of Large Numbers (LLN)</strong> gives convergence of the sample mean to μ in probability, and the <strong>strong LLN</strong> gives almost sure convergence to μ. With finite variance σ², the mean is unbiased and its mean squared error is σ²/n, so it also converges in L². Chebyshev’s inequality then gives a direct finite-variance proof of the weak law.</p>
       </article>
       <article>
         <h3>How the sample mean fluctuates</h3>
-        <p>For i.i.d. observations with 0 &lt; σ² &lt; ∞, the <strong>classical CLT</strong> gives</p>
-        <p class="hw8-equation">(Sₙ − nμ)/(σ√n) = √n(X̄ₙ − μ)/σ → 𝒩(0, 1) in distribution.</p>
-        <p>The unscaled mean concentrates at μ. After centering and rescaling, its spread stays visible and its distribution approaches a Gaussian. This yields approximate confidence intervals and tests. If σ is unknown and the sample standard deviation consistently estimates it, Slutsky’s theorem justifies substituting it in the standardized statistic asymptotically.</p>
+        <p>For i.i.d. observations with 0 &lt; σ² &lt; ∞, the <strong>classical Central Limit Theorem (CLT)</strong> gives</p>
+        <math display="block">
+          <msub><mi>Z</mi><mi>n</mi></msub><mo>=</mo>
+          <mfrac>
+            <mrow><msub><mi>S</mi><mi>n</mi></msub><mo>−</mo><mi>n</mi><mi>μ</mi></mrow>
+            <mrow><mi>σ</mi><msqrt><mi>n</mi></msqrt></mrow>
+          </mfrac>
+          <mo>=</mo>
+          <mfrac>
+            <mrow><msqrt><mi>n</mi></msqrt><mo stretchy="false">(</mo><msub><mover accent="true"><mi>X</mi><mo>¯</mo></mover><mi>n</mi></msub><mo>−</mo><mi>μ</mi><mo stretchy="false">)</mo></mrow>
+            <mi>σ</mi>
+          </mfrac>
+        </math>
+        <math display="block">
+          <msub><mi>Z</mi><mi>n</mi></msub><mover><mo>→</mo><mi>d</mi></mover>
+          <mi>𝒩</mi><mo stretchy="false">(</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false">)</mo>
+        </math>
+        <p>The arrow marked <em>d</em> denotes convergence in distribution. The unscaled mean concentrates at μ. After centering and rescaling, its spread stays visible and its distribution approaches a Gaussian. This yields approximate confidence intervals and tests.</p>
       </article>
     </div>
     <div class="formula-box hw8-flow">
       <h3>Why √n appears</h3>
-      <p class="hw8-equation">Var(Sₙ) = ∑<sub>i</sub> Var(Xᵢ) + 2∑<sub>i&lt;j</sub> Cov(Xᵢ, Xⱼ).</p>
-      <p>Independence makes all cross-covariances zero. With common variance σ², the sum has variance nσ² and standard deviation σ√n. Dividing by n gives the mean variance σ²/n and standard error σ/√n. Four times as many independent observations halve that standard error.</p>
+      <math display="block">
+        <mtable displaystyle="true" class="hw8-variance">
+          <mtr>
+            <mtd><mi>Var</mi><mo stretchy="false">(</mo><msub><mi>S</mi><mi>n</mi></msub><mo stretchy="false">)</mo><mo>=</mo></mtd>
+            <mtd><munder><mo>∑</mo><mi>i</mi></munder><mi>Var</mi><mo stretchy="false">(</mo><msub><mi>X</mi><mi>i</mi></msub><mo stretchy="false">)</mo></mtd>
+          </mtr>
+          <mtr>
+            <mtd></mtd>
+            <mtd><mo>+</mo><mn>2</mn><munder><mo>∑</mo><mrow><mi>i</mi><mo>&lt;</mo><mi>j</mi></mrow></munder>
+            <mi>Cov</mi><mo stretchy="false">(</mo><msub><mi>X</mi><mi>i</mi></msub><mo>,</mo><msub><mi>X</mi><mi>j</mi></msub><mo stretchy="false">)</mo></mtd>
+          </mtr>
+        </mtable>
+      </math>
+      <p>Independence makes all cross-covariances zero. With common variance σ², the sum has variance nσ² and standard deviation σ√n. Scaling the sum by 1/n scales its variance by 1/n².</p>
+      <math display="block">
+        <mi>Var</mi><mo stretchy="false">(</mo><msub><mover accent="true"><mi>X</mi><mo>¯</mo></mover><mi>n</mi></msub><mo stretchy="false">)</mo><mo>=</mo>
+        <mfrac>
+          <mrow><mi>Var</mi><mo stretchy="false">(</mo><msub><mi>S</mi><mi>n</mi></msub><mo stretchy="false">)</mo></mrow>
+          <msup><mi>n</mi><mn>2</mn></msup>
+        </mfrac>
+        <mo>=</mo><mfrac><msup><mi>σ</mi><mn>2</mn></msup><mi>n</mi></mfrac>
+      </math>
+      <math display="block">
+        <mi>SE</mi><mo stretchy="false">(</mo><msub><mover accent="true"><mi>X</mi><mo>¯</mo></mover><mi>n</mi></msub><mo stretchy="false">)</mo>
+        <mo>=</mo><msqrt><mfrac><msup><mi>σ</mi><mn>2</mn></msup><mi>n</mi></mfrac></msqrt>
+        <mo>=</mo><mfrac><mi>σ</mi><msqrt><mi>n</mi></msqrt></mfrac>
+      </math>
+      <p>Four times as many independent observations halve the standard error.</p>
       <p>Pairwise zero covariance suffices for variance additivity. A Gaussian limit requires additional assumptions, such as those of the classical i.i.d. CLT. With dependence the covariance terms matter. If Xᵢ = Y for every i, then Sₙ = nY and Var(Sₙ) = n²σ², so averaging copies leaves the standard error at σ. Some weakly dependent processes still have a √n CLT with a variance that includes autocovariances. Heavy-tailed i.i.d. data can satisfy the LLN even when their variance is infinite and the classical CLT is unavailable.</p>
     </div>
     <div class="panel hw8-demo">
@@ -107,6 +188,13 @@ export function renderHomework8({ chapterIntro, sectionHead }) {
       </div>
       <div id="hw8-precision-output" aria-live="polite">${precisionResults(100)}</div>
     </div>
+    <div class="prose hw8-flow">
+      <p>Using the standard normal 97.5th percentile, rounded to 1.96, yields the interval in the example. Under repeated independent sampling, its coverage approaches 95%. If σ is unknown, Slutsky’s theorem justifies using the consistent sample standard deviation in its place for the large-sample interval.</p>
+      <math display="block">
+        <msub><mover accent="true"><mi>X</mi><mo>¯</mo></mover><mi>n</mi></msub>
+        <mo>±</mo><mn>1.96</mn><mfrac><mi>σ</mi><msqrt><mi>n</mi></msqrt></mfrac>
+      </math>
+    </div>
     <p class="hw8-sources">References. <a href="https://ocw.mit.edu/courses/18-175-theory-of-probability-spring-2014/4e8a2305c745bd5a82a5f15cf8bcb8bb_MIT18_175S14_Lecture9.pdf">MIT, Strong Law of Large Numbers</a> · <a href="https://ocw.mit.edu/courses/18-05-introduction-to-probability-and-statistics-spring-2022/resources/mit18_05_s22_class06-prep-b_pdf/">MIT, Central Limit Theorem and Law of Large Numbers</a>.</p>
   </section>
 
@@ -115,22 +203,51 @@ export function renderHomework8({ chapterIntro, sectionHead }) {
     <div class="two-col prose">
       <article>
         <h3>Conditioning on information</h3>
-        <p>For events A and B with P(B) &gt; 0, <strong>P(A | B) = P(A ∩ B) / P(B)</strong>. Conditioning restricts attention to outcomes in B and rescales their probability to one. In a contingency table, an estimate of P(A | B) is the number in both groups divided by the number in B. In a statistical model, conditioning also describes how observations are generated given a parameter or hypothesis.</p>
-        <p>The multiplication rule gives P(A ∩ B) = P(B | A)P(A) = P(A | B)P(B) when both conditionals exist. Solving for P(A | B) gives Bayes’ theorem. For a partition of hypotheses Hᵢ, total probability gives P(D) = ∑<sub>i</sub> P(D | Hᵢ)P(Hᵢ), which normalizes the posterior weights.</p>
+        <p>Conditioning restricts attention to outcomes in B and rescales their probability to one. For events A and B with P(B) &gt; 0,</p>
+        <math display="block">
+          <mi mathvariant="normal">P</mi><mo stretchy="false">(</mo><mi>A</mi><mo stretchy="false">∣</mo><mi>B</mi><mo stretchy="false">)</mo><mo>=</mo>
+          <mfrac>
+            <mrow><mi mathvariant="normal">P</mi><mo stretchy="false">(</mo><mi>A</mi><mo>∩</mo><mi>B</mi><mo stretchy="false">)</mo></mrow>
+            <mrow><mi mathvariant="normal">P</mi><mo stretchy="false">(</mo><mi>B</mi><mo stretchy="false">)</mo></mrow>
+          </mfrac>
+        </math>
+        <p>In a contingency table, the corresponding estimate is the number in both groups divided by the number in B. In a sampling model, conditioning describes the distribution of the observations given a parameter or hypothesis.</p>
+        <p>The multiplication rule gives P(A ∩ B) = P(B | A)P(A) = P(A | B)P(B) when both conditionals exist. Equating the two expressions and dividing by P(B) gives Bayes’ theorem.</p>
       </article>
       <article>
         <h3>Prior, likelihood, and posterior</h3>
         <dl class="hw8-terms">
           <dt>Prior π(θ)</dt><dd>Represents uncertainty about θ before incorporating the current data. It can encode historical evidence or plausible parameter values.</dd>
-          <dt>Likelihood L(θ; d) = p(d | θ)</dt><dd>Holds the observed data d fixed and compares how well different θ values explain them. As a function of θ, it need not integrate or sum to one.</dd>
-          <dt>Posterior π(θ | d)</dt><dd>Represents uncertainty about θ after incorporating d under the prior and the sampling model. The denominator, or marginal likelihood, makes the total posterior mass one.</dd>
+          <dt>Likelihood p(d | θ)</dt><dd>Holds the observed data d fixed and compares how well different θ values explain them. It is a probability mass or density for the data given θ. As a function of θ it need not sum or integrate to one.</dd>
+          <dt>Posterior π(θ | d)</dt><dd>Represents uncertainty about θ after incorporating d under the prior and the sampling model. It is proportional to the prior times the likelihood.</dd>
         </dl>
       </article>
     </div>
-    <div class="formula-box hw8-flow">
-      <p class="hw8-equation">P(H | D) = P(D | H)P(H) / P(D)</p>
-      <p class="hw8-equation">π(θ | d) = p(d | θ)π(θ) / ∫ p(d | t)π(t) dt</p>
-      <p>The first formula updates a hypothesis probability and the second updates a parameter density, assuming positive, finite marginal likelihood for the observation.</p>
+    <div class="two-col hw8-flow">
+      <article class="formula-box">
+        <h3>Discrete hypotheses</h3>
+        <math display="block">
+          <mi mathvariant="normal">P</mi><mo stretchy="false">(</mo><msub><mi>H</mi><mi>j</mi></msub><mo stretchy="false">∣</mo><mi>D</mi><mo stretchy="false">)</mo><mo>=</mo>
+          <mfrac>
+            <mrow><mi mathvariant="normal">P</mi><mo stretchy="false">(</mo><mi>D</mi><mo stretchy="false">∣</mo><msub><mi>H</mi><mi>j</mi></msub><mo stretchy="false">)</mo>
+            <mi mathvariant="normal">P</mi><mo stretchy="false">(</mo><msub><mi>H</mi><mi>j</mi></msub><mo stretchy="false">)</mo></mrow>
+            <mrow><munder><mo>∑</mo><mi>i</mi></munder><mi mathvariant="normal">P</mi><mo stretchy="false">(</mo><mi>D</mi><mo stretchy="false">∣</mo><msub><mi>H</mi><mi>i</mi></msub><mo stretchy="false">)</mo>
+            <mi mathvariant="normal">P</mi><mo stretchy="false">(</mo><msub><mi>H</mi><mi>i</mi></msub><mo stretchy="false">)</mo></mrow>
+          </mfrac>
+        </math>
+        <p>Sum over a partition of hypotheses. By the law of total probability the denominator equals P(D), which must be positive. It makes the posterior probabilities sum to one.</p>
+      </article>
+      <article class="formula-box">
+        <h3>Continuous parameter</h3>
+        <math display="block">
+          <mi>π</mi><mo stretchy="false">(</mo><mi>θ</mi><mo stretchy="false">∣</mo><mi>d</mi><mo stretchy="false">)</mo><mo>=</mo>
+          <mfrac>
+            <mrow><mi>p</mi><mo stretchy="false">(</mo><mi>d</mi><mo stretchy="false">∣</mo><mi>θ</mi><mo stretchy="false">)</mo><mi>π</mi><mo stretchy="false">(</mo><mi>θ</mi><mo stretchy="false">)</mo></mrow>
+            <mrow><mo>∫</mo><mi>p</mi><mo stretchy="false">(</mo><mi>d</mi><mo stretchy="false">∣</mo><mi>t</mi><mo stretchy="false">)</mo><mi>π</mi><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo><mspace width="0.2em"/><mi mathvariant="normal">d</mi><mi>t</mi></mrow>
+          </mfrac>
+        </math>
+        <p>Integrate over the parameter space. The denominator is the marginal likelihood of d. When it is positive and finite it makes the posterior density integrate to one.</p>
+      </article>
     </div>
     <div class="prose hw8-flow">
       <p>The posterior supports estimates, credible intervals, and predictions. A 95% credible interval contains 95% posterior probability for θ under the model. A posterior predictive distribution averages the distribution of future observations over the posterior uncertainty in θ. With conditionally independent batches, the posterior from the first batch becomes the prior for the second. Multiplying by the second batch’s likelihood gives the same update as using the joint likelihood for both batches.</p>
@@ -142,20 +259,48 @@ export function renderHomework8({ chapterIntro, sectionHead }) {
     <div class="prose">
       <h3>Quality inspection and the base rate</h3>
       <p>Suppose a factory’s inspection flags 90% of defective items and 5% of sound items. Let H mean “defective” and D mean “flagged.” A historical defect rate of 1% gives prior P(H) = 0.01. The likelihoods are P(D | H) = 0.90 and P(D | Hᶜ) = 0.05. Bayes’ theorem gives</p>
-      <p class="hw8-equation">P(H | D) = (0.90 × 0.01) / [(0.90 × 0.01) + (0.05 × 0.99)] ≈ 15.38%.</p>
-      <p>Among 10,000 items, the model expects 90 true flags and 495 false flags. The high proportion of sound items explains why most flags are false at this base rate. Try 10% below with the same inspection performance and the posterior rises to 66.67%. This calculation helps prioritize manual follow-up. Historical rates and measured inspection performance must be relevant to the current production line.</p>
+      <math display="block">
+        <mi mathvariant="normal">P</mi><mo stretchy="false">(</mo><mi>H</mi><mo stretchy="false">∣</mo><mi>D</mi><mo stretchy="false">)</mo><mo>=</mo>
+        <mfrac>
+          <mrow><mn>0.90</mn><mo>×</mo><mn>0.01</mn></mrow>
+          <mrow><mn>0.90</mn><mo>×</mo><mn>0.01</mn><mo>+</mo><mn>0.05</mn><mo>×</mo><mn>0.99</mn></mrow>
+        </mfrac>
+      </math>
+      <math display="block">
+        <mi mathvariant="normal">P</mi><mo stretchy="false">(</mo><mi>H</mi><mo stretchy="false">∣</mo><mi>D</mi><mo stretchy="false">)</mo><mo>=</mo>
+        <mfrac><mn>90</mn><mrow><mn>90</mn><mo>+</mo><mn>495</mn></mrow></mfrac><mo>≈</mo><mn>15.38</mn><mo>%</mo>
+      </math>
+      <p>Among 10,000 items, the model expects 90 true flags and 495 false flags. The high proportion of sound items explains why most flags are false at this base rate. Increasing the prior defect rate to 10% while holding inspection performance fixed raises the posterior to 66.67%. Holding the prior at 1% and lowering the false-positive rate to 1% raises it to 47.62%. The calculation helps prioritize manual follow-up when historical rates and measured inspection performance apply to the current production line.</p>
     </div>
     <div class="panel hw8-demo">
       <div class="controls">
         <label for="hw8-base-rate">Prior defect rate</label>
         <select id="hw8-base-rate"><option value="0.1">0.1%</option><option value="1" selected>1%</option><option value="5">5%</option><option value="10">10%</option></select>
+        <label for="hw8-false-positive">False-positive rate</label>
+        <select id="hw8-false-positive"><option value="1">1%</option><option value="5" selected>5%</option><option value="10">10%</option></select>
+        <p>The true-positive rate stays at 90%.</p>
       </div>
-      <div id="hw8-inspection-output" aria-live="polite">${inspectionResults(1)}</div>
+      <div id="hw8-inspection-output" aria-live="polite">${inspectionResults(1, 5)}</div>
     </div>
     <div class="prose hw8-flow">
       <h3>Estimating an unknown pass rate</h3>
-      <p>A new process passes 8 of 10 trials. Assume trials are independent given a common pass probability θ. For k passes in n trials the binomial likelihood is <strong>L(θ; k, n) = C(n, k) θ<sup>k</sup>(1 − θ)<sup>n−k</sup></strong>. A Beta(a, b) prior has density proportional to θ<sup>a−1</sup>(1 − θ)<sup>b−1</sup>. Multiplying adds the exponents, so the posterior is <strong>Beta(a + k, b + n − k)</strong>. This conjugacy gives a closed-form update.</p>
-      <p>The posterior mean (a + k)/(a + b + n) combines the prior mean and the observed pass fraction with weights proportional to a + b and n. Under the same model it is also the predictive probability that the next trial passes. With 8 passes, the uniform prior yields 75%, while the prior centered at 20% yields 50%. The table keeps the observed pass fraction at 80% and varies sample size.</p>
+      <p>A new process passes 8 of 10 trials. Assume trials are independent given a common pass probability θ. For an observed count k in n trials, the binomial likelihood is</p>
+      <math display="block">
+        <mi>L</mi><mo stretchy="false">(</mo><mi>θ</mi><mo stretchy="false">)</mo><mo>=</mo>
+        <mrow><mo>(</mo><mfrac linethickness="0"><mi>n</mi><mi>k</mi></mfrac><mo>)</mo></mrow>
+        <msup><mi>θ</mi><mi>k</mi></msup>
+        <msup><mrow><mo stretchy="false">(</mo><mn>1</mn><mo>−</mo><mi>θ</mi><mo stretchy="false">)</mo></mrow><mrow><mi>n</mi><mo>−</mo><mi>k</mi></mrow></msup>
+      </math>
+      <p>A Beta(a, b) prior with a, b &gt; 0 has density proportional to θ<sup>a−1</sup>(1 − θ)<sup>b−1</sup> on 0 &lt; θ &lt; 1. Multiplying by the likelihood adds k to the first exponent and n − k to the second. This gives a conjugate update because the posterior is also a Beta distribution.</p>
+      <math display="block">
+        <mi>θ</mi><mo stretchy="false">∣</mo><mi>k</mi><mo>,</mo><mi>n</mi><mo>∼</mo><mi>Beta</mi>
+        <mo stretchy="false">(</mo><mi>a</mi><mo>+</mo><mi>k</mi><mo>,</mo><mi>b</mi><mo>+</mo><mi>n</mi><mo>−</mo><mi>k</mi><mo stretchy="false">)</mo>
+      </math>
+      <math display="block">
+        <mi mathvariant="normal">E</mi><mo stretchy="false">[</mo><mi>θ</mi><mo stretchy="false">∣</mo><mi>k</mi><mo>,</mo><mi>n</mi><mo stretchy="false">]</mo><mo>=</mo>
+        <mfrac><mrow><mi>a</mi><mo>+</mo><mi>k</mi></mrow><mrow><mi>a</mi><mo>+</mo><mi>b</mi><mo>+</mo><mi>n</mi></mrow></mfrac>
+      </math>
+      <p>The posterior mean combines the prior mean and the observed pass fraction with weights proportional to a + b and n. It also gives the predictive probability that the next trial passes under the same model. With 8 passes, the uniform prior yields 75%, while the prior centered at 20% yields 50%. The table keeps the observed pass fraction at 80% and varies sample size.</p>
     </div>
     <div class="panel hw8-flow">
       <div class="controls hw8-select">
@@ -180,15 +325,17 @@ export function renderHomework8({ chapterIntro, sectionHead }) {
 
 export function bindHomework8() {
   const examples = [
-    ["hw8-size", "hw8-precision-output", precisionResults],
-    ["hw8-base-rate", "hw8-inspection-output", inspectionResults],
-    ["hw8-trials", "hw8-posterior-rows", posteriorRows],
+    [["hw8-size"], "hw8-precision-output", precisionResults],
+    [["hw8-base-rate", "hw8-false-positive"], "hw8-inspection-output", inspectionResults],
+    [["hw8-trials"], "hw8-posterior-rows", posteriorRows],
   ];
-  for (const [controlId, outputId, render] of examples) {
-    const control = document.getElementById(controlId);
+  for (const [controlIds, outputId, render] of examples) {
+    const controls = controlIds.map((id) => document.getElementById(id));
     const output = document.getElementById(outputId);
-    const update = () => { output.innerHTML = render(Number(control.value)); };
-    control.addEventListener("change", update);
+    const update = () => {
+      output.innerHTML = render(...controls.map((control) => Number(control.value)));
+    };
+    for (const control of controls) control.addEventListener("change", update);
     update();
   }
 }
